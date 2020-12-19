@@ -1,0 +1,4 @@
+\chapter{Conclusion}
+\label{ch:conclusion}
+
+Using a two stage CNN approach, first to detect vertebrae with a 2-class cross entropy loss, then a second stage to identify the specific vertebrae capturing the ordering using an L1 loss, has been shown to provide an effective solution to the vertebrae localization problem and improves upon the state-of-the-art’s mean localization accuracy by a good margin on a publicly available pathological spine CT dataset. In future these results could possibly be improved by evenly sampling the vertebrae and by feeding even more contextual information into the identification model or by enforcing the use of surrounding tissue to improve thoracic vertebrae results. Other directions could be to optimize the employed network architectures and explore robust centroid estimate techniques such as mean shift. Another interesting direction could be to incorporate more explicitly shape and ordering constraints of the spinal anatomy.

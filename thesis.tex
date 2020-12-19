@@ -1,0 +1,120 @@
+\documentclass[
+	%parspace, % Térköz bekezdések közé / Add vertical space between paragraphs
+	%noindent, % Bekezdésének első sora ne legyen behúzva / No indentation of first lines in each paragraph
+	%nohyp, % Szavak sorvégi elválasztásának tiltása / No hypenation of words
+	twoside, % Kétoldalas nyomtatás / Double sided format
+	final, % Teendők elrejtése / Set final to hide todos
+]{elteikthesis}[2019/06/10]
+
+% Dolgozat metaadatai
+% Document's metadata
+\title{Automatic Spine Vertebrae Segmentation from CT Images } % cím / title
+\date{2021} % védés éve / year of defense
+
+% Szerző metaadatai
+% Author's metadata
+\author{Kumundzhiev Maxim}
+\degree{programtervező informatikus MSc}
+
+% Témavezető(k) metaadatai
+% Superivsor(s)' metadata
+\supervisor{Szűcs Ádám István} % belső témavezető neve / internal supervisor's name
+\affiliation{doctoral candidate} % belső témavezető beosztása / internal supervisor's affiliation
+%\extsupervisor{Külső Kornél} % külső témavezető neve / external supervisor's name
+%\extaffiliation{informatikai igazgató} % külső témavezető beosztása / external supervisor's affiliation
+
+% Egyetem metaadatai
+% University's metadata
+\university{Eötvös Loránd Tudományegyetem} % egyetem neve / university's name
+\faculty{Informatikai Kar} % kar neve / faculty's name
+\department{Komputeralgebra Tanszék} % tanszék neve / department's name
+\city{Budapest} % város / city
+\logo{elte_cimer_szines} % logo
+
+% Irodalomjegyzék hozzáadása
+% Add bibliography file
+\addbibresource{thesis.bib}
+
+% A dolgozat
+% The document
+\begin{document}
+	
+% Nyelv kiválasztása
+% Set document language
+%\documentlang{magyar}
+\documentlang{english}
+
+% Teendők listája (final dokumentumban nincs)
+% List of todos (not in the final document)
+\listoftodos[\todolabel]
+
+% Dokumentum beállítások
+% Some document settings
+\input{settings.tex}
+
+% Címlap (kötelező)
+% Title page (mandatory)
+\maketitle
+\topicdeclaration
+
+% Tartalomjegyzék (kötelező)
+% Table of contents (mandatory)
+\tableofcontents
+\cleardoublepage
+
+% Tartalom
+% Main content
+\input{chapters/intro.tex}
+\cleardoublepage
+
+\input{chapters/related_works.tex}
+\cleardoublepage
+
+
+\input{chapters/computer_vision_basics.tex}
+\cleardoublepage
+
+\input{chapters/u_net_architecture.tex}
+\cleardoublepage
+
+\input{chapters/methods.tex}
+\cleardoublepage
+
+\input{chapters/experiments.tex}
+\cleardoublepage
+
+\input{chapters/results.tex}
+\cleardoublepage
+
+\input{chapters/conclusion.tex}
+\cleardoublepage
+
+% Irodalomjegyzék (kötelező)
+% Bibliography (mandatory)
+\addcontentsline{toc}{chapter}{\biblabel}
+\printbibliography[title=\biblabel]
+\cleardoublepage
+
+% Ábrajegyzék (opcionális) - 3-5 ábra fölött érdemes
+% List of figures (optional) - useful over 3-5 figures
+%\addcontentsline{toc}{chapter}{\lstfigurelabel}
+%\listoffigures
+%\cleardoublepage
+
+% Táblázatjegyzék (opcionális) - 3-5 táblázat fölött érdemes
+% List of tables (optional) - useful over 3-5 tables
+%\addcontentsline{toc}{chapter}{\lsttablelabel}
+%\listoftables
+%\cleardoublepage
+
+% Forráskódjegyzék (opcionális) - 3-5 kódpélda fölött érdemes
+% List of codes (optional) - useful over 3-5 code samples
+%\addcontentsline{toc}{chapter}{\lstcodelabel}
+%\lstlistoflistings
+%\cleardoublepage
+
+% Jelölésjegyzék (opcionális)
+% List of symbols (optional)
+%\printnomenclature
+
+\end{document}
