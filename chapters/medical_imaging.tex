@@ -36,17 +36,19 @@ As the one of additional practices approaching CT for retrieving human body info
 \newline
 Usually it takes a few seconds to obtain one bit of CT data. The tidiness of the observations depends on whether the patient moved during the acquisition. If so, the resulting transformation will be inconsistent and the reconstructed image will contain errors. But, if the patient's motions are known, meaning a lot of artifacts can be corrected during the reconstruction. On top of it the few automatic methods can be applied to dare to sharpen the image by guessing the motions.
 
-\subsubsection{PET}      
+\subsubsection{Positron Emission Tomography (PET)}      
+Similar to CT, PET approaches with ring of detectors to detect radiation. The raw data that comes out of a PET scanner is very similar in nature to the Radon transform in CT. Beyond, unlike CT scans PET ones take a long time to be acquired, meaning the patient motions can cause the problems. Moreover before issuing the measurements it is injected a small amount of positron-emitting radioisotope into the patient. This radioisotope is bound to a metabolite that is used glucose for instance.        
+
+The list of images modalities and corresponding methods varies a lot strictly depending of the use case.
+Below it is denoted few more popular directions:
+\begin{itemize}
+    \item MEG - Magneto Encephalography
+    \item EEG - Electro Encephalography
+    \item OCT - Optical Coherence Tomography
+    \item SPECT - Single Photon Emission Computed Tomography
+\end{itemize}
 
 
-
-
-
-- How do we interpret images?
-    - What is Image modalities
-	- The types of Image modalities
-    - Image modalities for spine
-    - How complex problem is?
-    
-- The background problem definition
+\subsection{Image Segmentation}
+In terms of medical imaging, segmentation is the process of classifying pixels into groups which corresponds to the same tissue type. Segmentation has many uses cases like a "measure volume of an organ", "render a 3D view of an organ", "surface-based registration" and others.
   
