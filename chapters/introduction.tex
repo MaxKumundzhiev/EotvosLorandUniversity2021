@@ -10,3 +10,10 @@ Whenever we talk about the analysis of medical images, the variability of which 
 With the advent and promotion of AI, as well as increased computing power, medical researches and the availability of different medical data sets had significantly increased including various vertebrae research papers relied on SOTA deep learning models fited on open source data sets. Researchers have applied AI to automatically recognizing complex patterns in imaging data and providing quantitative assessments of different characteristics.  
  
 In automatic vertebrae segmentation, accurate analysis of the spinal structures from medical images is an essential tool in many clinical applications of spinal imaging. Knowledge of the detailed shape of individual vertebrae can considerably aid early diagnosis, surgical planning and follow-up assessment of a number of spinal pathologies, such as degenerative disorders, spinal deformities, trauma and tumors, as well as for the evaluation of vertebral fractures. Segmentation and classification of fractured vertebrae by computer-assisted techniques may therefore provide additional support to diagnosis and treatment of vertebral fractures. 
+
+Jointly the work it is proposed two-stage approach for the automatic vertebrae segmentation. 
+Whereas the first stage is so called detection and the second one localization. 
+Detection part obviously detects the occurrence of vertebrae in the CT images approaching 3D samples. Thereby identification part identifies the concrete vertebrae within corresponding region-of-interest using 2D slices.
+
+Within the solution it is utilized techniques which improve the accuracy of the measurements
+like a revised approach to dense labelling from sparse centroid annotations and usage of large anisotropic kernels in the base level of a U-net architecture to maximize the receptive field. 
