@@ -60,8 +60,8 @@ The problem within simple thresholding is that it does not take into considerati
 
 \subsubsection{Region Growing}
 Unlike basic thresholding, region growing, which is iterative method, starts with the small set of seed pixels and grow out from them.
-It's functionality can be easily represented within any basic draw editor. To do that we will draw empty grid rectangle and afterwards select interested region and apply function named flat fill color.  
 
+The method functionality can be easily represented within any basic draw editor. To do that we will draw empty grid rectangle and afterwards select interested regions and apply function named "flat fill" with chosen color. As a result it can be noticed the naive functionality handled the problem of tricking-out the selected regions by chosen color. This is so called region growing thresholding.    
 
 \begin{figure}[h]
     \centering
@@ -72,6 +72,79 @@ It's functionality can be easily represented within any basic draw editor. To do
     \label{fig:grwoing_region}%
 \end{figure}
 
+Now, let us see how it is done from code base perspective.
+\begin{lstlisting}
+do
+  for each pixel in the set
+    for each of it's neighbours not in the set
+      if the intensity falls between the thresholds
+        add it to the set
+      endif
+    next neighbour
+  next pixel
+until no pixel were added in the last pass   
+\end{lstlisting}
 
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
-  
+Example: There is set of pixels $4x4$ which should be colored. The cells which denoted by red color is already tricking-out. The task is fill rest with red color based on defined thresholding range.       
+
+\begin{tabular}{C{7cm}  L{7cm}}
+    \includegraphics[width=12cm]{images/grow_region_3.png} & Thresholds: include a pixel if $10 <= intensity <= 100$ \newline 
+    \begin{lstlisting}
+    Looking at 14 ...
+    up: 8 -> exclude (not in range)
+    right: 12 -> skip (already in the set)
+    down: 13 -> include as a new entry
+    left: 6 -> exclude (not in range)
+    \end{lstlisting}
+\end{tabular}
+
+Exactly the same way growing region thresholding method may be applied for medical images of different image modalities.
+\begin{figure}[h]
+    \centering \includegraphics[width=7cm]{images/ct-spine-grow-region-segmented.jpg}
+    \vspace*{-30mm} \caption {Original CT spine vs Segmented CT spine with Grow Region thresholding}
+\end{figure}    
+
+There is a huge potential room for improvements making the method more sophisticated by coming up with different conditions for inclusion/exclusion of pixels.
+
+\subsubsection{k-Means Clustering}
+k-Means algorithm is very simple clustering method whereas usually the data set is represented as the a scatter plot in some feature space.
+
+For instance, a pixel could be represented by 3 dimensional feature space, where feature space is defined by retrieving from the image following pixel-wise features:
+\begin{itemize}
+    \item Intensity
+    \item Gradient magnitude
+    \item Laplacian
+\end{itemize}
+
+Let us firstly clarify the target results we are looking for by considering the very trivial task.
+Assume, there is colorful triangle which should be clustered and represented in some feature space. Afterwards we can clearly see 3 different colors which denotes 3 clusters/groups.
+\begin{figure}[h]
+    \centering
+    \subfloat[\centering colorful triangle]{{\includegraphics[width=5cm]{images/k_mean_triangle.png} }}%
+    \qquad
+    \subfloat[\centering feature space representation]{{\includegraphics[width=5cm]{images/k_mean_triangle_clustered.jpg} }}%
+    \caption{feature space representation after applying k-Means}%
+    \label{fig:grwoing_region}%
+\end{figure}
+
+As for now, imagine, the user specified k the number of clusters he/she wants, meaning how many different tissue types are in the image.
+Hence, the algorithm may be defined as:
+\begin{lstlisting}
+1. (randomly) choose k regressors as prototype
+2. assign each scatter point ("feature vector") to it's nearest regressor
+3. recalculate new prototypes (the mean of it's members)
+4. if the prototypes changed significantly -> go to the step 2 
+\end{lstlisting}
+To demonstrate the method we are going to proceed with the same ct spine scan data which had used for region growing thresholding. As for regressors number (clusters number) we will choose $k=3$.  
+
+\newpage
+\begin{figure}[h]
+    \centering \includegraphics[width=7cm]{images/ct-spine-k-means-segmented.jpg}
+    \vspace*{-40mm} \caption {Original CT spine vs Segmented CT spine with k-Means algorithm}
+\end{figure}    
+
+As we can see, clustering is a really nice way for image segmentation, because you get to see the joint intensity of scatter plot (feature space) as well as different representations of clusters.  
+
