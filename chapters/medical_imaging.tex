@@ -50,12 +50,28 @@ Below it is denoted few more popular directions:
 
 
 \subsection{Image Segmentation}
+%ADD VISUALISATION
 In terms of medical imaging, segmentation is the process of classifying pixels into groups which corresponds to the same tissue type. Segmentation has many uses cases like a "measure volume of an organ", "render a 3D view of an organ", "surface-based registration" and many others. Further we will descry types of segmentation. 
 
 \subsubsection{Thresholding}
+%ADD VISUALISATION 
 The simplest method for classifying pixels based on solely on their intensity values. In thresholding we choose upper and lower bound and select pixels in predefined range.
 The problem within simple thresholding is that it does not take into consideration any spatial information, meaning each pixel is evaluated no matter it locates.    
 
 \subsubsection{Region Growing}
+Unlike basic thresholding, region growing, which is iterative method, starts with the small set of seed pixels and grow out from them.
+It's functionality can be easily represented within any basic draw editor. To do that we will draw empty grid rectangle and afterwards select interested region and apply function named flat fill color.  
+
+
+\begin{figure}[h]
+    \centering
+    \subfloat[\centering Empty grid rectangle]{{\includegraphics[width=5cm]{images/grow_region_0.png} }}%
+    \qquad
+    \subfloat[\centering Filled grid rectangle]{{\includegraphics[width=5cm]{images/grow_region_1.png} }}%
+    \caption{Region Growing Thresholding}%
+    \label{fig:grwoing_region}%
+\end{figure}
+
+
 
   
