@@ -1,7 +1,8 @@
 \chapter{Medical Imaging}
 \label{ch:rworks}
 
-The imaging modalities used in biology and medicine are based on a variety of energy sources, including light, electrons, lasers, X-rays, radionuclides, ultrasound and nuclear magnetic resonance. The images produced span orders of magnitude in scale, ranging from molecules and cells to organ systems and the full body. The advantages and limitations of each imaging modality are primarily governed by the basic physical and biological principles which influence the way each energy form interacts with tissues, and by the specific engineering implementation for a particular medical or biological application.
+The imaging modalities used in biology and medicine are based on a variety of energy sources, including light, electrons, lasers, X-rays, radionuclides, ultrasound and nuclear magnetic resonance. The images produced span orders of magnitude in scale, ranging from molecules and cells to organ systems and the full body. !!! This is copied from https://link.springer.com/chapter/10.1007/978-3-662-00807-2_109 !!!
+The advantages and limitations of each imaging modality are primarily governed by the basic physical and biological principles which influence the way each energy form interacts with tissues, and by the specific engineering implementation for a particular medical or biological application.
 
 \subsection{Modalities}
 Each modality results from a different phenomenon of physics offers doctors (radiologists) an alternative view of the patient. Moreover each modality has it's risks, costs and benefits. All these factors have to be taken into account when choosing type of modality to be issued.
@@ -22,22 +23,22 @@ Jointly x-rays interactions with matter it can be considered 3 common cases:
 \end{itemize}
 
 \subsubsection{Computed Tomography (CT)}
-In simplified terms, the idea of computed tomography is to resolve a single slice of an object using many x-ray projections. As the gantry rotates, the scanner collects a 1D x-ray at each angle.
+In simplified terms, the idea of computed tomography is to resolve a single -- or a few slices -- slice of an object using many x-ray projections. As the gantry rotates, the scanner collects a 1D x-ray at each angle.
 
-The CT scanners which designed for purpose of human diagnostic are generally capable of producing images with voxels, where voxel stand for representing a value on a regular grid in three-dimensional space    
+***The CT scanners which designed for purpose of human diagnostic are generally capable of producing images with voxels, where voxel stand for representing a value on a regular grid in three-dimensional space*** ""This is not correct the CT machine produces projection images which can be reconstructed into a 3D volume, which is a scalar field/set of voxels.""
 
-The CT images which are span of x-rays are a form of ionizing radiation. Ionizing radiation is radiation with high enough energy that electrons can be ejected out of their orbitals, creating ions. These ions in large amounts can cause tissue and DNA damages. By this consideration medicine actively limits the amount of ionizing radiation the patient may potentially gets.
+The CT images which are span of x-rays are a form of ionizing radiation. Ionizing radiation is radiation with high enough energy that electrons can be ejected out of their orbitals, creating ions. These ions in large amounts can cause tissue and DNA damages. By this consideration medicine actively limits the amount of ionizing radiation the patient may potentially get.
 
 \item Contrast Agents
 \newline
-As the one of additional practices approaching CT for retrieving human body information, frequently substances can be introduced to the body to add the contrast, what is named as contrast agents. Often agents may be essentially useful for visualising of observations.          
+As one of additional practices approaching CT for retrieving human body information, frequently substances can be introduced to the body to add the contrast, what is named as contrast agents. Often agents may be essentially useful for visualising of observations.          
 
 \item Motion Artifacts
 \newline
 Usually it takes a few seconds to obtain one bit of CT data. The tidiness of the observations depends on whether the patient moved during the acquisition. If so, the resulting transformation will be inconsistent and the reconstructed image will contain errors. But, if the patient's motions are known, meaning a lot of artifacts can be corrected during the reconstruction. On top of it the few automatic methods can be applied to dare to sharpen the image by guessing the motions.
 
 \subsubsection{Positron Emission Tomography (PET)}      
-Similar to CT, PET approaches with ring of detectors to detect radiation. The raw data that comes out of a PET scanner is very similar in nature to the Radon transform in CT. Beyond, unlike CT scans PET ones take a long time to be acquired, meaning the patient motions can cause the problems. Moreover before issuing the measurements it is injected a small amount of positron-emitting radioisotope into the patient. This radioisotope is bound to a metabolite that is used glucose for instance.        
+Similar to CT, PET approaches with ring of detectors to detect radiation. ***The raw data that comes out of a PET scanner is very similar in nature to the Radon transform in CT.***""This is completely wrong as well, the radiation comes from the body, which is injected a radiopharmacon, e.g.: FDG and it is a totally different data than it is from the CT. CT captures density PET detects counts and Standard Uptake Value (SUV) can be calculated."" ***Beyond, unlike CT scans PET ones take a long time to be acquired,***""CT and PET are super fast 4-5 minutes for acquisition, SPECT can be slow or MRI "" meaning the patient motions can cause the problems. Moreover before issuing the measurements it is injected a small amount of positron-emitting radioisotope into the patient. This radioisotope is bound to a metabolite that is used glucose for instance.        
 
 The list of images modalities and corresponding methods varies a lot strictly depending of the use case.
 Below it is denoted few more popular directions:
@@ -45,7 +46,7 @@ Below it is denoted few more popular directions:
     \item MEG - Magneto Encephalography
     \item EEG - Electro Encephalography
     \item OCT - Optical Coherence Tomography
-    \item SPECT - Single Photon Emission Computed Tomography
+    \item SPECT - Single-Photon Emission Computed Tomography
 \end{itemize}
 
 
@@ -56,10 +57,10 @@ In terms of medical imaging, segmentation is the process of classifying pixels i
 \subsubsection{Thresholding}
 %ADD VISUALISATION 
 The simplest method for classifying pixels based on solely on their intensity values. In thresholding we choose upper and lower bound and select pixels in predefined range.
-The problem within simple thresholding is that it does not take into consideration any spatial information, meaning each pixel is evaluated no matter it locates.    
+The problem within simple thresholding is that it does not take into consideration any spatial information, meaning each pixel is evaluated no matter where it is located.    
 
 \subsubsection{Region Growing}
-Unlike basic thresholding, region growing, which is iterative method, starts with the small set of seed pixels and grow out from them.
+Unlike basic thresholding, region growing -- which is iterative method -- starts with the small set of seed pixels and grow out from them.
 
 The method functionality can be easily represented within any basic draw editor. To do that we will draw empty grid rectangle and afterwards select interested regions and apply function named "flat fill" with chosen color. As a result it can be noticed the naive functionality handled the problem of tricking-out the selected regions by chosen color. This is so called region growing thresholding.    
 
@@ -91,7 +92,7 @@ until no pixel were added in the last pass
 Example: There is set of pixels $4x4$ which should be colored. The cells which denoted by red color is already tricking-out. The task is fill rest with red color based on defined thresholding range.       
 
 \begin{tabular}{C{7cm}  L{7cm}}
-    \includegraphics[width=12cm]{images/grow_region_3.png} & Thresholds: include a pixel if $10 <= intensity <= 100$ \newline 
+    \includegraphics[width=12cm]{images/grow_region_3.png} & Thresholds: include a pixel if $10 \leq intensity \leq 100$ \newline 
     \begin{lstlisting}
     Looking at 14 ...
     up: 8 -> exclude (not in range)
@@ -119,7 +120,7 @@ For instance, a pixel could be represented by 3 dimensional feature space, where
     \item Laplacian
 \end{itemize}
 
-Let us firstly clarify the target results we are looking for by considering the very trivial task.
+First let us clarify the target results we are looking for by considering the very trivial task.
 Assume, there is colorful triangle which should be clustered and represented in some feature space. Afterwards we can clearly see 3 different colors which denotes 3 clusters/groups.
 \begin{figure}[h]
     \centering
@@ -130,7 +131,7 @@ Assume, there is colorful triangle which should be clustered and represented in 
     \label{fig:grwoing_region}%
 \end{figure}
 
-As for now, imagine, the user specified k the number of clusters he/she wants, meaning how many different tissue types are in the image.
+As for now, imagine, the user specified k the number of clusters, meaning how many different tissue types are in the image.
 Hence, the algorithm may be defined as:
 \begin{lstlisting}
 1. (randomly) choose k regressors as prototype
@@ -147,4 +148,12 @@ To demonstrate the method we are going to proceed with the same ct spine scan da
 \end{figure}    
 
 As we can see, clustering is a really nice way for image segmentation, because you get to see the joint intensity of scatter plot (feature space) as well as different representations of clusters.  
+
+\subsubsection{Snakes}
+%TBD
+Shortly defined, it is active contour which is like a deformable boundary on an image designed to converge to an anatomical boundary of some sort. Deformable boundary is often represented by a number of nodes and vertices.  
+
+\subsubsection{Level Sets}
+%TBD
+The level set method is a different way to formulate the active contour idea. %In fact it is the Eulerian formulation and when you explicitly represent the curve it is the Lagrangian formulation
 
