@@ -98,7 +98,7 @@ The sigmoid activation function formed as:
 
 \[ \sigma(x) = \begin{cases} 1, & \mbox{if } x\mbox{$\xrightarrow{} + \infty$} \\ 0, & \mbox{if } x\mbox{$\xrightarrow{} - \infty$} \end{cases} \]
 
-% ADD TANH, RELU ..
+% ADD TANH, RELU !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 The list below points out the few rest functions which we will cover later on.
 
 \subsection{From neuron to neural net}
@@ -126,4 +126,66 @@ By the reason $f$ is simple linear function, equation can be derived as:
 \[   x_1*\tilde{w_1} + x_2*\tilde{w_2} + \tilde{b} \]
 Meaning the obtained result is just linear combination of inputs into the neural net. 
 
+\subsection{Neural net starter kit}
+Once we had familiarized ourselves with basic concept of neuron and activation function, we may stand a chance to solve some real problem. But still we need figure few more lacking basic components out.
+We can be aware of the uniform starter kit for any neural network can be defined as:
+\begin{itemize}
+    \item neural net architecture, meaning which parts the net will consist of, how the parts will be connected, how neurons will be defined etc.
+    \item neural net optimization function, meaning approaching which optimization algorithm the value of loss function (performance of neural net) could be increased. It worth to keep in mind the optimization process requires a loss function to calculate the model error.
+    \item neural net loss function, meaning how the net performs. Moreover, the less loss function value is the better performance of the net is.
+    \item neural net metrics, meaning how the net performs. It is similar to loss function, but considered as secondary and optional metric. They does not have impact on the neural net fitting process, however could bring out useful insights.    
+\end{itemize}
 
+It was already discussed trivial neural net architecture consisting of neuron mathematically representation and premise of activation function. As for now let us review the rest components clause by clause.    
+
+\subsection{Optimization function}
+Optimization of neural net is the key component in terms of finding latent patterns in input data. The optimization of the net should be considered as the on-the-spot training. There are variety optimization algorithms but the pillar algorithm in the list is gradient descent.
+The brief list of optimization algorithms:
+\begin{enumerate}
+    \item Gradient Descent
+    \item Stochastic Gradient Descent
+    \item Mini-Batch Gradient Descent
+    \item Nesterov Accelerated Gradient
+    \item Momentum
+    \item Adagrad
+    \item RMSProp
+\end{enumerate}
+Let us discuss how the optimization works under the hood proceeding with the most demonstrative algorithm - gradient descent.
+
+\subsection{Gradient descent}
+Previously we took into consideration the neural net has 2 main tuned parameters: "weights" and "bias".
+
+Let us concern we have a some function which is defined by some levels lines. The function has 2 minimums, which are denoted by the red dots.  It worth to understand by distancing from the minimums the function value increases. 
+So far, we have a neural net with some parameters (weights and biases) which performs some value of loss function. As we remember out main task is to decrease the value of loss function. Hence, the question is how to do that.
+
+\begin{figure}[h]
+    \centering \includegraphics[width=7cm]{images/gradient_descent.jpg}
+    \caption {gradient descent visualization}
+\end{figure}
+
+So, the very first provision in the vector of function surface will be defined by $w_0$, where $w_0$ denotes vector of all weights and biases of the net and can be represented as: 
+\[ w_0 = [w_1^1, w_1^2,...,w_1^n, w_2^1,...,w_2^n,...,w_n^n, b1^1, b1^2,...,b1^n, b2^1,...,b2^n,...,b_n^n] \]
+Accordingly, we need take derivative (meaning gradient, which is vector consisting of derivatives per each coordinate of the function) of the loss function of our vector. It can be represented as:
+\[ \delta{f} = [\frac{\partial{f}}{\partial{w_0}} \frac{\partial{f}}{\partial{w_1}} ... \frac{\partial{f}}{\partial{w_n}} ] \]
+As the result, we have calculated the gradient of loss function at the point ($w_0$) where we currently located. The gradient of loss function points out at the direction of greater loss function growth. But, oppositely, we on demand of lower loss function growth, meaning we need to make an opposite step of calculated gradient descent. It can be considered as:
+\[ w_1 = w_0 - \alpha*\delta{f(w_0)} \]
+Let us take a closer look at the formula above:
+\begin{itemize}
+    \item $w_0$: the initial vector of weights and biases of neural net
+    \item $\alpha$: parameter for regulating the "speed" of training the neural net. In other words it affects the size of gradient step 
+    \item $\delta{f(w_0)}$: calculated gradient of loss function at the $w_0$ point 
+\end{itemize}
+The gradient descent of loss function will be calculated until it will not converge some "preciseness" within predefined "fallacy".
+
+From the code base perspective, the algorithm considered as:
+\begin{lstlisting}
+def gradient_descent(vector):
+  pass
+\end{lstlisting}
+
+
+
+\subsection{Loss function}
+
+   
+\subsection{Metrics}
