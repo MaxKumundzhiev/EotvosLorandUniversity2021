@@ -177,15 +177,47 @@ Let us take a closer look at the formula above:
 \end{itemize}
 The gradient descent of loss function will be calculated until it will not converge some "preciseness" within predefined "fallacy".
 
-From the code base perspective, the algorithm considered as:
+
+From the code base perspective using PyTorch framework, the algorithm considered as:
 \begin{lstlisting}
-def gradient_descent(vector):
-  pass
+import torch
+ x = torch.tensor([[1,2,3,4],[5,6,7,8],[9,10,11,12]],                requires_grad=True) 
+function =  10*(x**2).sum()
+function.backward()
+print(x.grad, '<- gradient')
 \end{lstlisting}
 
-
-
 \subsection{Loss function}
-
-   
+%TDB
 \subsection{Metrics}
+%TDB
+
+\subsection{Convolutional neural networks}
+All we have looked at before can be considered as usual neural nets in the very general definition. The cons of uniform neural networks are that they may perfectly find the latent consistencies however they struggle structured data a lot with. To make it easier to eat up, you should assume the structured data can be representation of the image or bunch of images which refer to some video. Or as well structured data can be representation of the some audio signal etc.
+
+To highlight the main difference in concepts, let's discuss one example.
+Assume there is an RGB image sized $224x224$ whereas the dog located in the middle of it . We need to classify whether the dog is on the image. The usual (feed forward) neural network will come up with the mask of the dog based on the image. Once new image will reveal and the dog will not be located in the middle of it, the net will not be able to find and classify the dog. Whilst convolutional neural networks could be generalized independently of the location of the dog.         
+
+\subsection{Convolution}
+Convolution is a mathematical operation on two functions (f and g) that produces a third function $f*g$ that expresses how the shape of one is modified by the other.
+
+Let us take a look how the convolution works. Assume we have gray scale image $5x5$, meaning we should proceed just with 1 channel.
+
+\begin{figure}[h]
+    \centering \includegraphics[width=7cm]{images/1_channel.jpg}
+    \caption {1 channel image}
+\end{figure}
+
+To properly apply convolutional operation at the image or other data structure, we have to define few more subsidiary things. Let us list them:
+\begin{itemize}
+    \item padding: efficiently adds “space” around input data or feature map – more precisely, “extra rows and columns” 
+    \item stride: stride controls how the filter walks across the input data
+    \item kernel and kernel size: the filter with predefined size (matrix) and values which is applied step by step (stride) at the image
+\end{itemize}
+
+Once we familiarized with all the properties of convolution operation, let us take a look on in the action!  
+
+\begin{figure}[h]
+    \centering \includegraphics[width=7cm]{images/convolution.jpg}
+    \caption {example of convolution operation}
+\end{figure}
