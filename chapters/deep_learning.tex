@@ -204,10 +204,12 @@ The neural network architectures which applies convolutions is called convolutio
 \subsection{Convolution}
 The first layer in CNN is always a convolutional layer. Convolution itself is a mathematical operation on two functions (f and g) that produces a third function $f*g$ that expresses how the shape of one is modified by the other. The convolution in terms of deep learning has following properties:  
 \begin{itemize}
+    \item number of input channels: number of channels which passes into convolution 
+    \item number of output channels: number of output channels of convolution
     \item padding: efficiently adds “space” around input data or feature map – more precisely, “extra rows and columns”. It worth to mention the size of padding always should be $<$ the size of kernel 
     \item kernel (filter) and kernel (filter) size: the filter (matrix) with predefined size and values which is applied step by step (stride) within the data. A very important note is that the depth of filter has to be the same as the depth of the input
     \item stride: consider how the filter "slides" across the input data
-    \item receptive filed: consider the projected area produced by the filter  
+    \item receptive filed: consider the projected area produced by the filter
 \end{itemize}
 
 Obtaining of resulting convolution can be described as: as the filter is sliding, or convolving, around the input image, it is multiplying the values in the filter with the original pixel values of the image (aka computing element wise multiplications). These multiplications are all summed up. In mathematical terms the output size of convolution operation is: \[size of output volume = \frac{W-F+2*P}{S+1} \], where $W$ is the input volume size, $F$ is the receptive field size, $S$ the stride with which they are applied and $P$ is the padding.
@@ -233,7 +235,35 @@ The corresponding calculations are applied clause by clause with step $= 1$, bec
 \[ = 0 + 0 + 0 + 0 + 5 + 0 + 0 + 0 + 1= 6 \]
 We just have calculated convolution for particular part of the image. 
 
+\subsection{Pooling}
+Jointly convolutions it has been frequently applied pooling operation (layer) as well. 
+There is many types of pollings but let us discuss 2 main ones. 
+The first pooling type is called max pooling, whereas the second one average pooling. The difference between them obviously is how the calculations are applied. In first case it is taken the maximum value of particular receptive filed, hence in other it is taken the average value of particular receptive filed.
 
+The pooling has 2 properties:
+\begin{itemize}
+    \item pooling size: consider the size of pooling area 
+    \item stride: consider how the pooling "slides" across the input data 
+\end{itemize}    
+
+\begin{figure}[h]
+    \centering \includegraphics[width=7cm]{images/pooling.jpg}
+    \caption {max pooling vs average polling}
+\end{figure}
+
+It worth take a look at the example to figure it out. Assume we have some resulting convolution of size $4x4$. The pooling layer of size $(2, 2)$ and stride $ = (2, 2)$. 
+Applying pooling we have to go through image with stride (2,2) and within corresponding receptive filed calculate either max or average pooling.  
+
+\subsection{Overfitting}
+The overfitting is as important aspect as for instance choosing the proper loss function for particular problem. There are verified means of combating this problem in the context of deep learning.   
+
+\subsection{Augmentation}
+Augmentation itself is not more than applying various image transformations at original image such as cropping, flipping, contrasting etc. Afterwards the transformed images are forwarded to the neural network. Literally, it is done by the reason to diversify the data set. Of course exists more advanced techniques based on reinforcement learning, but we will not discuss them within this paper.      
+
+\subsection{Dropout}
+Dropout technique closely relies on overfitting problem, more accurately how to handle it. Let us briefly discuss overfitting problem in terms of neural networks.
+
+Assume 
 
 
 
