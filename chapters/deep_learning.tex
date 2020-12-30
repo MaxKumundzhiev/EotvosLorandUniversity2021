@@ -258,12 +258,100 @@ Applying pooling we have to go through image with stride (2,2) and within corres
 The overfitting is as important aspect as for instance choosing the proper loss function for particular problem. There are verified means of combating this problem in the context of deep learning.   
 
 \subsection{Augmentation}
-Augmentation itself is not more than applying various image transformations at original image such as cropping, flipping, contrasting etc. Afterwards the transformed images are forwarded to the neural network. Literally, it is done by the reason to diversify the data set. Of course exists more advanced techniques based on reinforcement learning, but we will not discuss them within this paper.      
+Augmentation itself is not more than applying various image transformations at original image such as cropping, flipping, contrasting, adding and removing noise etc. Afterwards the transformed images are forwarded to the neural network. Literally, it is done by the reason to diversify the data set. Of course exists more advanced techniques based on reinforcement learning, but we will not discuss them within this paper.      
+
+\subsection{Early stopping}
+Early stopping is the approach which may stop fitting of the model based on loss function value during validation process. In simplified terms, loss function value can either increase or decrease, whereas we are willing in decreasing of it. Meaning once we detected the increasing of loss, we should stop the learning, because it denotes overfitting.      
+
+\subsection{Regularization}
+The purpose of regularization terms is establish additional rules for penalizing the loss function for errors. Meaning the regularization will manage whether the weights are important (good) or not. One of multiple regularization techniques is L2 regularization or so called weight decay. It formed as:
+\[ \lambda*\sum_{i=1}^{n}*\alpha_i^2 \]
+
+In terms of mean squared error loss function, the addition of regularization considered as:
+\[ L = \sum_{i}(\hat{y}-y_i)^2 + \lambda*\sum_{i=1}^{n}*\alpha_i^2\]
 
 \subsection{Dropout}
-Dropout technique closely relies on overfitting problem, more accurately how to handle it. Let us briefly discuss overfitting problem in terms of neural networks.
+Heretofore, observed regularization terms could be applied both for neural networks and other machine learning architectures. Whilst drop out approach is strictly used for neural nets. There are 2 types of drop out. 
 
-Assume 
+Assume we have 2 layers fully connected neural network, meaning each neuron of first layer is connected with all others of second one. 
+
+As for first type, which is called drop connection. In simplified terms we define the probability $P$ which denotes the probability of dropping of particular connection between particular neurons.  
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{.48\linewidth}
+    \includegraphics[width=7cm]{images/drop_connection.jpg}
+    \caption {drop connection regularization}
+    \label{fig:drop_connection}
+\end{minipage}
+\hfill
+\begin{minipage}{.48\linewidth}
+    \includegraphics[width=7cm]{images/drop_neuron.jpg}
+    \caption {drop neuron regularization}
+    \label{fig:drop_neuron}
+\end{minipage}
+\end{figure}
+
+As for second type, which is called drop neuron. In simplified terms we are seeking for neurons which result outputs zero value and then drop it. The corresponding red neurons at \ref{fig:drop_neuron} with value of zero will be removed from the net. We've already get stick with sufficient information to build and derive the particular neural network architecture. 
+
+\subsection{Unet}
+The unet is convolutional network architecture for fast and precise segmentation of images. Up to now it has outperformed the prior best method (for instance a sliding-window convolutional network). 
+
+Within the thesis proposed solution it was used detection and identification models. They are directly united by the unet network architecture thereby in this paragraph we will dissect the Unet architecture itself.
+
+\begin{figure}[h]
+    \centering \includegraphics[width=7cm]{images/identification_unet.png}
+    \caption {unet identification model}
+\end{figure}
+
+The proposed unet architecture utilize following properties:
+\begin{itemize}
+    \item convolution layer: sliding element-wise multiplication of original matrix and corresponding filter %add ref to convolution paragraph
+    \item batch normalization layer: applies a transformation that maintains the mean output close to 0 and the output standard deviation close to 1
+    \item max pooling layer: reckon the maximum value of particular receptive filed %add ref to convolution paragraph
+    \item upsampling layer: layer with no weights that will double the dimensions of input
+    \item relu activation function: a piece-wise linear function that will output the input directly if it is positive, otherwise, it will output zero
+\end{itemize}
+
+As for codebase perspective, the model can formed as:
+\begin{lstlisting}
+import torch
+import torch.nn as nn 
+
+def double_conv(input_channels, output_channels):
+  conv = nn.Sequential(
+    nn.Conv2d((input_channels, output_channels, kernel_size=3),
+    nn.ReLU(inplace=True),
+    nn.Conv2d((output_channels, output_channels, kernel_size=3),
+    nn.ReLU(inplace=True)
+    )
+  return conv
+
+class Unet(nn.Module):
+  def __init__(self):
+    super(Unet, self).__init__()
+  
+    self.max_pool_2x2 = nn.MaxPool2d(kernel_size=2, stride=2)
+    self.down_conv_1 = double_conv(1, 64)
+    self.down_conv_2 = double_conv(64, 128)
+    self.down_conv_3 = double_conv(128, 256)
+    self.down_conv_4 = double_conv(256, 512)
+    self.down_conv_5 = double_conv(512, 1024)
+  
+  def forward(self, image):
+    x1 = self.down_conv_1(image)
+    x2 = self.max_pool_2x2(x1)
+    x3 = self.down_conv_2(x2)
+    x4 = self.max_pool_2x2(x3)
+    x5 = self.down_conv_3(x4)
+    x6 = self.max_pool_2x2(x5)
+    x7 = self.down_conv_4(x6)
+    x8 = self.max_pool_2x2(x7)
+    x9 = self.down_conv_5(x8)
+
+if __name__ == "__main__":
+  model = Unet()
+\end{lstlisting}
 
 
 
