@@ -295,106 +295,16 @@ As for first type, which is called drop connection. In simplified terms we defin
 As for second type, which is called drop neuron. In simplified terms we are seeking for neurons which result outputs zero value and then drop it. The corresponding red neurons at \ref{fig:drop_neuron} with value of zero will be removed from the net. We've already get stick with sufficient information to build and derive the particular neural network architecture. 
 
 \subsection{Unet}
-The unet is convolutional network architecture for fast and precise segmentation of images. Up to now it has outperformed the prior best method (for instance a sliding-window convolutional network). 
-
-Within the thesis proposed solution it was used detection and identification models. They are directly united by the unet network architecture thereby in this paragraph we will dissect the Unet architecture itself.
-
+The unet is convolutional network architecture for fast and precise segmentation of images. It was proposed by Olaf Ronneberger, Philipp Fischer, and Thomas Brox at 2015 \cite{Ronneberger2015}. 
 \begin{figure}[h]
-    \centering \includegraphics[width=7cm]{images/identification_unet.png}
-    \caption {unet identification model}
+    \centering \includegraphics[width=7cm]{images/unet.png}
+    \caption {unet architecture}
 \end{figure}
 
-The proposed unet architecture utilize following properties:
-\begin{itemize}
-    \item convolution layer: sliding element-wise multiplication of original matrix and corresponding filter %add ref to convolution paragraph
-    \item batch normalization layer: applies a transformation that maintains the mean output close to 0 and the output standard deviation close to 1
-    \item max pooling layer: reckon the maximum value of particular receptive filed %add ref to convolution paragraph
-    \item upsampling layer: layer with no weights that will double the dimensions of input
-    \item relu activation function: a piece-wise linear function that will output the input directly if it is positive, otherwise, it will output zero
-\end{itemize}
+Using original terminology of the authors the net consist of a contracting path (left side) and an expansive path (right side). The contracting path follows the typical architecture of a convolutional network. In simplified terms it can be considered as downsampling or encoder which formed as
+a five repeats of double 3x3 convolutions (unpadded convolutions) with rectified linear unit and 2x2 max pooling operation with stride 2. Thus next expansive path which can be considered as upsampling or decoder which consists of 4 repeats of double 2x2 convolutions (up-convolution) that halves the number of feature channels, a concatenation with the correspondingly cropped feature map from the contracting path, and two 3x3 convolutions, each followed by a ReLU. At the final layer a 1x1 convolution is used to map each 64-component feature vector to the desired number of classes. In total the network has 23 convolutional layers. The codebase implementation can be find within \href{https://gist.github.com/f8eb74d57b914878d52c47ac359758e8.git}{\color{blue} github gist}.
 
-As for codebase perspective, the model can formed as:
-\begin{lstlisting}
-import torch
-import torch.nn as nn 
 
-def double_conv(input_channels, output_channels):
-  conv = nn.Sequential(
-    nn.Conv2d((input_channels, output_channels, kernel_size=3),
-    nn.ReLU(inplace=True),
-    nn.Conv2d((output_channels, output_channels, kernel_size=3),
-    nn.ReLU(inplace=True)
-    )
-  return conv
-
-def crop(original_tensor, target_tensor):
-  target_size = target_tensor.size()[2]
-  original_size = original_tensor.size()[2]
-  delta = (original_size - target_size) // 2
-  return tensor[:, :, delta:original_size-delta, delta:original_size-delta] 
-
-class Unet(nn.Module):
-  def __init__(self):
-    super(Unet, self).__init__()
-  
-    self.max_pool_2x2 = nn.MaxPool2d(kernel_size=2, stride=2)
-    self.down_conv_1 = double_conv(1, 64)
-    self.down_conv_2 = double_conv(64, 128)
-    self.down_conv_3 = double_conv(128, 256)
-    self.down_conv_4 = double_conv(256, 512)
-    self.down_conv_5 = double_conv(512, 1024)
-    
-    self.up_trans_1 = nn.ConvTrasnpose2d(input_channels=1024, output_channels=512, kernel_size=2, stride=2)
-    self.up_conv_1 = double_conv(1024, 512)
-    
-    self.up_trans_2 = nn.ConvTrasnpose2d(input_channels=512, output_channels=256, kernel_size=2, stride=2)
-    self.up_conv_2 = double_conv(512, 256)
-    
-    self.up_trans_3 = nn.ConvTrasnpose2d(input_channels=256, output_channels=128, kernel_size=2, stride=2)
-    self.up_conv_3 = double_conv(256, 128)
-    
-    self.up_trans_4 = nn.ConvTrasnpose2d(input_channels=128, output_channels=64, kernel_size=2, stride=2)
-    self.up_conv_4 = double_conv(128, 64)
-    
-    self.out = nn.Conv2d(input_channels=64, output_channels=2, kernel_size=1)
-    
-  def forward(self, image):
-    # encoder 
-    x1 = self.down_conv_1(image)
-    x2 = self.max_pool_2x2(x1)
-    x3 = self.down_conv_2(x2)
-    x4 = self.max_pool_2x2(x3)
-    x5 = self.down_conv_3(x4)
-    x6 = self.max_pool_2x2(x5)
-    x7 = self.down_conv_4(x6)
-    x8 = self.max_pool_2x2(x7)
-    x9 = self.down_conv_5(x8)
-    
-    # decoder 
-    x = self.up_trans_1(x9)
-    y = crop(x7, x)
-    x = self.up_conv_1(torch.cat([x, y], 1))
-    
-    x = self.up_trans_2(x)
-    y = crop(x5, x)
-    x = self.up_conv_2(torch.cat([x, y], 1))
-    
-    x = self.up_trans_3(x)
-    y = crop(x3, x)
-    x = self.up_conv_3(torch.cat([x, y], 1))
-    
-    x = self.up_trans_4(x)
-    y = crop(x1, x)
-    x = self.up_conv_4(torch.cat([x, y], 1))
-    
-    x = self.out(x)
-    return x
-    
-if __name__ == "__main__":
-  model = Unet()
-
-  
-\end{lstlisting}
 
 
 
