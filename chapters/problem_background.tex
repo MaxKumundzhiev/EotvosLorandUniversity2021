@@ -1,5 +1,21 @@
 \chapter{Problem Background}
 \label{ch:problem_background}
 
-- define automatic vertebrae segmentation problem mathematically   
-- demonstrate how hard is to solve the problem (mathematically)
+Image segmentation \cite{Shapiro2001} is the process of partitioning a digital image into multiple segments (sets of pixels, also known as image objects). The goal of segmentation is to simplify and/or change the representation of an image into something that is more meaningful and easier to analyze. In mathematical terms, the aim is to find a closed contour $\Gamma$ that partitions a domain $\Omega \in \mathbb{R}$  into subregions $\Omega_i, i = 1, 2, ..., N$.
+The very first notation was established by \href{https://en.wikipedia.org/wiki/David_Mumford}{\color{blue} David Mumford} in 1989 and obtained name \cite{Kim2020} Mumford-Shah functional.
+
+Mumford-Shah functional considers the piecewise smooth approximation of an input image $z(x)$ by a pair $(\upsilon, \Gamma)$. Assume $\Omega$ be a bounded domain in $\mathbb{R}$ and $z(x)$ be a bounded measurable function defined on $\Omega$. The functional is defined as follows:
+\begin{align*}
+ E (\upsilon, \Gamma) = \upsilon H^{n-2} (\Gamma) + \mu^2 \int_{\Omega} (\upsilon - z)^2 \partial x + \int_{\frac{\Omega}{\Gamma}} \lvert \nabla \upsilon \rvert^2 \partial x
+ \end{align*}
+
+The functional contains a fidelity term on $\upsilon \in \complement^1$ and two regularity terms. One
+imposes smoothness on $\upsilon$ and the others imposes regularity on $\Gamma$ in terms of its one dimensional \cite{Buda1992} Hausdorff measure.
+
+Mumford and Shah also introduced the restriction of $E$ to piecewise-constant functions $\upsilon$. In other words $\upsilon = c_k$ on each open set $\Omega_k$, where $c_k$ stands for average value of $z$ in each region $\Omega_k$. The piecewise-constant Mumford-Shah functional is defined as:
+
+\begin{align*}
+ E_0 (\upsilon, \Gamma) = \upsilon H^{n-1} (\Gamma) \int_{\Omega_k} (\upsilon - c_k)^2 \partial x
+\end{align*}
+
+It can be proved that $E_0$ is the natural limit functional of $E$ as $\mu \to 0$. This is linked, in the discrete setting, to the \cite{Wu1982} Potts Model which has been widely studied. The above functional is the basis for a significant amount of important work in field of image segmentation.
