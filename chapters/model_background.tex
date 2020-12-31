@@ -14,6 +14,24 @@ The step by step representation in terms of visualisation is demonstrated on the
     \label{fig:detection_identification_steps}
 \end{figure}
 
+\section{Metrics}
+\subsection{Dice score}
+%TODO add math
+Dice score was considered as the metric to evaluate ground truth and predicted labels.
+
+\subsection{ID rate}
+%TODO change
+Id rate is the percentage of the centroid estimations predicted which are closest to the correct ground truth vertebra centroid (and are less than 20mm from that centroid).
+
+\subsection{Mean localization distance}
+%TODO change
+Mean and Std relate to the localization error distance between the predicted centroid positions and the ground-truth centroid positions for the same vertebrae (if it occurs in the scan).
+
+\subsection{Standard deviation}
+%TODO change
+Mean and Std relate to the localization error distance between the predicted centroid positions and the ground-truth centroid positions for the same vertebrae (if it occurs in the scan).
+
+
 \section{Detection Model}
 As previously mentioned detection model \ref{fig:detection_model} comes up with segmenting of vertebra from background. Taking it closer into consideration the model classifies each dedicated pixel of scan whether it is background or vertebrae. Jointly the initialization of weights it was  defined such as the background label with 0.1 weighting and the vertebrae label with 0.9 weighting. It was thought-out to repeal the fraction of nature background state at particular scan. As for loss function it was consumed \cite{Zhang2018} weighted categorical cross entropy with 2 classes, depicted as:
 \begin{align*}
@@ -29,6 +47,10 @@ $\lambda$ of 0.001, a batch size of 16 and batch normalization after every convo
     \caption {Detection Model Architecture}
     \label{fig:detection_model}
 \end{figure}
+ 
+\subsection{Augmentation}
+%TODO add samples
+Unto passing particular batch of scans to detection model each image was represented as 5 cropped samples intruding that at least 4 of them contain some vertebrae pixels. In the meantime each sample scan was sized as $64x64x80$, meaning 64 pixels by 64 pixels by 80 channels. Withal accordingly each sample has an accompanying dense labelling, containing 0s (for background) and 1s (for vertebrae) of the same size.    
  
 \section{Identification Model}
 By the previous description identification model \ref{fig:identification_model} identifies what vertebrates belong which segmented pixels. For what it was established unet-wise architecture with revamped parameters. Updates brought changes of input layer channels number which corresponds to 8 to pass in samples of size $8x80x320$. The introduced filters sized $5x20$ at the lowest level of the architecture  increases the size of the receptive field thereby maximizing the potential information retrieved by the network. To clarify, the background pixels are strained out, denoting just that pixels which are labeled as background when we train model. As for loss function the following modified L1 function was approached:
@@ -48,3 +70,17 @@ $\lambda$ of 0.001, a batch size of 32 and batch normalization after every convo
 The identification model outputs a continuous value for each pixel of a scan which, is rounded to an integer to correspond to a specific vertebrae. The identification model gives a value to each pixel even if that pixel is not depicting any vertebrae and is a background. These pixels will be filtered out of the final
 predictions by multiplying them by their corresponding pixel from the output of the detection model which should be 0 for a background pixel. The model outputs are represented as continuous value for each dedicated pixel of particular scan which further is rounded to correspond to a specific vertebrae integer. As well it should be considered the model award each pixel's value nay it is background and does not represent any vertebrae. Even though these pixels will be filtered out of the final predictions by multiplying them by their corresponding pixel from the output of the detection model which should be 0 for a background pixel.
 
+\subsection{Augmentation}
+%TODO change
+%TODO add samples
+To train the identification network it was applied cropping of samples sized $8x80x320$. In total generate 100 cropped samples for each scan in the training set enforcing that all of them capture some vertebrae pixels, each with a corresponding dense labelling of size $80x320$, representing the labelling for the 4th slice of the input sample.
+
+\section{Predictions}
+%TODO add samples
+As soon as the identification model outcomes predicted label per each pixel foremost thresholding $x_\upsilon$ is applied as validation whether include particular centroid in the prediction or not by comparing the obtained  number of pixels for a vertebra and assumed thresholding number.
+
+The threshold $x_\upsilon$ is specific to the vertebra $\upsilon$ and formed as:
+\begin{align*}
+  x_\upsilon = \max(3000, 0.4R_\upsilon^3) 
+\end{align*}
+where R - the radius of the vertebra $v$

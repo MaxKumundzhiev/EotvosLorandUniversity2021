@@ -1,2 +1,32 @@
 \chapter{Experiments}
 \label{ch:experiments}
+%Finalize
+- Machine characteristics
+
+%
+- To recap the utilized data set
+data set is split into a dedicated training set of 242
+scans and a dedicated test set of 60 scans. re-sample the scans at
+1mm x 1mm x 1mm resolution so every pixel in the samples generated from the scans represents a 1mm cubed section of the body
+
+%
+- Training detection model
+trained for 50 epochs which took 11 hours. obtained a validation Dice score of 0.961 on the 1 (vertebrae) labels and a validation accuracy of 98.5 on test samples generated from test set.
+At test time applied the detection model to a scan patch-wise with some overlap between patches. The input to the network is 64 x 64 x 80 and we applied it in steps of 32 x 32 x 40, padding the border of the scan by 16 x 16 x 20 and discarding the outer border of size 16 x 16 x 20 from each output. This reduced edge artifacts in the detection and led to improved mean localization scores.
+
+%
+- Training identification model
+trained for 35 epochs which took 7 hours.
+The identification model is a fully convolutional network which allows us to apply it to whole slices of the input scan, padded to the nearest multiple of 16, at test time.
+
+
+%
+- Results of experiments
+results are calculated over the dedicated testing set of
+60 scans. measured metrics, Id rate, mean localization distance and standard deviation (std) distance. Id rate is the percentage of the centroid estimations predicted which are closest to the correct ground truth vertebra centroid (and are less than 20mm from that centroid). Mean and Std relate to the localization error distance between the predicted centroid positions and the ground-truth centroid positions for the same vertebrae (if it occurs in the scan).
+
+%
+- competitors
+
+%
+- table of comparison
