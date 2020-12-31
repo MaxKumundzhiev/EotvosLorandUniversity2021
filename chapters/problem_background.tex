@@ -4,6 +4,7 @@
 Image segmentation \cite{Shapiro2001} is the process of partitioning a digital image into multiple segments (sets of pixels, also known as image objects). The goal of segmentation is to simplify and/or change the representation of an image into something that is more meaningful and easier to analyze. In mathematical terms, the aim is to find a closed contour $\Gamma$ that partitions a domain $\Omega \in \mathbb{R}$  into subregions $\Omega_i, i = 1, 2, ..., N$.
 The very first notation was established by \href{https://en.wikipedia.org/wiki/David_Mumford}{\color{blue} David Mumford} in 1989 and obtained name \cite{Kim2020} Mumford-Shah functional.
 
+\section{Mumford-Shah functional}
 Mumford-Shah functional considers the piecewise smooth approximation of an input image $z(x)$ by a pair $(\upsilon, \Gamma)$. Assume $\Omega$ be a bounded domain in $\mathbb{R}$ and $z(x)$ be a bounded measurable function defined on $\Omega$. The functional is defined as follows:
 \begin{align*}
  E (\upsilon, \Gamma) = \upsilon H^{n-2} (\Gamma) + \mu^2 \int_{\Omega} (\upsilon - z)^2 \partial x + \int_{\frac{\Omega}{\Gamma}} \lvert \nabla \upsilon \rvert^2 \partial x

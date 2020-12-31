@@ -1,9 +1,10 @@
 \chapter{Deep Learning}
 \label{ch:deep_learning}
 
-\subsection{Biological neuron}
+\section{Neuron}
 The human nervous system is the largest information processor in the human body. It is not the only information processor, but it is the largest and most efficient one. The human nervous system consists of several components. First, the brain, which is responsible for processing information and making decisions. Information to the brain comes from the senses along nerve fibers. The brain processes this information and decides how to react in a given situation. This solution is transmitted along the nerve fibers in the opposite direction to the muscles. This is how information is processed in the human body. The nervous system has several components. These components are responsible for different tasks. However, all of these components are made up of roughly the same cells called neurons.
 
+\subsection{Biological neuron}
 A neuron is a component that makes up the entire human nervous system. Almost all neurons are structured roughly the same. 
 So, a neuron has a neuron nucleus, which is also called the neuron body. An electrical charge is accumulated in the body of a neuron. From the body of the neuron there are many processes: there are small processes and large processes. The little outgrowths are so called dendrites. Through these processes, a signal from other neurons comes to our neuron. There is a large scion. This process is called an axon. A neuron transmits a signal to other neurons along the axon. The place where the axon of another neuron connects to the dendrites of our neuron is called a "synapse". The synapse is where the dendrite and axon meet. A synapse can be strong or it can be weak. If the synapse is strong, then the signal that is transmitted along the axon of the neuron will almost completely go to our neuron. If the synapse is weak, then practically no charge will cross from the axon of another neuron to our neuron. The synapse can change over time. Depending on the circumstances, the synapse can get stronger or it can get weaker. It is with the synapse tuning that the training of the biological neural network and, accordingly, the human nervous system is connected.
 
@@ -52,7 +53,7 @@ def _neuron(inputs, weights, bias):
 \end{lstlisting}
 
       
-\subsection{Activation function}
+\section{Activation function}
 There is a significant number of various activation functions. Let us assume the very basic one named "step function" and figure out from general point of view how it works in both mathematical and geometrical conditions.   
 
 The "step function" defined as:
@@ -102,7 +103,7 @@ The sigmoid activation function formed as:
 % ADD TANH, RELU !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 The list below points out the few rest functions which we will cover later on.
 
-\subsection{From neuron to neural net}
+\section{From neuron to neural net}
 So far we have discussed the properties and functional of a single neuron, which as a result outcomes a linear divide surface in geometrical terms. Meaning when we will concatenate the multiple neurons in some architecture we may achieve some nonlinear divide surfaces.
 \begin{figure}[h]
     \centering \includegraphics[width=7cm]{images/neuron_to_neural_net.jpg}
@@ -137,7 +138,9 @@ We can be aware of the uniform starter kit for any neural network can be defined
     \item neural net metrics, meaning how the net performs. It is similar to loss function, but considered as secondary and optional metric. They does not have impact on the neural net fitting process, however could bring out useful insights.    
 \end{itemize}
 
-It was already discussed trivial neural net architecture consisting of neuron mathematically representation and premise of activation function. As for now let us review the rest components clause by clause.    
+
+\section{How neural networks learn?}
+It was already discussed trivial neural net architecture consisting of neuron mathematically representation and premise of activation function. As for now let us review clause by clause the rest components which are the driven pieces for nets learning process.
 
 \subsection{Optimization function}
 Optimization of neural net is the key component in terms of finding latent patterns in input data. The optimization of the net should be considered as the on-the-spot training. There are variety optimization algorithms but the pillar algorithm in the list is gradient descent.
@@ -188,12 +191,13 @@ function.backward()
 print(x.grad, '<- gradient')
 \end{lstlisting}
 
+\section{Evaluating performance}
 \subsection{Loss function}
 %TDB
 \subsection{Metrics}
 %TDB
 
-\subsection{Convolutional neural networks}
+\section{Convolutional neural networks (CNN)}
 What we had discussed before can be considered as usual neural nets in the very general definition. The cons of uniform neural networks are they may perfectly find the latent consistencies however they struggle structured data a lot with. To make it easier to eat up, we should assume the structured data can be representation of the image or bunch of images which refer to some video. Or as well structured data can be representation of the some audio signal.
 
 To highlight the main difference in concepts, let's discuss one example.
@@ -236,8 +240,8 @@ The corresponding calculations are applied clause by clause with step $= 1$, bec
 We just have calculated convolution for particular part of the image. 
 
 \subsection{Pooling}
-Jointly convolutions it has been frequently applied pooling operation (layer) as well. 
-There is many types of pollings but let us discuss 2 main ones. 
+Jointly convolutions it has been frequently applied pooling operation (layer) as well. There is many types of pollings but let us discuss 2 main ones. 
+
 The first pooling type is called max pooling, whereas the second one average pooling. The difference between them obviously is how the calculations are applied. In first case it is taken the maximum value of particular receptive filed, hence in other it is taken the average value of particular receptive filed.
 
 The pooling has 2 properties:
@@ -254,8 +258,8 @@ The pooling has 2 properties:
 It worth take a look at the example to figure it out. Assume we have some resulting convolution of size $4x4$. The pooling layer of size $(2, 2)$ and stride $ = (2, 2)$. 
 Applying pooling we have to go through image with stride (2,2) and within corresponding receptive filed calculate either max or average pooling.  
 
-\subsection{Overfitting}
-The overfitting is as important aspect as for instance choosing the proper loss function for particular problem. There are verified means of combating this problem in the context of deep learning.   
+\section{CNN against overfitting}
+The overfitting is as important aspect as for instance choosing the proper loss function for particular problem. There are verified means of combating this problem in the context of deep learning. Within below paragraphs we are willing to get to know the various techniques to prevent overfitting of neural networks especially CNN. 
 
 \subsection{Augmentation}
 Augmentation itself is not more than applying various image transformations at original image such as cropping, flipping, contrasting, adding and removing noise etc. Afterwards the transformed images are forwarded to the neural network. Literally, it is done by the reason to diversify the data set. Of course exists more advanced techniques based on reinforcement learning, but we will not discuss them within this paper.      
@@ -294,7 +298,7 @@ As for first type, which is called drop connection. In simplified terms we defin
 
 As for second type, which is called drop neuron. In simplified terms we are seeking for neurons which result outputs zero value and then drop it. The corresponding red neurons at \ref{fig:drop_neuron} with value of zero will be removed from the net. We've already get stick with sufficient information to build and derive the particular neural network architecture. 
 
-\subsection{Unet}
+\section{Unet}
 % TODO: correct expansive path description
 The unet is convolutional network architecture for fast and precise segmentation of images. It was proposed by Olaf Ronneberger, Philipp Fischer, and Thomas Brox at 2015 \cite{Ronneberger2015}. 
 \begin{figure}[h]

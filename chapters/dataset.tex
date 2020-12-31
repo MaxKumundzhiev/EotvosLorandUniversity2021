@@ -1,0 +1,26 @@
+\chapter{Data set}
+\label{ch:data_set}
+
+\section{Data description}
+%TODO change
+The data set consists of spine-focused CT scans of 125 patients with varying types of pathologies. 
+
+In the case of the detection model the dense labelling contains two values: 0 representing background and 1 representing vertebrae. 
+
+The identification model’s dense labelling contains values from 0 to 26. Whilst 0 representing background, 1 representing C1 vertebrae up to 26 representing S2 vertebrae.
+
+\begin{figure}[h]
+    \centering \includegraphics[width=9cm]{images/labeled_data.png}
+    \caption {(a) shows a dense labelling, (b) shows an example of a sample used to train the detection model, (c) shows an example of a sample used to train the identification model. Note: The size of the sample is 8 x 80 x 320, if the original scan is not larger enough to fill those dimensions some padding is added, as can be seen at the top.}
+    \label{fig:labeled_data}
+\end{figure}
+
+
+\subsection{Data augmentation for detection model}
+%TODO add samples
+Unto passing particular batch of scans to detection model each image was represented as 5 cropped samples intruding that at least 4 of them contain some vertebrae pixels. In the meantime each sample scan was sized as $64x64x80$, meaning 64 pixels by 64 pixels by 80 channels. Withal accordingly each sample has an accompanying dense labelling, containing 0s (for background) and 1s (for vertebrae) of the same size.    
+
+\subsection{Data augmentation for identification model}
+%TODO change
+%TODO add samples
+To train the identification network it was applied cropping of samples sized $8x80x320$. In total generate 100 cropped samples for each scan in the training set enforcing that all of them capture some vertebrae pixels, each with a corresponding dense labelling of size $80x320$, representing the labelling for the 4th slice of the input sample.
