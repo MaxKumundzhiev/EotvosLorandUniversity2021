@@ -50,11 +50,9 @@ Below it is denoted few more popular directions:
 \end{itemize}
 
 \section{Image Segmentation}
-%ADD VISUALISATION
 In terms of medical imaging, segmentation is the process of classifying pixels into groups which corresponds to the same tissue type. Segmentation has many uses cases like a "measure volume of an organ", "render a 3D view of an organ", "surface-based registration" and many others. Further we will descry types of segmentation. 
 
 \subsection{Thresholding}
-%ADD VISUALISATION 
 The simplest method for classifying pixels based on solely on their intensity values. In thresholding we choose upper and lower bound and select pixels in predefined range.
 The problem within simple thresholding is that it does not take into consideration any spatial information, meaning each pixel is evaluated no matter where it is located.    
 
@@ -107,7 +105,7 @@ Example: There is set of pixels $4x4$ which should be colored. The cells which d
 
 Exactly the same way growing region thresholding method may be applied for medical images of different image modalities.
 \begin{figure}[h]
-    \centering \includegraphics[width=7cm]{images/ct-spine-grow-region-segmented.jpg}
+    \centering \includegraphics[width=8cm]{images/ct-spine-grow-region-segmented.jpg}
     \vspace*{-30mm} \caption {Original CT spine vs Segmented CT spine with Grow Region thresholding.}
 \end{figure}    
 
@@ -152,19 +150,17 @@ To demonstrate the method we are going to proceed with the same ct spine scan da
 
 \newpage
 \begin{figure}[h]
-    \centering \includegraphics[width=7cm]{images/ct-spine-k-means-segmented.jpg}
+    \centering \includegraphics[width=8cm]{images/ct-spine-k-means-segmented.jpg}
     \vspace*{-40mm} \caption {Original CT spine vs Segmented CT spine with k-Means algorithm.}
 \end{figure}    
 
 As we can see, clustering is a really nice way for image segmentation, because you get to see the joint intensity of scatter plot (feature space) as well as different representations of clusters.  
 
+There many more advanced segmentation techniques but before proceed further it worth briefly to discuss 2 more methods. We aim to shortly familiarize ourselves within their definitions and not dive to deep into details.      
 \subsection{Snakes}
 Shortly defined, it is active contour which is like a deformable boundary on an image designed to converge to an anatomical boundary of some sort. Deformable boundary is often represented by a number of nodes and vertices.  
-
-The deformable boundary is often represented by a number of nodes and vertices  
-
-
+The deformable boundary is often represented by a number of nodes and vertices.  
 
 \subsection{Level Sets}
-The level set method is a different way to formulate the active contour idea. Instead of explicitly modelling the curve the curve is implicitly modelled as a zero level set of a higher-dimension function. To model a curve in $\mathbf{R^n}$ we use an embedding function $\mathbf{R^n} \to \mathbf{R}$    
+The level set method is a different way to formulate the active contour idea. Instead of explicitly modelling the curve the curve is implicitly modelled as a zero level set of a higher-dimension function. To model a curve in $\mathbf{R^n}$ we use an embedding function $\mathbf{R^n} \to \mathbf{R}$.     
 

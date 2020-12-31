@@ -2,22 +2,21 @@
 \label{ch:deep_learning}
 
 \section{Neuron}
-The human nervous system is the largest information processor in the human body. It is not the only information processor, but it is the largest and most efficient one. The human nervous system consists of several components. First, the brain, which is responsible for processing information and making decisions. Information to the brain comes from the senses along nerve fibers. The brain processes this information and decides how to react in a given situation. This solution is transmitted along the nerve fibers in the opposite direction to the muscles. This is how information is processed in the human body. The nervous system has several components. These components are responsible for different tasks. However, all of these components are made up of roughly the same cells called neurons.
+Typically, neurons are kind of information messengers who make use of electrical and chemical gusts to transfer information across all brain moreover between brain and rest of the nervous system.
 
 \subsection{Biological neuron}
-A neuron is a component that makes up the entire human nervous system. Almost all neurons are structured roughly the same. 
-So, a neuron has a neuron nucleus, which is also called the neuron body. An electrical charge is accumulated in the body of a neuron. From the body of the neuron there are many processes: there are small processes and large processes. The little outgrowths are so called dendrites. Through these processes, a signal from other neurons comes to our neuron. There is a large scion. This process is called an axon. A neuron transmits a signal to other neurons along the axon. The place where the axon of another neuron connects to the dendrites of our neuron is called a "synapse". The synapse is where the dendrite and axon meet. A synapse can be strong or it can be weak. If the synapse is strong, then the signal that is transmitted along the axon of the neuron will almost completely go to our neuron. If the synapse is weak, then practically no charge will cross from the axon of another neuron to our neuron. The synapse can change over time. Depending on the circumstances, the synapse can get stronger or it can get weaker. It is with the synapse tuning that the training of the biological neural network and, accordingly, the human nervous system is connected.
+A neuron is a component that makes up the entire human nervous system. Almost all neurons are structured roughly the same. So, a neuron has a neuron nucleus, which is also called the neuron body. An electrical charge is accumulated in the body of a neuron. From the body of the neuron there are many processes: there are small processes and large processes. The little outgrowths are so called dendrites. Through these processes, a signal from other neurons comes to our neuron. There is a large scion. This process is called an axon. A neuron transmits a signal to other neurons along the axon. The place where the axon of another neuron connects to the dendrites of our neuron is called a "synapse". The synapse is where the dendrite and axon meet. A synapse can be strong or it can be weak. If the synapse is strong, then the signal that is transmitted along the axon of the neuron will almost completely go to our neuron. If the synapse is weak, then practically no charge will cross from the axon of another neuron to our neuron. The synapse can change over time. Depending on the circumstances, the synapse can get stronger or it can get weaker. It is with the synapse tuning that the training of the biological neural network and, accordingly, the human nervous system is connected.
 
 Considered visualization of the described above processes is as follows:
 \begin{figure}[h]
-    \centering \includegraphics[width=7cm]{images/neuron_biological_model.jpg}
+    \centering \includegraphics[width=8cm]{images/biological_neuron.jpg}
     \caption {Biological model of neuron.}
 \end{figure}    
 
 \subsection{Mathematical model of neuron}
 Initially for simplicity we will represent neuron mathematical model graphically. It should be taken into consideration, the red characters denote tune parameters of the neuron.     
 \begin{figure}[h]
-    \centering \includegraphics[width=7cm]{images/neuron_math_model.jpg}
+    \centering \includegraphics[width=8cm]{images/neuron_math_model.jpg}
     \caption {Mathematical model of neuron.}
 \end{figure} 
 
@@ -57,7 +56,7 @@ f(x) = \begin{cases} 0, & \mbox{if } x\mbox{ <= 0} \\ 1, & \mbox{if } x\mbox{ > 
 The function has 2 strongly distinguished values: "0" and "1". The "spot" where the function changes it's value from "0" to "1" is named as dividing surface. Hence, the dividing surface "spot" is where the argument of activation function is equal "0".
 
 \begin{figure}[h]
-    \centering \includegraphics[width=7cm]{images/step_function.jpg}
+    \centering \includegraphics[width=8cm]{images/step_function.jpg}
     \caption {Step function geometrical representation.}
 \end{figure}
 
@@ -77,7 +76,7 @@ Accordingly, the dividing surface is defined by following equitation which denot
 \end{align*}
 
 \begin{figure}[h]
-    \centering \includegraphics[width=7cm]{images/dividing_surface.jpg}
+    \centering \includegraphics[width=8cm]{images/dividing_surface.jpg}
     \caption {Dividing surface geometrical representation.}
 \end{figure}
 
@@ -89,11 +88,7 @@ def _step_function(weighted_sum):
   return 1 if weighted_sum >= 0 else 0
 \end{lstlisting}
    
-As it was mentioned earlier, step function is not the only one activation function. Let us proceed with other "sigmoid" activation function which unlike step function does not have discontinuity point at zero.
-\begin{figure}[h]
-    \centering \includegraphics[width=7cm]{images/sigmoid_function.jpg}
-    \caption {Sigmoid activation function.}
-\end{figure}
+As it was mentioned earlier, step function is not the only one activation function. There is for instance "sigmoid" activation function which unlike step function does not have discontinuity point at zero. 
 
 The sigmoid activation function formed as:
 \begin{align*}
@@ -102,20 +97,24 @@ The sigmoid activation function formed as:
 
 \[ \sigma(x) = \begin{cases} 1, & \mbox{if } x\mbox{$\xrightarrow{} + \infty$} \\ 0, & \mbox{if } x\mbox{$\xrightarrow{} - \infty$} \end{cases} \]
 
-% ADD TANH, RELU !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-The list below points out the few rest functions which we will cover later on.
+The rectified linear activation function for short is a piece-wise linear function which outputs input directly if it is positive otherwise outputs zero. It has become the default activation function for many types of neural networks because a model that uses it is easier to train and often achieves better performance.
+
+\begin{figure}[h]
+    \centering \includegraphics[width=8cm]{images/sigmoid_function.jpg}
+    \caption {Sigmoid activation function.}
+\end{figure}
 
 \section{From neuron to neural network}
 So far we have discussed the properties and functional of a single neuron, which as a result outcomes a linear divide surface in geometrical terms. Meaning when we will concatenate the multiple neurons in some architecture we may achieve some nonlinear divide surfaces.
 \begin{figure}[h]
     \centering \includegraphics[width=7cm]{images/neuron_to_neural_net.jpg}
-    \caption {single neuron surface vs multiple neurons surface}
+    \caption {Single neuron surface vs multiple neurons surface.}
 \end{figure}
 
 Now the question is how do we get the nonlinear dividing surface. Let us figure it out.
 For simplicity define 3 neurons with linear activation function:
 \begin{figure}[h]
-    \centering \includegraphics[width=7cm]{images/3_neurons_net.jpg}
+    \centering \includegraphics[width=8cm]{images/3_neurons_net.jpg}
     \caption {Neural net with linear activation function.}
 \end{figure}
 The results of performing the net can be considered as:
@@ -124,10 +123,8 @@ By the reason $f$ is simple linear function, equation can be derived as:
 \[ = w_2^3 \cdot y_2+w_1^3 \cdot y_1+b^3 = \] 
 \[ = w_2^3 \cdot f(w_2^1\cdot x_1+w_2^2 \cdot x_2+b^2) + w_1^3 \cdot f(w_1^1 \cdot x_1+w_1^2 \cdot x_2+b^1) + b^3 = \]   
 \[ = w_2^3 \cdot w_2^1 \cdot x_1+w_2^3 \cdot w_2^2 \cdot x_2+b^2 + w_1^3 \cdot w_1^1 \cdot x_1+w_1^3 \cdot w_1^2 \cdot x_2+b^1+b^3 = \]
-\[ = x_1[w_2^3 \cdot w_1^2 + w_1^3 \cdot w_1^1] + \]
-\[   x_2[w_2^3 \cdot w_2^2 + w_1^3 \cdot w_2^1] + \]
-\[   [w_2^3 \cdot b^2+w_1^3 \cdot b^1+b^3]  = \]
-\[   x_1\cdot \tilde{w_1} + x_2\cdot \tilde{w_2} + \tilde{b} \]
+\[ = x_1[w_2^3 \cdot w_1^2 + w_1^3 \cdot w_1^1] + x_2[w_2^3 \cdot w_2^2 + w_1^3 \cdot w_2^1] + [w_2^3 \cdot b^2+w_1^3 \cdot b^1+b^3] = \]
+\[ =  x_1\cdot \tilde{w_1} + x_2\cdot \tilde{w_2} + \tilde{b} \]
 Meaning the obtained result is just linear combination of inputs into the neural net. 
 
 \subsection{Neural network starter kit}
@@ -156,7 +153,7 @@ The brief list of optimization algorithms:
     \item Adagrad
     \item RMSProp
 \end{enumerate}
-Let us discuss how the optimization works under the hood proceeding with the most demonstrative algorithm - gradient descent.
+Let us discuss how the optimization works under the hood proceeding with the most demonstrative algorithm -- gradient descent.
 
 \subsection{Gradient descent}
 Previously we took into consideration the neural net has 2 main tuned parameters: "weights" and "bias".
@@ -170,8 +167,10 @@ So far, we have a neural net with some parameters (weights and biases) which per
 \end{figure}
 
 So, the very first provision in the vector of function surface will be defined by $w_0$, where $w_0$ denotes vector of all weights and biases of the net and can be represented as: 
+
 \[ w_0 = [w_1^1, w_1^2,...,w_1^n, w_2^1,...,w_2^n,...,w_n^n, b1^1, b1^2,...,b1^n, b2^1,...,b2^n,...,b_n^n] \]
-accordingly, we need take derivative (meaning gradient, which is vector consisting of derivatives per each coordinate of the function) of the loss function of our vector. It can be represented as:
+
+Accordingly, we need take derivative (meaning gradient, which is vector consisting of derivatives per each coordinate of the function) of the loss function of our vector. It can be represented as:
 \[ \delta{f} = [\frac{\partial{f}}{\partial{w_0}}, \frac{\partial{f}}{\partial{w_1}}, ... ,\frac{\partial{f}}{\partial{w_n}} ] \]
 As the result, we have calculated the gradient of loss function at the point ($w_0$) where we currently located. The gradient of loss function points out at the direction of greater loss function growth. But, oppositely, we on demand of lower loss function growth, meaning we need to make an opposite step of calculated gradient descent. It can be considered as:
 \begin{align*}
@@ -219,7 +218,7 @@ def mean_squared_error(actual, predicted):
 \end{lstlisting}
 
 \subsubsection{Cross-Entropy}
-Cross-entropy loss, or log loss, measures the performance of a classification model whose output is a probability value between 0 and 1. Cross-entropy loss increases as the predicted probability diverges from the actual label.
+Cross-entropy loss, or log loss \footnote{https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html#cross-entropy}, measures the performance of a classification model whose output is a probability value between 0 and 1. Cross-entropy loss increases as the predicted probability diverges from the actual label.
 In binary classification, where the number of classes M equals 2 cross-entropy can be calculated as:
 \begin{align*}
 Cross-Entropy = -{(y\log(p) + (1 - y)\log(1 - p))}
@@ -341,17 +340,12 @@ As for first type, which is called drop connection. In simplified terms we defin
 As for second type, which is called drop neuron. In simplified terms we are seeking for neurons which result outputs zero value and then drop it. The corresponding red neurons at \ref{fig:drop_neuron} with value of zero will be removed from the net. We've already get stick with sufficient information to build and derive the particular neural network architecture. 
 
 \section{Unet}
-% TODO: correct expansive path description
 The unet is convolutional network architecture for fast and precise segmentation of images. It was proposed by Olaf Ronneberger, Philipp Fischer, and Thomas Brox at 2015 \cite{Ronneberger2015}. 
 \begin{figure}[h]
     \centering \includegraphics[width=7cm]{images/unet.png}
     \caption {Unet architecture.}
 \end{figure}
 
-Using original terminology of the authors the net consist of a contracting path (left side) and an expansive path (right side). The contracting path follows the typical architecture of a convolutional network. In simplified terms it can be considered as downsampling or encoder which formed as
-a five repeats of double 3x3 convolutions (unpadded convolutions) with rectified linear unit and 2x2 max pooling operation with stride 2. Thus next expansive path which can be considered as upsampling or decoder which consists of 4 repeats of double 2x2 convolutions (up-convolution) that halves the number of feature channels, a concatenation with the correspondingly cropped feature map from the contracting path, and two 3x3 convolutions, each followed by a ReLU. At the final layer a 1x1 convolution is used to map each 64-component feature vector to the desired number of classes. In total the network has 23 convolutional layers. The codebase implementation can be find within \href{https://gist.github.com/f8eb74d57b914878d52c47ac359758e8.git}{\color{blue} github gist}.
-
-
-
-
+Using original terminology of the authors \cite{Ronneberger2015} the net consist of a contracting path (left side) and an expansive path (right side). The contracting path follows the typical architecture of a convolutional network. In simplified terms it can be considered as downsampling or encoder which formed as
+a five repeats of double 3x3 convolutions (unpadded convolutions) with rectified linear unit and 2x2 max pooling operation with stride 2. Thus expansive path which can be considered as upsampling or decoder consists of 4 repeats of double 2x2 convolutions (up-convolution) which halve number of feature channels. In total the network has 23 convolutional layers. The architecture implementation can be find within bare unet github gist \footnote{https://gist.github.com/f8eb74d57b914878d52c47ac359758e8.git}
 
