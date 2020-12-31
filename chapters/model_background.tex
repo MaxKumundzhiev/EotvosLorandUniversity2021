@@ -29,18 +29,11 @@ Let us take closer glimpse how this \ref{fig:dice_score} measurement works. Assu
   Dice score = \frac{2\cdot|A\cap B|}{2\cdot|A\cap B| + |B\backslash A| + |A\backslash B|}
 \end{align*}
 
-
 \subsection{ID rate}
-%TODO change
-Id rate is the percentage of the centroid estimations predicted which are closest to the correct ground truth vertebra centroid (and are less than 20mm from that centroid). 
+It was introduced id rate measurement to validate correctness of closeness of predicted centroid estimations with ground truth vertebra centroid. 
 
-\subsection{Mean localization distance}
-%TODO change
-Mean and Std relate to the localization error distance between the predicted centroid positions and the ground-truth centroid positions for the same vertebrae (if it occurs in the scan).
-
-\subsection{Standard deviation}
-%TODO change
-Mean and Std relate to the localization error distance between the predicted centroid positions and the ground-truth centroid positions for the same vertebrae (if it occurs in the scan).
+\subsection{Localization error}
+As for localisation error if centroid occurs at the scan it was deliberated by mean and std of distance of localization error between predicted centroid position and ground-truth centroid position for particular vertebrae. 
 
 
 \section{Detection Model}
