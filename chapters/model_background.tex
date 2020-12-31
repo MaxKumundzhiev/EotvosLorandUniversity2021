@@ -16,12 +16,23 @@ The step by step representation in terms of visualisation is demonstrated on the
 
 \section{Metrics}
 \subsection{Dice score}
-%TODO add math
-Dice score was considered as the metric to evaluate ground truth and predicted labels.
+Recall the \cite{Thada2013} Dice similarity coefficient (Dice score) was used to quantify how closely identification predictions matched the training annotated ground truth segmentation. 
+
+\begin{figure}[h]
+    \centering \includegraphics[width=7cm]{images/dice_score.jpg}
+    \caption {The visual representation of Dice Score}
+    \label{fig:dice_score}
+\end{figure}
+
+Let us take closer glimpse how this \ref{fig:dice_score} measurement works. Assume we annotated some ground truth region in particular image and then make an automated algorithm to do it so far. To validate the algorithm it is calculated Dice score, which is a measure of how similar the objects are. In other words it is the size of the overlap of the two segmentations divided by the total size of the two objects. As for mathematical representation it is formed as:
+\begin{align*}
+  Dice score = \frac{2\cdot|A\cap B|}{2\cdot|A\cap B| + |B\backslash A| + |A\backslash B|}
+\end{align*}
+
 
 \subsection{ID rate}
 %TODO change
-Id rate is the percentage of the centroid estimations predicted which are closest to the correct ground truth vertebra centroid (and are less than 20mm from that centroid).
+Id rate is the percentage of the centroid estimations predicted which are closest to the correct ground truth vertebra centroid (and are less than 20mm from that centroid). 
 
 \subsection{Mean localization distance}
 %TODO change
