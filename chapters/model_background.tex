@@ -39,7 +39,7 @@ As for localisation error if centroid occurs at the scan it was deliberated by m
 \section{Detection Model}
 As previously mentioned detection model \ref{fig:detection_model} comes up with segmenting of vertebra from background. Taking it closer into consideration the model classifies each dedicated pixel of scan whether it is background or vertebrae. Jointly the initialization of weights it was  defined such as the background label with 0.1 weighting and the vertebrae label with 0.9 weighting. It was thought-out to repeal the fraction of nature background state at particular scan. As for loss function it was consumed \cite{Zhang2018} weighted categorical cross entropy with 2 classes, depicted as:
 \begin{align*}
- L(P, Q) = 0.1 P(0)\log Q(0) + 0.9P(1)\log Q(1)
+ L(P, Q) = 0.1 \cdot P(0)\log Q(0) + 0.9 \cdot P(1)\log Q(1)
 \end{align*}
 where P, Q - particular distributions 
 
@@ -84,6 +84,6 @@ As soon as the identification model outcomes predicted label per each pixel fore
 
 The threshold $x_\upsilon$ is specific to the vertebra $\upsilon$ and formed as:
 \begin{align*}
-  x_\upsilon = \max(3000, 0.4R_\upsilon^3) 
+  x_\upsilon = \max(3000, 0.4 \cdot R_\upsilon^3) 
 \end{align*}
 where R - the radius of the vertebra $v$

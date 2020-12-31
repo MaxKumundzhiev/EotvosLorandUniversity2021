@@ -1,14 +1,17 @@
 \chapter{Medical Imaging}
 \label{ch:rworks}
 
-The imaging modalities used in biology and medicine are based on a variety of energy sources, including light, electrons, lasers, X-rays, radionuclides, ultrasound and nuclear magnetic resonance. The images produced span orders of magnitude in scale, ranging from molecules and cells to organ systems and the full body. !!! This is copied from https://link.springer.com/chapter/10.1007/978-3-662-00807-2_109 !!!
-The advantages and limitations of each imaging modality are primarily governed by the basic physical and biological principles which influence the way each energy form interacts with tissues, and by the specific engineering implementation for a particular medical or biological application.
+Medical imaging is a huge field of scope. The challenges are fascinating and so are the rewards. When we solve problems in medical imaging, we are literally serving humanity. Nowadays, medical imaging is widely different rather than even couple of years ago moreover than other areas of image processing. 
+
+Mutually we are going to take a closer gaze at some of the basic techniques in medical imaging. It's an immense area so we going to pick a few particular specimens.
 
 \section{Modalities}
+To clarify in advance modalities in medical imaging can be considered as different types of images.
+
 Each modality results from a different phenomenon of physics offers doctors (radiologists) an alternative view of the patient. Moreover each modality has it's risks, costs and benefits. All these factors have to be taken into account when choosing type of modality to be issued.
 
 \subsection{X-Ray (X-RAY)}
-In 1895, Wilhelm Roentgen explored rays which could pass through wood and human tissues. He called them "x-rays" where "x" was considered as a place-holder for the unknown.
+In 1895, Wilhelm Roentgen explored rays which could pass through wood and human tissues. He called them \cite{Barker1996} "x-rays" where "x" was considered as a place-holder for the unknown.
 
 X-Rays are a form of electromagnetic radiation in the same spectrum as visible light and radio waves. Like light, x-rays can be considered as a energy of an x-ray photon. To make x-rays, it can be fired high-energy electrons into matter. In medical-imaging applications, x-rays are sent into tissue. 
 
@@ -25,30 +28,26 @@ Jointly x-rays interactions with matter it can be considered 3 common cases:
 \subsection{Computed Tomography (CT)}
 In simplified terms, the idea of computed tomography is to resolve a single -- or a few slices -- slice of an object using many x-ray projections. As the gantry rotates, the scanner collects a 1D x-ray at each angle.
 
-***The CT scanners which designed for purpose of human diagnostic are generally capable of producing images with voxels, where voxel stand for representing a value on a regular grid in three-dimensional space*** ""This is not correct the CT machine produces projection images which can be reconstructed into a 3D volume, which is a scalar field/set of voxels.""
+CT machine produces images projection which aim to be reconstructed into a 3D volume, which is a scalar field or set of voxels. 
 
-The CT images which are span of x-rays are a form of ionizing radiation. Ionizing radiation is radiation with high enough energy that electrons can be ejected out of their orbitals, creating ions. These ions in large amounts can cause tissue and DNA damages. By this consideration medicine actively limits the amount of ionizing radiation the patient may potentially get.
-
-\item Contrast Agents
-\newline
+\subsubsection{Contrast Agents}
 As one of additional practices approaching CT for retrieving human body information, frequently substances can be introduced to the body to add the contrast, what is named as contrast agents. Often agents may be essentially useful for visualising of observations.          
 
-\item Motion Artifacts
-\newline
+\subsubsection{Motion Artifacts}
 Usually it takes a few seconds to obtain one bit of CT data. The tidiness of the observations depends on whether the patient moved during the acquisition. If so, the resulting transformation will be inconsistent and the reconstructed image will contain errors. But, if the patient's motions are known, meaning a lot of artifacts can be corrected during the reconstruction. On top of it the few automatic methods can be applied to dare to sharpen the image by guessing the motions.
 
-\subsection{Positron Emission Tomography (PET)}      
-Similar to CT, PET approaches with ring of detectors to detect radiation. ***The raw data that comes out of a PET scanner is very similar in nature to the Radon transform in CT.***""This is completely wrong as well, the radiation comes from the body, which is injected a radiopharmacon, e.g.: FDG and it is a totally different data than it is from the CT. CT captures density PET detects counts and Standard Uptake Value (SUV) can be calculated."" ***Beyond, unlike CT scans PET ones take a long time to be acquired,***""CT and PET are super fast 4-5 minutes for acquisition, SPECT can be slow or MRI "" meaning the patient motions can cause the problems. Moreover before issuing the measurements it is injected a small amount of positron-emitting radioisotope into the patient. This radioisotope is bound to a metabolite that is used glucose for instance.        
+\subsection{Positron Emission Tomography (PET)}
+Issuing PET technique we can consider the radiation traverse back and forth within the body (before issuing it is injected a small amount of positron-emitting radioisotope radiopharmacon, e.g.: FDG into patient body). PET detects counts and standard uptake value (SUV). Both CT and PET are super prompt and roughly take 4-5 minutes for acquisition.  
+By nature the behaviour of different patients vary but the presence of willful and not willful movements made analyzing of body within its scanning more complicated, meaning the patient motions can cause the records inaccuracies. 
 
 The list of images modalities and corresponding methods varies a lot strictly depending of the use case.
 Below it is denoted few more popular directions:
 \begin{itemize}
     \item MEG - Magneto Encephalography
-    \item EEG - Electro Encephalography
-    \item OCT - Optical Coherence Tomography
-    \item SPECT - Single-Photon Emission Computed Tomography
+    \item EEG -  Electro Encephalography
+    \item OCT -  Optical Coherence Tomography
+    \item SPECT -  Single-Photon Emission Computed Tomography
 \end{itemize}
-
 
 \section{Image Segmentation}
 %ADD VISUALISATION
@@ -66,11 +65,15 @@ The method functionality can be easily represented within any basic draw editor.
 
 \begin{figure}[h]
     \centering
-    \subfloat[\centering Empty grid rectangle]{{\includegraphics[width=5cm]{images/grow_region_0.png} }}%
-    \qquad
-    \subfloat[\centering Filled grid rectangle]{{\includegraphics[width=5cm]{images/grow_region_1.png} }}%
-    \caption{Region Growing Thresholding}%
-    \label{fig:grwoing_region}%
+    \begin{minipage}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{images/grow_region_0.png}
+    \caption{Empty grid rectangle.}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{images/grow_region_1.png}
+    \caption{Filled grid rectangle.}
+    \end{minipage}
 \end{figure}
 
 Now, let us see how it is done from code base perspective.
@@ -105,7 +108,7 @@ Example: There is set of pixels $4x4$ which should be colored. The cells which d
 Exactly the same way growing region thresholding method may be applied for medical images of different image modalities.
 \begin{figure}[h]
     \centering \includegraphics[width=7cm]{images/ct-spine-grow-region-segmented.jpg}
-    \vspace*{-30mm} \caption {Original CT spine vs Segmented CT spine with Grow Region thresholding}
+    \vspace*{-30mm} \caption {Original CT spine vs Segmented CT spine with Grow Region thresholding.}
 \end{figure}    
 
 There is a huge potential room for improvements making the method more sophisticated by coming up with different conditions for inclusion/exclusion of pixels.
@@ -122,14 +125,20 @@ For instance, a pixel could be represented by 3 dimensional feature space, where
 
 First let us clarify the target results we are looking for by considering the very trivial task.
 Assume, there is colorful triangle which should be clustered and represented in some feature space. Afterwards we can clearly see 3 different colors which denotes 3 clusters/groups.
+
 \begin{figure}[h]
     \centering
-    \subfloat[\centering colorful triangle]{{\includegraphics[width=5cm]{images/k_mean_triangle.png} }}%
-    \qquad
-    \subfloat[\centering feature space representation]{{\includegraphics[width=5cm]{images/k_mean_triangle_clustered.jpg} }}%
-    \caption{feature space representation after applying k-Means}%
-    \label{fig:grwoing_region}%
+    \begin{minipage}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{images/k_mean_triangle.png}
+    \caption{Colorful triangle.}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{images/k_mean_triangle_clustered.jpg}
+    \caption{Feature space representation.}
+    \end{minipage}
 \end{figure}
+
 
 As for now, imagine, the user specified k the number of clusters, meaning how many different tissue types are in the image.
 Hence, the algorithm may be defined as:
@@ -144,16 +153,18 @@ To demonstrate the method we are going to proceed with the same ct spine scan da
 \newpage
 \begin{figure}[h]
     \centering \includegraphics[width=7cm]{images/ct-spine-k-means-segmented.jpg}
-    \vspace*{-40mm} \caption {Original CT spine vs Segmented CT spine with k-Means algorithm}
+    \vspace*{-40mm} \caption {Original CT spine vs Segmented CT spine with k-Means algorithm.}
 \end{figure}    
 
 As we can see, clustering is a really nice way for image segmentation, because you get to see the joint intensity of scatter plot (feature space) as well as different representations of clusters.  
 
 \subsection{Snakes}
-%TBD
 Shortly defined, it is active contour which is like a deformable boundary on an image designed to converge to an anatomical boundary of some sort. Deformable boundary is often represented by a number of nodes and vertices.  
 
+The deformable boundary is often represented by a number of nodes and vertices  
+
+
+
 \subsection{Level Sets}
-%TBD
-The level set method is a different way to formulate the active contour idea. %In fact it is the Eulerian formulation and when you explicitly represent the curve it is the Lagrangian formulation
+The level set method is a different way to formulate the active contour idea. Instead of explicitly modelling the curve the curve is implicitly modelled as a zero level set of a higher-dimension function. To model a curve in $\mathbf{R^n}$ we use an embedding function $\mathbf{R^n} \to \mathbf{R}$    
 
