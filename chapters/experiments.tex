@@ -48,7 +48,19 @@ As the baseline comparison it was considered \cite{Liao2018} "Joint Vertebrae Id
     \label{fig:competitor}
 \end{figure}
 
-The overall architecture of the proposed method may be traversed as three-stage approach. In the first stage, it was applied deep multi-task 3D CNN using randomly cropped 3D vertebrae samples. Afterwards within second stage transform trained multi-task 3D CNN into a multi-task 3D fully convolutional network by converting the fully connected layers to 3D convolutional layers. Decisively within third stage the extracted sample features will be ordered and form a set of feature sequences.
+The overall architecture of the proposed method may be traversed as three-stage approach. In the first stage, it was applied deep multi-task 3D CNN using randomly cropped 3D vertebrae samples. Afterwards within second stage transform trained multi-task 3D CNN into a multi-task 3D fully convolutional network by converting the fully connected layers to 3D convolutional layers. Decisively within third stage the extracted sample features will be ordered and form a set of feature sequences. Assimilating the results the following table takes place:
+
+\begin{tabular}{|p{2cm}||p{7cm}|p{5cm}|}
+ \hline
+ \multicolumn{3}{|c|}{Table of Comparison} \\
+ \hline
+ Metrics & Three-Stage CNNs (deep multi-task 3D CNN/FCN) & Two-Stage CNNs (Unet)\\
+ \hline
+ Id Rate   & 88.3 & 85.8.    \\
+ Mean      & 6.47  & 5.60    \\
+ Std       & 8.56  & 7.10    \\
+ \hline
+\end{tabular}
 
 
-Assimilating the results the following table takes place:
+To conclude the models comparison it should mentioned the proposed in this work method does not utilize RNN unlike \cite{Liao2018} work, thus making the method likely more efficient at test time which takes approximately 40 seconds to produce the prediction per single patient scan. 
