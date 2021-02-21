@@ -1,7 +1,7 @@
 \chapter{Models Background}
 \label{ch:model_background}
 
-\section{Gentle introduction}
+\section{Introduction}
 In this particular paragraph we will deliberate the proposed model background and its main dissemblance from general unet architecture.
 
 Jointly the solution it was utilized 2 convolution networks with same architectures but sundry purposes and parameters. By scenario firstly it is issued detection model afterwards identification model. The detection model comes up with segmenting of vertebra from background. Whereas the identification model identifies what vertebrates belong which segmented pixels. To fine it down the identification model does not categorize each pixel in discrete manner, vice continuously produce value which subsequently is rounded correspondingly to a specific vertebra. It worth to mention inwardly full solution captures both short-range and long range information. Short-range information is retrieved utilizing detection model. The identification model is trained by feeding in large slices which capture long-range information which is essential for the task of identifying individual vertebrae. Acquisition of final results is done by multiplying detection and identification models results to elaborate labels on each pixel afterwards aggregating them to produce final centroid estimates for each vertebra.
@@ -45,7 +45,7 @@ where P, Q - particular distributions
 
 Unlike standard unet architecture it was used same padding for all convolutional layers with stride 1, a learning rate
 $\lambda$ of 0.001, a batch size of 16 and batch normalization after every convolutional layer with momentum of 0.1. The model implementation can be found in project repository.
-\footnote{https://github.com/KumundzhievMaxim/VertebraeSegmentation/blob/main/train_detection_model.py}
+\footnote{ \url{https://github.com/KumundzhievMaxim/VertebraeSegmentation/blob/main/train_detection_model.py}}
 
 \begin{figure}[h]
     \centering \includegraphics[width=9cm]{images/detection_model.png}
@@ -63,7 +63,7 @@ By the previous description identification model \ref{fig:identification_model} 
 \end{align*}
 where $y_i$ - predicted value of pixel $i$ and $x_i$ - true value of pixel $i$.
 Unlike standard unet architecture it was used same padding for all convolutional layers with stride 1, a learning rate
-$\lambda$ of 0.001, a batch size of 32 and batch normalization after every convolutional layer with momentum of 0.1. The model implementation can be found in project repository. \footnote{https://github.com/KumundzhievMaxim/VertebraeSegmentation/blob/main/train_identification_model.py}
+$\lambda$ of 0.001, a batch size of 32 and batch normalization after every convolutional layer with momentum of 0.1. The model implementation can be found in project repository. \footnote{\url{https://github.com/KumundzhievMaxim/VertebraeSegmentation/blob/main/train_identification_model.py}}
 
 \begin{figure}[h]
     \centering \includegraphics[width=9cm]{images/identification_model.png}

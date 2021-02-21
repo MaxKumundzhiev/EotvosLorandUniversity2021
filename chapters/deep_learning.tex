@@ -213,7 +213,7 @@ def mean_squared_error(actual, predicted):
 \end{lstlisting}
 
 \subsubsection{Cross-Entropy}
-Cross-entropy loss, or log loss \footnote{https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html#cross-entropy}, measures the performance of a classification model whose output is a probability value between 0 and 1. Cross-entropy loss increases as the predicted probability diverges from the actual label.
+Cross-entropy loss, or log loss \footnote{\url{https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html#cross-entropy}}, measures the performance of a classification model whose output is a probability value between 0 and 1. Cross-entropy loss increases as the predicted probability diverges from the actual label.
 In binary classification, where the number of classes M equals 2 cross-entropy can be calculated as:
 \begin{align*}
 Cross-Entropy = -{(y\log(p) + (1 - y)\log(1 - p))}
@@ -343,5 +343,5 @@ The unet is convolutional network architecture for fast and precise segmentation
 \end{figure}
 
 Using original terminology of the authors \cite{Ronneberger2015} the net consist of a contracting path (left side) and an expansive path (right side). The contracting path follows the typical architecture of a convolutional network. In simplified terms it can be considered as downsampling or encoder which formed as
-a five repeats of double $3 \cdot 3$ convolutions (unpadded convolutions) with rectified linear unit and $2 \cdot 2$ max pooling operation with stride 2. Thus expansive path which can be considered as upsampling or decoder consists of 4 repeats of double $2 \cdot 2$ convolutions (up-convolution) which halve number of feature channels. In total the network has 23 convolutional layers. The architecture implementation can be find within bare unet github gist \footnote{https://gist.github.com/f8eb74d57b914878d52c47ac359758e8.git}
+a five repeats of double $3 \cdot 3$ convolutions (unpadded convolutions) with rectified linear unit and $2 \cdot 2$ max pooling operation with stride 2. Thus expansive path which can be considered as upsampling or decoder consists of 4 repeats of double $2 \cdot 2$ convolutions (up-convolution) which halve number of feature channels. In total the network has 23 convolutional layers. The architecture implementation can be find within bare unet github gist \footnote { \url{https://gist.github.com/f8eb74d57b914878d52c47ac359758e8.git}}
 
