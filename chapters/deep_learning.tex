@@ -47,7 +47,7 @@ def _neuron(inputs, weights, bias):
 
       
 \section{Activation function}
-There is a significant number of various activation functions. Let us assume the very basic one named 'step function' and figure out from general point of view how it works in both mathematical and geometrical conditions.   
+There is a significant number of various activation functions. Let us assume the very basic one named 'step function' and figure out from general point of view how it works in both mathematical and geometrical sence.   
 The 'step function' defined as:
 \begin{align*}
 f(x) = \begin{cases} 0, & \mbox{if } x\mbox{ $\leq$ 0} \\ 1, & \mbox{if } x\mbox{ $>$ 0} \end{cases}
@@ -57,7 +57,7 @@ The function has 2 strongly distinguished values: '0' and '1'. The 'spot' where 
 
 \begin{figure}[h]
     \centering \includegraphics[width=8cm]{images/step_function.jpg}
-    \caption {Step function geometrical representation.}
+    \caption {Geometrical representation of step function.}
 \end{figure}
 
 The geometrical representation of step function can be derived as following. Assume there is the neuron formula:
@@ -65,22 +65,17 @@ The geometrical representation of step function can be derived as following. Ass
 y = f(\langle w, x \rangle + b)
 \end{align*}
 
-The neuron does some linear operation, which is denoted by 2 parameters:
-\begin{itemize}
-    \item $w$: vector of weights
-    \item $b$: bias
-\end{itemize}
-Accordingly, the dividing surface is defined by following equitation which denotes equitation of straight line:
+The neuron does some linear operation, which is denoted by 2 parameters: $w$ (vector of weights) and $b$ (bias). Accordingly, the dividing surface is defined by following equitation which denotes equitation of straight line:
 \begin{align*}
 \langle w, x \rangle + b = 0
 \end{align*}
 
 \begin{figure}[h]
     \centering \includegraphics[width=8cm]{images/dividing_surface.jpg}
-    \caption {Dividing surface geometrical representation.}
+    \caption {Sample geometrical representation of dividing surface for single neuron.}
 \end{figure}
 
-From the one side the value of step function is equal '1' and from the other '0'. The activation function is equal '1' that side of dividing surface where the vector 'w' point out.
+From the one side the value of step function is equal '1' and from the other '0'. The activation function is equal '1' that side of dividing surface where the vector 'w' points out.
 
 As for code base representation, step function can be defined as:
 \begin{lstlisting}
@@ -108,14 +103,14 @@ The rectified linear activation function for short is a piece-wise linear functi
 So far we have discussed the properties and functional of a single neuron, which as a result outcomes a linear divide surface in geometrical terms. Meaning when we will concatenate the multiple neurons in some architecture we may achieve some nonlinear divide surfaces.
 \begin{figure}[h]
     \centering \includegraphics[width=7cm]{images/neuron_to_neural_net.jpg}
-    \caption {Single neuron surface vs multiple neurons surface.}
+    \caption {Sample geometrical representation of dividing surface of step function for single neuron vs multiple neurons.}
 \end{figure}
 
 Now the question is how do we get the nonlinear dividing surface. Let us figure it out.
 For simplicity define 3 neurons with linear activation function:
 \begin{figure}[h]
     \centering \includegraphics[width=8cm]{images/3_neurons_net.jpg}
-    \caption {Neural net with linear activation function.}
+    \caption {Sample 1 layer neural net with linear activation functions.}
 \end{figure}
 The results of performing the net can be considered as:
 \[ y_3 = f(w_2^3 \cdot y_2+w_1^3 \cdot y_1+b^3) = \]
