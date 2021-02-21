@@ -11,7 +11,7 @@ To clarify in advance modalities in medical imaging can be considered as differe
 Each modality results from a different phenomenon of physics offers doctors (radiologists) an alternative view of the patient. Moreover each modality has it's risks, costs and benefits. All these factors have to be taken into account when choosing type of modality to be issued.
 
 \subsection{X-Ray (X-RAY)}
-In 1895, Wilhelm Roentgen explored rays which could pass through wood and human tissues. He called them \cite{Barker1996} "x-rays" where "x" was considered as a place-holder for the unknown.
+In 1895, Wilhelm Roentgen explored rays which could pass through wood and human tissues. He called them \cite{Barker1996} 'x-rays' where 'x' was considered as a place-holder for the unknown.
 
 X-Rays are a form of electromagnetic radiation in the same spectrum as visible light and radio waves. Like light, x-rays can be considered as a energy of an x-ray photon. To make x-rays, it can be fired high-energy electrons into matter. In medical-imaging applications, x-rays are sent into tissue. 
 
@@ -50,7 +50,7 @@ Below it is denoted few more popular directions:
 \end{itemize}
 
 \section{Image Segmentation}
-In terms of medical imaging, segmentation is the process of classifying pixels into groups which corresponds to the same tissue type. Segmentation has many uses cases like a "measure volume of an organ", "render a 3D view of an organ", "surface-based registration" and many others. Further we will descry types of segmentation. 
+In terms of medical imaging, segmentation is the process of classifying pixels into groups which corresponds to the same tissue type. Segmentation has many uses cases like a 'measure volume of an organ', 'render a 3D view of an organ', 'surface-based registration' and many others. Further we will descry types of segmentation. 
 
 \subsection{Thresholding}
 The simplest method for classifying pixels based on solely on their intensity values. In thresholding we choose upper and lower bound and select pixels in predefined range.
@@ -59,7 +59,7 @@ The problem within simple thresholding is that it does not take into considerati
 \subsection{Region Growing}
 Unlike basic thresholding, region growing -- which is iterative method -- starts with the small set of seed pixels and grow out from them.
 
-The method functionality can be easily represented within any basic draw editor. To do that we will draw empty grid rectangle and afterwards select interested regions and apply function named "flat fill" with chosen color. As a result it can be noticed the naive functionality handled the problem of tricking-out the selected regions by chosen color. This is so called region growing thresholding.    
+The method functionality can be easily represented within any basic draw editor. To do that we will draw empty grid rectangle and afterwards select interested regions and apply function named 'flat fill' with chosen color. As a result it can be noticed the naive functionality handled the problem of tricking-out the selected regions by chosen color. This is so called region growing thresholding.    
 
 \begin{figure}[h]
     \centering
@@ -142,7 +142,7 @@ As for now, imagine, the user specified k the number of clusters, meaning how ma
 Hence, the algorithm may be defined as:
 \begin{lstlisting}
 1. (randomly) choose k regressors as prototype
-2. assign each scatter point ("feature vector") to it's nearest regressor
+2. assign each scatter point ('feature vector') to it's nearest regressor
 3. recalculate new prototypes (the mean of it's members)
 4. if the prototypes changed significantly -> go to the step 2 
 \end{lstlisting}

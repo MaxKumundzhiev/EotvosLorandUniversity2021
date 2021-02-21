@@ -5,7 +5,7 @@
 Typically, neurons are kind of information messengers who make use of electrical and chemical gusts to transfer information across all brain moreover between brain and rest of the nervous system.
 
 \subsection{Biological neuron}
-A neuron is a component that makes up the entire human nervous system. Almost all neurons are structured roughly the same. So, a neuron has a neuron nucleus, which is also called the neuron body. An electrical charge is accumulated in the body of a neuron. From the body of the neuron there are many processes: there are small processes and large processes. The little outgrowths are so called dendrites. Through these processes, a signal from other neurons comes to our neuron. There is a large scion. This process is called an axon. A neuron transmits a signal to other neurons along the axon. The place where the axon of another neuron connects to the dendrites of our neuron is called a "synapse". The synapse is where the dendrite and axon meet. A synapse can be strong or it can be weak. If the synapse is strong, then the signal that is transmitted along the axon of the neuron will almost completely go to our neuron. If the synapse is weak, then practically no charge will cross from the axon of another neuron to our neuron. The synapse can change over time. Depending on the circumstances, the synapse can get stronger or it can get weaker. It is with the synapse tuning that the training of the biological neural network and, accordingly, the human nervous system is connected.
+A neuron is a component that makes up the entire human nervous system. Almost all neurons are structured roughly the same. So, a neuron has a neuron nucleus, which is also called the neuron body. An electrical charge is accumulated in the body of a neuron. From the body of the neuron there are many processes: there are small processes and large processes. The little outgrowths are so called dendrites. Through these processes, a signal from other neurons comes to our neuron. There is a large scion. This process is called an axon. A neuron transmits a signal to other neurons along the axon. The place where the axon of another neuron connects to the dendrites of our neuron is called a 'synapse'. The synapse is where the dendrite and axon meet. A synapse can be strong or it can be weak. If the synapse is strong, then the signal that is transmitted along the axon of the neuron will almost completely go to our neuron. If the synapse is weak, then practically no charge will cross from the axon of another neuron to our neuron. The synapse can change over time. Depending on the circumstances, the synapse can get stronger or it can get weaker. It is with the synapse tuning that the training of the biological neural network and, accordingly, the human nervous system is connected.
 
 Considered visualization of the described above processes is as follows:
 \begin{figure}[h]
@@ -28,7 +28,7 @@ y = f(z) = f(w_0 \cdot x_0+w_1 \cdot x_1+w_2 \cdot x_2+b) = f(\sum\limits_{i=0}^
 \end{align*}
 Where: $x_0, x_1, x_2$: inputs, $w_0, w_1, w_2$: weights,  $b$: some bias for increasing non-linearity, $f(z)$: some activation function. 
 
-Inputs can be either single number or vector of numbers. As for weights, we mainly should remember they are tuned parameters. Moreover it should be considered 2 potential situations to manage with. The first one is initialization of the weights. Here we have multiple options whereas we literally can define them either randomly or apply special initialisation techniques such as "He" initialization or "Xavier" initialization and others. The second situation we should be aware of is to somehow change the weights during model fitting, meaning weights should be changed in iterative manner from epoch to epoch. To do this we will apply backpropagation algorithm. Concerning the bias, which is like a weights, meaning tuned parameter, we can consider it allows to shift the activation function by adding a constant to the input of neuron. Hence, the last but not least component is activation function. In simplified terms, activation function is used to determine the output of neuron in a manner: "yes" or "no". It maps the resulting values in range between 0 to 1 or -1 to 1.            
+Inputs can be either single number or vector of numbers. As for weights, we mainly should remember they are tuned parameters. Moreover it should be considered 2 potential situations to manage with. The first one is initialization of the weights. Here we have multiple options whereas we literally can define them either randomly or apply special initialisation techniques such as 'He' initialization or 'Xavier' initialization and others. The second situation we should be aware of is to somehow change the weights during model fitting, meaning weights should be changed in iterative manner from epoch to epoch. To do this we will apply backpropagation algorithm. Concerning the bias, which is like a weights, meaning tuned parameter, we can consider it allows to shift the activation function by adding a constant to the input of neuron. Hence, the last but not least component is activation function. In simplified terms, activation function is used to determine the output of neuron in a manner: 'yes' or 'no'. It maps the resulting values in range between 0 to 1 or -1 to 1.            
 
 To conclude, from the code base perspective one neuron functionality can be defined as:
 \begin{lstlisting}
@@ -47,13 +47,13 @@ def _neuron(inputs, weights, bias):
 
       
 \section{Activation function}
-There is a significant number of various activation functions. Let us assume the very basic one named "step function" and figure out from general point of view how it works in both mathematical and geometrical conditions.   
-The "step function" defined as:
+There is a significant number of various activation functions. Let us assume the very basic one named 'step function' and figure out from general point of view how it works in both mathematical and geometrical conditions.   
+The 'step function' defined as:
 \begin{align*}
 f(x) = \begin{cases} 0, & \mbox{if } x\mbox{ <= 0} \\ 1, & \mbox{if } x\mbox{ > 0} \end{cases}
 \end{align*}
 
-The function has 2 strongly distinguished values: "0" and "1". The "spot" where the function changes it's value from "0" to "1" is named as dividing surface. Hence, the dividing surface "spot" is where the argument of activation function is equal "0".
+The function has 2 strongly distinguished values: '0' and '1'. The 'spot' where the function changes it's value from '0' to '1' is named as dividing surface. Hence, the dividing surface 'spot' is where the argument of activation function is equal '0'.
 
 \begin{figure}[h]
     \centering \includegraphics[width=8cm]{images/step_function.jpg}
@@ -80,7 +80,7 @@ Accordingly, the dividing surface is defined by following equitation which denot
     \caption {Dividing surface geometrical representation.}
 \end{figure}
 
-From the one side the value of step function is equal "1" and from the other "0". The activation function is equal "1" that side of dividing surface where the vector "w" point out.
+From the one side the value of step function is equal '1' and from the other '0'. The activation function is equal '1' that side of dividing surface where the vector 'w' point out.
 
 As for code base representation, step function can be defined as:
 \begin{lstlisting}
@@ -88,7 +88,7 @@ def _step_function(weighted_sum):
   return 1 if weighted_sum >= 0 else 0
 \end{lstlisting}
    
-As it was mentioned earlier, step function is not the only one activation function. There is for instance "sigmoid" activation function which unlike step function does not have discontinuity point at zero. 
+As it was mentioned earlier, step function is not the only one activation function. There is for instance 'sigmoid' activation function which unlike step function does not have discontinuity point at zero. 
 
 The sigmoid activation function formed as:
 \begin{align*}
@@ -156,7 +156,7 @@ The brief list of optimization algorithms:
 Let us discuss how the optimization works under the hood proceeding with the most demonstrative algorithm -- gradient descent.
 
 \subsection{Gradient descent}
-Previously we took into consideration the neural net has 2 main tuned parameters: "weights" and "bias".
+Previously we took into consideration the neural net has 2 main tuned parameters: 'weights' and 'bias'.
 
 Let us concern we have a some function which is defined by some levels lines. The function has 2 minimums, which are denoted by the red dots.  It worth to understand by distancing from the minimums the function value increases. 
 So far, we have a neural net with some parameters (weights and biases) which performs some value of loss function. As we remember out main task is to decrease the value of loss function. Hence, the question is how to do that.
@@ -179,10 +179,10 @@ w_1 = w_0 - \alpha \cdot \delta{f(w_0)}
 Let us take a closer look at the formula above:
 \begin{itemize}
     \item $w_0$: the initial vector of weights and biases of neural net
-    \item $\alpha$: parameter for regulating the "speed" of training the neural net. In other words it affects the size of gradient step 
+    \item $\alpha$: parameter for regulating the 'speed' of training the neural net. In other words it affects the size of gradient step 
     \item $\delta{f(w_0)}$: calculated gradient of loss function at the $w_0$ point 
 \end{itemize}
-The gradient descent of loss function will be calculated until it will not converge some "preciseness" within predefined "fallacy".
+The gradient descent of loss function will be calculated until it will not converge some 'preciseness' within predefined 'fallacy'.
 
 
 From the code base perspective using PyTorch framework, the algorithm considered as:
@@ -244,7 +244,7 @@ What we had discussed before can be considered as usual neural nets in the very 
 To highlight the main difference in concepts, let's discuss one example.
 Assume there is an RGB image sized $224x224$ whereas the dog located in the middle of it. We need to classify whether the dog is on the image. The usual (for instance sigmoid feed forward) neural network will come up with the mask of the dog based on the image. Once new image will be revealed and the dog will not be located in the middle of it, the net will not be able to find and classify the dog. Whilst convolutional neural networks could be generalized independently of the location of the dog, because the convolution itself is invariant operation.         
 
-The neural network architectures which applies convolutions is called convolution neural networks or "CNN".    
+The neural network architectures which applies convolutions is called convolution neural networks or 'CNN'.    
 
 \subsection{Convolution}
 The first layer in CNN is always a convolutional layer. Convolution itself is a mathematical operation on two functions (f and g) that produces a third function $f \cdot g$ that expresses how the shape of one is modified by the other. The convolution in terms of deep learning has following properties:  
@@ -253,7 +253,7 @@ The first layer in CNN is always a convolutional layer. Convolution itself is a 
     \item number of output channels: number of output channels of convolution
     \item padding: efficiently adds “space” around input data or feature map – more precisely, “extra rows and columns”. It worth to mention the size of padding always should be $<$ the size of kernel 
     \item kernel (filter) and kernel (filter) size: the filter (matrix) with predefined size and values which is applied step by step (stride) within the data. A very important note is that the depth of filter has to be the same as the depth of the input
-    \item stride: consider how the filter "slides" across the input data
+    \item stride: consider how the filter 'slides' across the input data
     \item receptive filed: consider the projected area produced by the filter
 \end{itemize}
 
@@ -288,7 +288,7 @@ The first pooling type is called max pooling, whereas the second one average poo
 The pooling has 2 properties:
 \begin{itemize}
     \item pooling size: consider the size of pooling area 
-    \item stride: consider how the pooling "slides" across the input data 
+    \item stride: consider how the pooling 'slides' across the input data 
 \end{itemize}    
 
 \begin{figure}[h]
