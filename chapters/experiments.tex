@@ -6,7 +6,7 @@
 Within the experiments it was used macbook pro middle 2018 with Coffee Lake/8th generation: a 2.2GHz Core i7 processor with six cores and with intel turbo boost up to 4.1GHz.
 
 \section{Data}
-The experimental \ref{fig:ct_spine} data set was splitted into dedicated training (with ground-truth labels) and test sets each 242 and 60 scans accordingly. The scans were re-sample  at 1mm x 1mm x 1mm resolution meaning each pixel in the generated samples from the scans provided a 3 dimensional 1mm section of the patient spine.
+The experimental \ref{fig:ct_spine} data set was splitted into dedicated training (with ground-truth labels) and test sets each 242 and 60 scans accordingly. The scans were re-sample at $1mm \cdot 1mm \cdot 1mm$ resolution meaning each pixel in the generated samples from the scans provided a 3 dimensional $1mm$ section of the patient spine.
 \begin{figure}[h]
     \centering \includegraphics[width=3cm]{images/ct-spine.jpg}
     \caption {Train sample of CT spine scan}
@@ -15,9 +15,9 @@ The experimental \ref{fig:ct_spine} data set was splitted into dedicated trainin
 
 
 \section{Training models}
-To recap input to detection model was initially $64x64x80$ particular scan which was transformed (5 crops) what afterwards got shape of $32x32x40$. It worth to mention, jointly training process it was applied padding which discarded the outer border of scan producing $16x16x20$ shape so far. In simplified terms, it reduced edge artifacts in the detection and led to improved mean localization scores. During roughly 17 hours the detection model had been training for 50 epochs. The validation Dice score achieved 0.911 whereas validation accuracy was 0.985. 
+To recap input to detection model was initially $64 \cdot 64 \cdot 80$ particular scan which was transformed (5 crops) what afterwards got shape of $32 \cdot 32 \cdot 40$. It worth to mention, jointly training process it was applied padding which discarded the outer border of scan producing $16 \cdot 16 \cdot 20$ shape so far. In simplified terms, it reduced edge artifacts in the detection and led to improved mean localization scores. During roughly 17 hours the detection model had been training for 50 epochs. The validation Dice score achieved 0.911 whereas validation accuracy was 0.985. 
 
-In regard of identification model, which was fully CNN the particular input was sized of $8x80x320$. During roughly 10 hours the identification model had been training for 35 epochs. At test time it was passed whole slices of single input scan, padded to the nearest and multiple of 16.
+In regard of identification model, which was fully CNN the particular input was sized of $8 \cdot 80 \cdot 320$. During roughly 10 hours the identification model had been training for 35 epochs. At test time it was passed whole slices of single input scan, padded to the nearest and multiple of 16.
 
 
 \section{Results}
