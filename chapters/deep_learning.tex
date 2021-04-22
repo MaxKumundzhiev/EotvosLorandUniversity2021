@@ -30,24 +30,8 @@ Where: $x_0, x_1, x_2$: inputs, $w_0, w_1, w_2$: weights,  $b$: some bias for in
 
 Inputs can be either single number or vector of numbers. As for weights, we mainly should remember they are tuned parameters. Moreover it should be considered 2 potential situations to manage with. The first one is initialization of the weights. Here we have multiple options whereas we literally can define them either randomly or apply special initialisation techniques such as 'He' initialization or 'Xavier' initialization and others. The second situation we should be aware of is to somehow change the weights during model fitting, meaning weights should be changed in iterative manner from epoch to epoch. To do this we will apply backpropagation algorithm. Concerning the bias, which is like a weights, meaning tuned parameter, we can consider it allows to shift the activation function by adding a constant to the input of neuron. Hence, the last but not least component is activation function. In simplified terms, activation function is used to determine the output of neuron in a manner: 'yes' or 'no'. It maps the resulting values in range between 0 to 1 or -1 to 1.            
 
-To conclude, from the code base perspective one neuron functionality can be defined as:
-\begin{lstlisting}
-def _activation_function(weighted_sum):
-  """step function is used as an example"""
-  return 1 if weighted_sum > 0 else 0
-
-def _neuron(inputs, weights, bias):
-  weighted_sum = 0
-  for input_vector, weight_vector, bias_vector in zip(inputs, weights, bias):
-    particular_sum = (input_vector * weight_vector) + bias_vector
-    weighted_sum += particular_sum
-    output = _activation_function(weighted_sum)
-  return output
-\end{lstlisting}
-
-      
 \section{Activation function}
-There is a significant number of various activation functions. Let us assume the very basic one named 'step function' and figure out from general point of view how it works in both mathematical and geometrical sence.   
+There is a significant number of various activation functions. Let us assume the very basic one named 'step function' and figure out from general point of view how it works in both mathematical and geometrical sense.   
 The 'step function' defined as:
 \begin{align*}
 f(x) = \begin{cases} 0, & \mbox{if } x\mbox{ $\leq$ 0} \\ 1, & \mbox{if } x\mbox{ $>$ 0} \end{cases}
@@ -77,12 +61,6 @@ The neuron does some linear operation, which is denoted by 2 parameters: $w$ (ve
 
 From the one side the value of step function is equal '1' and from the other '0'. The activation function is equal '1' that side of dividing surface where the vector 'w' points out.
 
-As for code base representation, step function can be defined as:
-\begin{lstlisting}
-def _step_function(weighted_sum):
-  return 1 if weighted_sum >= 0 else 0
-\end{lstlisting}
-   
 As it was mentioned earlier, step function is not the only one activation function. There is for instance 'sigmoid' activation function which unlike step function does not have discontinuity point at zero. 
 
 The sigmoid activation function formed as:
@@ -180,15 +158,6 @@ Let us take a closer look at the formula above:
 The gradient descent of loss function will be calculated until it will not converge some 'preciseness' within predefined 'fallacy'.
 
 
-From the code base perspective using PyTorch framework, the algorithm considered as:
-\begin{lstlisting}
-import torch
- x = torch.tensor([[1,2,3,4],[5,6,7,8],[9,10,11,12]],                requires_grad=True) 
-function =  10*(x**2).sum()
-function.backward()
-print(x.grad, '<- gradient')
-\end{lstlisting}
-
 \section{How evaluate neural network performance?}
 In the terms of an optimization algorithms, function aim to evaluate a distinctive solution (meaning a set of weights) which cite to as objective function. Depending we may search for either to maximize or minimize the objective function. meaning the highest or lowest score respectively.
 \subsection{Loss function}
@@ -201,17 +170,6 @@ MSE = \frac{{1}}{n} \sum_{i}^{n} (y_i - \widehat{y_i})^2
 \end{align*}
 where $y$ is the desired Neural Network output, and $\widehat{y_i}$ is the neural network output.
 
-As well it can be programmed as follows:
-\begin{lstlisting}
-# calculate mean squared error
-def mean_squared_error(actual, predicted):
-	sum_square_error = 0.0
-	for i in range(len(actual)):
-		sum_square_error += (actual[i] - predicted[i])**2.0
-	mean_square_error = 1.0 / len(actual) * sum_square_error
-	return mean_square_error
-\end{lstlisting}
-
 \subsubsection{Cross-Entropy}
 Cross-entropy loss, or log loss \footnote{\url{https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html#cross-entropy}}, measures the performance of a classification model whose output is a probability value between 0 and 1. Cross-entropy loss increases as the predicted probability diverges from the actual label.
 In binary classification, where the number of classes M equals 2 cross-entropy can be calculated as:
@@ -222,15 +180,6 @@ And if $M > 2$ meaning we work out multi-classification problem we calculate a s
 \begin{align*}
 Cross-Entropy = -\sum_{c=1}^My_{o,c}\log(p_{o,c})
 \end{align*}
-
-As for codebase trivial implementaion it can be formed as:  
-\begin{lstlisting}
-def cross_entropy(yHat, y):
-    if y == 1:
-      return -log(yHat)
-    else:
-      return -log(1 - yHat)
-\end{lstlisting}
 
 
 \section{Convolutional neural networks (CNN)}
