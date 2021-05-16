@@ -8,7 +8,7 @@ Centered on, medical imaging is an immense area to study. Hence, to keep track, 
 \section{Image Modalities}
 The notion modalities \cite{Seeram2004} stands for designation of images types. For instance, CT modality or MRI modality. 
 
-Each modality outcomes from a different phenomenon of physics, presenting to doctors (radiologists) an alternative view of the patient. The notability of each modality is that the particular image type has its own advantages and disadvantages. All the factors have to be seriously taken into account once choosing type of modality to be issued for particular problem.
+Each modality outcomes from a different phenomenon of physics, presenting to doctors (radiologists) an alternative view of the patient. The notability of each modality is that the particular image type has its own advantages and disadvantages. All the factors have to be seriously taken into account once choosing type of modality to be issued or investigated for particular problem.
 
 \subsection{X-Ray (X-RAY)}
 For the first time the phenomenon as "x-rays" was issued and explored by Wilhelm Roentgen in 1895 year. Roentgen experimented with rays making them passing through wood and further human tissues. He called them \cite{Barker1996} 'x-rays' where 'x' was considered as a place-holder for the unknown.
@@ -21,7 +21,12 @@ In practice, x-ray images are grayscaled, meaning images are 2 dimensional (2D).
 
 
 \subsection{Computed Tomography (CT)}
-In simplified terms, the idea of computed tomography is to resolve a single -- or a few slices -- slice of an object using many x-ray projections. As the gantry rotates, the scanner collects a 1D x-ray at each angle.
+The idea of computed tomography approach is to resolve a single slice of an object using many x-ray projections. As the gantry rotates, the scanner collects a 1D x-ray at each angle.
+
+\begin{figure}[h]
+    \centering \includegraphics[width=8cm]{images/ct-scan-sample.jpeg}
+    \caption {Sample bone CT scan visualisation.}
+\end{figure}
 
 CT machine produces images projection which aim to be reconstructed into a 3D volume, which is a scalar field or set of voxels. 
 
@@ -29,7 +34,7 @@ CT machine produces images projection which aim to be reconstructed into a 3D vo
 As one of additional practices approaching CT for retrieving human body information, frequently substances can be introduced to the body to add the contrast, what is named as contrast agents. Often agents may be essentially useful for visualising of observations.          
 
 \subsubsection{Motion Artifacts}
-Usually it takes a few seconds to obtain one bit of CT data. The tidiness of the observations depends on whether the patient moved during the acquisition. If so, the resulting transformation will be inconsistent and the reconstructed image will contain errors. But, if the patient's motions are known, meaning a lot of artifacts can be corrected during the reconstruction. On top of it the few automatic methods can be applied to dare to sharpen the image by guessing the motions.
+Usually it takes a few seconds to obtain one bit of CT data. The tidiness of the observations depends on whether the patient moved during the acquisition. If so, the resulting transformation will be inconsistent and the reconstructed image will contain errors. But, if the patient's motions are known the artifacts can be corrected during the reconstruction process. As well there are automatic methods which can be applied to sharpen the image by predicting the patient's motions.
 
 \subsection{Positron Emission Tomography (PET)}
 Issuing PET technique we can consider the radiation traverse back and forth within the body (before issuing it is injected a small amount of positron-emitting radioisotope radiopharmacon, e.g.: FDG into patient body). PET detects counts and standard uptake value (SUV). Both CT and PET are super prompt and roughly take 4-5 minutes for acquisition.  
