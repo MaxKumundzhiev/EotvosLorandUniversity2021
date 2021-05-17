@@ -1,7 +1,6 @@
 \chapter{Proposed solution}
 \label{ch:proposed_solution}
 
-\section{Introduction}
 In this particular paragraph we will deliberate the proposed model background and its main dissemblance from general unet architecture.
 
 Jointly the solution it was utilized 2 convolution networks with same architectures but sundry purposes and parameters. By scenario firstly it is issued detection model afterwards identification model. The detection model comes up with segmenting of vertebra from background. Whereas the identification model identifies what vertebrates belong which segmented pixels. To fine it down the identification model does not categorize each pixel in discrete manner, vice continuously produce value which subsequently is rounded correspondingly to a specific vertebra. It worth to mention inwardly full solution captures both short-range and long range information. Short-range information is retrieved utilizing detection model. The identification model is trained by feeding in large slices which capture long-range information which is essential for the task of identifying individual vertebrae. Acquisition of final results is done by multiplying detection and identification models results to elaborate labels on each pixel afterwards aggregating them to produce final centroid estimates for each vertebra.
@@ -70,7 +69,7 @@ The identification model outputs a continuous value for each pixel of a scan whi
 \subsection{Identification augmentation}
 Altogether proceeding with identification network for each scan in the training set it was produced 100 cropped samples sized $8 \cdot 80 \cdot 320$ coercing all of them retrieving some vertebrae pixels whereas each with a corresponding dense labelling of size $80 \cdot 320$, representing the labelling for the forth slice of the input sample.
 
-\section{Predictions}
+\section{Inference}
 As soon as the identification model outcomes predicted label per each pixel foremost thresholding $x_\upsilon$ is applied as validation whether include particular centroid in the prediction or not by comparing the obtained  number of pixels for a vertebra and assumed thresholding number.
 
 The threshold $x_\upsilon$ is specific to the vertebra $\upsilon$ and formed as:
