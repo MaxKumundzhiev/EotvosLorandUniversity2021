@@ -42,17 +42,17 @@ The final listcle of the modalities and corresponding practices varies a lot str
 Image reconstruction is a broad and essential field which assumes lot's of research algorithmic involvements. It is significant by the reason of each time the patient is examined the observations should be reconstructed in some mindfully and precise representation extend.    
 The field has primary impacts on image quality and hence on radiation dose which certain patient obtains. For a given radiation dose it is desirable to reconstruct images with the lowest possible noise without sacrificing image accuracy and spatial resolution.
 
-It is considered two major types of proceeding with reconstruction and they are analytical and iterative accordingly. I will cover both categories within common algorithms besides them. I'm willing to focus on image reconstruction of just CT modality as the type of images I've worked within the thesis.
+The procedure to put the projections together to obtain a patient's image is called image reconstruction, as shown in Figure \ref{fig:image_reconstruction}.
+\begin{figure}[h!]
+    \centering \includegraphics[width=10cm]{images/image_reconstruction.png}
+    \caption {Projection data acquired from different views are used to reconstruct the image.}
+    \label{fig:image_reconstruction}
+\end{figure}
 
-CT image reconstruction is a mathematical process that forms tomographic images from x-ray projection data which captured at many different angles during receipting the patient. 
-
-\subsection{Algebraic CT Reconstruction}
-The algebraic reconstruction technique (ART) is an iterative reconstruction technique used in computed tomography. It reconstructs an image from a series of angular projections (a sinogram). Gordon, Bender and Herman first showed its use in image reconstruction; whereas the method is known as Kaczmarz method in numerical linear algebra.
-
-The mathematical notion of ART is considered as: \[x^{k+1} = x^k + \lambda_k * \dfrac{A^T*(y-A(x^k))}{A^T*A} \] where: $x$ - reconstruction image, $y$ - sinogram data, $A$ - projection operator, $A^T$ - backprojection operator without filtration.
-
-An advantage of ART over other reconstruction methods (such as filtered backprojection (FBP)) is that it is relatively easy to incorporate prior knowledge into the reconstruction process.
+Mainly it is considered two major types of proceeding with reconstruction and they are analytical and iterative accordingly. Talking about CT image reconstruction it is a mathematical process that forms tomographic images from x-ray projection data which captured at many different angles during receipting the patient.
 
 
-\subsection{CT Filtered Backprojection}
+
+
+
 

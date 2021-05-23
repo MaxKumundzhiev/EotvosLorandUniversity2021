@@ -1,18 +1,41 @@
-\chapter{Mathematical Background}
-\label{ch:math_background}
+\chapter{Images Segmentation}
+\label{ch:image_segmentation}
+Within this chapter I will introduce both classical and modern segmentation methods as well as competitive mathematical background behind them.
 
-\section{Images Segmentation}
-The notion of segmentation within image analysis stands for the process of classifying pixels into groups which corresponds to the same tissue type. Segmentation has many uses cases like a 'measure volume of an organ', 'render a 3D view of an organ', 'surface-based registration' and many others. 
+Initially, the notion of segmentation within image analysis stands for the process of classifying pixels into groups which corresponds to the same type or class. The concept of partitioning, dividing, fetching, and then labeling and later using that information to train various ML models have indeed addressed numerous business problems. For instance, in medicine analysis segmentation has many uses cases like a measure volume of an organ, render a 3D view of an organ, surface-based registration and many others. But before moving forward I will explicitly distinguish segmentation types from general point of view.
+
+Segmentation can be broadly divided into two types. Assume following images \ref{fig:image_segmentation} below. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=8cm]{images/segmentation_types.png}
+    \caption{Image 1: is an example of semantic segmentation. Image 2 is an example of instance segmentation.}
+    \label{fig:image_segmentation}
+\end{figure}
+
+On the image 1 every pixel belongs to a particular class (either background or person). Also, all the pixels belonging to a particular class are represented by the same color (background as black and person as pink). Image 2 has also assigned a particular class to each pixel of the image. However, different objects of the same class have different colors (Person 1 as red, Person 2 as green, background as black, etc.).
 
 \section{Classical Segmentation Methods} 
-@TODO add more mindful context
-Below I will introduce the classical approaches to segment images. 
+Jointly classical segmentation methods section I will cover basic thresholding method, then modified version of thresholding so called region growing. Afterwards I will speak about edge detection segmentation and clustering based segmentation. 
+On top of that I will demonstrate the performance of each dedicated technique within the following \ref{fig:sample_vertebrae} baseline image of vertebrae.
 
-\subsection{Thresholding}
-The simplest method for classifying pixels based on solely on their intensity values. In thresholding we choose upper and lower bound and select pixels in predefined range.
-The problem within simple thresholding is that it does not take into consideration any spatial information, meaning each pixel is evaluated no matter where it is located.    
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=2cm]{images/sample_vertebrae.jpeg}
+    \caption{Sample CT scan of vertebrae.}
+    \label{fig:sample_vertebrae}
+\end{figure}
 
-\subsection{Region Growing}
+
+\subsection{Region Based Segmentation}
+Sometimes region based method can be named as thresholding. It is the simplest method for classifying pixels based on solely on their intensity values. In thresholding we have options to choose either upper and lower bound and select pixels in predefined range or to choose just one threshold which can be for instance the mean of original image values. 
+https://www.analyticsvidhya.com/blog/2019/04/introduction-image-segmentation-techniques-python/
+
+
+The problem within simple thresholding is that it does not take into consideration any spatial information, meaning each pixel is evaluated no matter where it is located.
+
+
+
+\subsection{Region Growing Segmentation}
 Unlike basic thresholding, region growing -- which is iterative method -- starts with the small set of seed pixels and grow out from them.
 
 The method functionality can be easily represented within any basic draw editor. To do that we will draw empty grid rectangle and afterwards select interested regions and apply function named 'flat fill' with chosen color. As a result it can be noticed the naive functionality handled the problem of tricking-out the selected regions by chosen color. This is so called region growing thresholding.    
@@ -112,9 +135,6 @@ Eventually, as results show, clustering is a really efficient way for image segm
     \vspace*{-50mm} \caption {Original CT spine versus k-Means Segmented CT spine.}
 \end{figure}
 
-\subsection{Snakes}
-\subsection{Level sets}
-\subsection{Speed functions}
 
 \section{Modern Segmentation Methods}
 \section{Neuron}
