@@ -39,11 +39,20 @@ The computer tomography result's smoothness depends on whether the patient moved
 The final listcle of the modalities and corresponding practices varies a lot strictly depending of the use case and human body scope of analysis.
 
 \section{Image Reconstruction}
-Image reconstruction is a huge raising filed which assumes lot's of research algorithmic involvements. The field has primary impacts on image quality and hence on radiation dose which certain patient obtains. For a given radiation dose it is desirable to reconstruct images with the lowest possible noise without sacrificing image accuracy and spatial resolution. Reconstructions that improve image quality can be translated into a reduction of radiation dose because images of the same quality can be reconstructed at lower dose. It is considered two major types of proceeding with reconstruction and they are analytical and iterative accordingly. I will cover few common algorithms for analytical category. I'm willing to focus on image reconstruction of CT modality, by the reason of the type of images I've worked with within the thesis.
+Image reconstruction is a broad and essential field which assumes lot's of research algorithmic involvements. It is significant by the reason of each time the patient is examined the observations should be reconstructed in some mindfully and precise representation extend.    
+The field has primary impacts on image quality and hence on radiation dose which certain patient obtains. For a given radiation dose it is desirable to reconstruct images with the lowest possible noise without sacrificing image accuracy and spatial resolution.
+
+It is considered two major types of proceeding with reconstruction and they are analytical and iterative accordingly. I will cover both categories within common algorithms besides them. I'm willing to focus on image reconstruction of just CT modality as the type of images I've worked within the thesis.
 
 CT image reconstruction is a mathematical process that forms tomographic images from x-ray projection data which captured at many different angles during receipting the patient. 
 
 \subsection{Algebraic CT Reconstruction}
+The algebraic reconstruction technique (ART) is an iterative reconstruction technique used in computed tomography. It reconstructs an image from a series of angular projections (a sinogram). Gordon, Bender and Herman first showed its use in image reconstruction; whereas the method is known as Kaczmarz method in numerical linear algebra.
+
+The mathematical notion of ART is considered as: \[x^{k+1} = x^k + \lambda_k * \dfrac{A^T*(y-A(x^k))}{A^T*A} \] where: $x$ - reconstruction image, $y$ - sinogram data, $A$ - projection operator, $A^T$ - backprojection operator without filtration.
+
+An advantage of ART over other reconstruction methods (such as filtered backprojection (FBP)) is that it is relatively easy to incorporate prior knowledge into the reconstruction process.
+
 
 \subsection{CT Filtered Backprojection}
 
