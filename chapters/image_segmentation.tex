@@ -52,51 +52,30 @@ The problem within simple thresholding is that it does not take into considerati
 
 
 \subsection{Region Growing Segmentation}
-Unlike basic thresholding, region growing -- which is iterative method -- starts with the small set of seed pixels and grow out from them.
+Unlike basic thresholding, region growing segmentation indeed takes into consideration spatial information starting with the small set of seed pixels and then growing out from them. 
 
-The method functionality can be easily represented within any basic draw editor. To do that we will draw empty grid rectangle and afterwards select interested regions and apply function named 'flat fill' with chosen color. As a result it can be noticed the naive functionality handled the problem of tricking-out the selected regions by chosen color. This is so called region growing thresholding.    
+Let me assume example as: there is set of pixels $4 \cdot 4$ which should be colored (segmented). The cells which are filled with red color is already tricking-out, another cells which have yellow circle are potential candidates to be segmented. The task is to fill (segment) the yellow circled cells with a red color based on predefined thresholding range as: 
+\[
+    f(x, y) = 
+\begin{cases}
+    include ,& \text{if } 10 \leq intensity \leq 100 \\
+    exclude ,& \text{otherwise}
+\end{cases}
+\]
 
-\begin{figure}[h]
-    \centering
-    \begin{minipage}[b]{0.4\textwidth}
-    \includegraphics[width=\textwidth]{images/grow_region_0.png}
-    \caption{Empty grid rectangle.}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[b]{0.4\textwidth}
-    \includegraphics[width=\textwidth]{images/grow_region_1.png}
-    \caption{Filled grid rectangle.}
-    \end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[H]
+\includegraphics[width=7.5cm]{images/growing-region-thresholding.jpeg}
+\caption{\label{fig:grow_region}}
 \end{figure}
-
-Now, let us see how it is done from code base perspective.
-\begin{lstlisting}
-do
-  for each pixel in the set
-    for each of it's neighbours not in the set
-      if the intensity falls between the thresholds
-        add it to the set
-      endif
-    next neighbour
-  next pixel
-until no pixel were added in the last pass   
-\end{lstlisting}
-
-\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-
-Example: There is set of pixels $4 \cdot 4$ which should be colored. The cells which denoted by red color is already tricking-out. The task is fill rest with red color based on defined thresholding range.       
-
-\begin{tabular}{C{7cm}  L{7cm}}
-    \includegraphics[width=12cm]{images/grow_region_3.png} & Thresholds: include a pixel if $10 \leq intensity \leq 100$ \newline 
-    \begin{lstlisting}
-    Looking at 14 ...
-    up: 8 -> exclude (not in range)
-    right: 12 -> skip (already in the set)
-    down: 13 -> include as a new entry
-    left: 6 -> exclude (not in range)
-    \end{lstlisting}
-\end{tabular}
+\end{minipage} \hfill
+\begin{minipage}{0.45\textwidth}
+- start at 14 ... \newline
+- up: 8 -> exclude (not in range) \newline
+- right: 12 -> skip (already in the set) \newline
+- down: 13 -> include as a new entry \newline
+- left: 6 -> exclude (not in range) \newline
+\end{minipage}
 
 Exactly the same way growing region thresholding method may be applied for medical images of different image modalities.
 \begin{figure}[h]
