@@ -2,21 +2,22 @@
 \label{ch:image_segmentation}
 Within this chapter I will introduce both classical and modern segmentation methods as well as competitive mathematical background behind them.
 
-Initially, the notion of segmentation within image analysis stands for the process of classifying pixels into groups which corresponds to the same type or class. The concept of partitioning, dividing, fetching, and then labeling and later using that information to train various ML models have indeed addressed numerous business problems. For instance, in medicine analysis segmentation has many uses cases like a measure volume of an organ, render a 3D view of an organ, surface-based registration and many others. But before moving forward I will explicitly distinguish segmentation types from general point of view.
+Initially, the notion of segmentation within image analysis stands for the process of classifying pixels into groups which corresponds to the same type or class. The segmentation allows to obtain more meaningful and potentially hidden information from original images, what let to bring indeed numerous insights for various business problems. For instance, in medicine analysis segmentation has many uses cases like a measure volume of an organ, render a 3D view of an organ, surface-based registration and many others. Before moving forward I will explicitly distinguish segmentation types from general point of view.
 
-Segmentation can be broadly divided into two types. Assume following images \ref{fig:image_segmentation} below. 
+Segmentation can be broadly divided into two types. Assume following Figure \ref{fig:image_segmentation} below. 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=8cm]{images/segmentation_types.png}
+    \includegraphics[width=9cm]{images/segmentation_types.png}
     \caption{Image 1: is an example of semantic segmentation. Image 2 is an example of instance segmentation.}
     \label{fig:image_segmentation}
 \end{figure}
 
-On the image 1 every pixel belongs to a particular class (either background or person). Also, all the pixels belonging to a particular class are represented by the same color (background as black and person as pink). Image 2 has also assigned a particular class to each pixel of the image. However, different objects of the same class have different colors (Person 1 as red, Person 2 as green, background as black, etc.).
+On the left side image, every pixel belongs to a particular class (either background or person). Also, all the pixels belonging to a particular class are represented by the same color (background as black and person as pink). This type of segmentation is called "semantic segmentation".  
+
+On the right hand image we also has assigned a particular class to each pixel of the image. However, different objects of the same class have different colors (Person 1 as red, Person 2 as green, background as black, etc.). This type of segmentation is called "instance segmentation".
 
 \section{Classical Segmentation Methods} 
-Jointly classical segmentation methods section I will cover basic thresholding method, then modified version of thresholding so called region growing. Afterwards I will speak about edge detection segmentation and clustering based segmentation. 
-On top of that I will demonstrate the performance of each dedicated technique within the following \ref{fig:sample_vertebrae} baseline image of vertebrae.
+Now we are good to go with classical segmentation methods section. I will cover basic thresholding method, then modified version of thresholding so called region growing. Afterwards I will speak about edge detection segmentation and clustering based segmentation. On top of that I will demonstrate the performance of each dedicated technique within the following baseline Figure \ref{fig:sample_vertebrae} of vertebrae.
 
 \begin{figure}[h]
     \centering
@@ -27,12 +28,27 @@ On top of that I will demonstrate the performance of each dedicated technique wi
 
 
 \subsection{Region Based Segmentation}
-Sometimes region based method can be named as thresholding. It is the simplest method for classifying pixels based on solely on their intensity values. In thresholding we have options to choose either upper and lower bound and select pixels in predefined range or to choose just one threshold which can be for instance the mean of original image values. 
-https://www.analyticsvidhya.com/blog/2019/04/introduction-image-segmentation-techniques-python/
+Sometimes region based segmentation method can be named as thresholding. It is the simplest method for classifying pixels based on solely on their intensity values. In thresholding we have options to choose either upper and lower bound and select pixels in predefined range or to choose just one threshold value which can be for instance the mean of the original image values. 
 
+Mathematically, the algorithm can be defined as:
+\[
+    f(x, y)= 
+\begin{cases}
+    0   ,& \text{if } f(x, y) > T \\
+    255 ,& \text{otherwise}
+\end{cases}
+\]
 
-The problem within simple thresholding is that it does not take into consideration any spatial information, meaning each pixel is evaluated no matter where it is located.
+After applying the algorithm with the mean threshold on the baseline Figure \ref{fig:sample_vertebrae}, I had obtained following resulting segmented image:
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=2cm]{images/sample_vertebrae_thresholding.png}
+    \caption{Applied thresholding algorithm for sample CT scan of vertebrae.}
+    \label{fig:sample_vertebrae}
+\end{figure}
+
+The problem within simple thresholding is that it does not take into consideration any spatial information, meaning each pixel is evaluated no matter where it is located as well as each time we have to find best way to define the either threshold value or range of values.    
 
 
 \subsection{Region Growing Segmentation}
