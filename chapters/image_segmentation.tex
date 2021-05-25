@@ -196,20 +196,10 @@ To demonstrate the method I will proceed with the same CT spine scan data which 
 Eventually, as results show, clustering is a really "good to go" way for image segmentation, but there are various disadvantages such as tackling with number of clusters, being dependent on initial values, clustering outliers and scaling with number of dimensions.
 
 \section{Modern Segmentation Methods}
-\section{Neuron}
-Typically, neurons are kind of information messengers who make use of electrical and chemical gusts to transfer information across all brain moreover between brain and rest of the nervous system.
+Previously, I have covered classical approaches including machine learning ones for image segmentation. Now I would like to narrate about recent techniques which live under umbrella of deep learning family.        
 
-\subsection{Biological neuron}
-A neuron is a component that makes up the entire human nervous system. Almost all neurons are structured roughly the same. So, a neuron has a neuron nucleus, which is also called the neuron body. An electrical charge is accumulated in the body of a neuron. From the body of the neuron there are many processes: there are small processes and large processes. The little outgrowths are so called dendrites. Through these processes, a signal from other neurons comes to our neuron. There is a large scion. This process is called an axon. A neuron transmits a signal to other neurons along the axon. The place where the axon of another neuron connects to the dendrites of our neuron is called a 'synapse'. The synapse is where the dendrite and axon meet. A synapse can be strong or it can be weak. If the synapse is strong, then the signal that is transmitted along the axon of the neuron will almost completely go to our neuron. If the synapse is weak, then practically no charge will cross from the axon of another neuron to our neuron. The synapse can change over time. Depending on the circumstances, the synapse can get stronger or it can get weaker. It is with the synapse tuning that the training of the biological neural network and, accordingly, the human nervous system is connected.
-
-Considered visualization of the described above processes is as follows:
-\begin{figure}[h]
-    \centering \includegraphics[width=8cm]{images/biological_neuron.jpg}
-    \caption {Biological model of neuron.}
-\end{figure}    
-
-\subsection{Mathematical model of neuron}
-Initially for simplicity we will represent neuron mathematical model graphically. It should be taken into consideration, the red characters denote tune parameters of the neuron.     
+\subsection{Deep Learning Basics}
+For simplicity I will represent neuron's mathematical model graphically. It should be taken into consideration, the red characters denote tune parameters of the neuron.     
 \begin{figure}[h]
     \centering \includegraphics[width=8cm]{images/neuron_math_model.jpg}
     \caption {Mathematical model of neuron.}
@@ -217,7 +207,7 @@ Initially for simplicity we will represent neuron mathematical model graphically
 
 In the mathematical model of the neuron, the body of the neuron, where the input signals accumulates, is denoted by a summarizing neuron. In addition, the biological neuron also has axons and dendrites, which get the inputs and send the outputs. Accordingly, in our mathematical model of the neuron, we will add inputs and outputs to the summarizing neuron. It's also worth keep in mind the biological neuron applies some actions with the signals that come into it, namely, it accumulates charge until it reaches some point and only after that forwards it further. This is what we will do in the mathematical model of the neuron using the activation functions.
 
-Afterwards, let us mathematically define model of neuron as:
+Mathematical definition of neuron's model:
 \begin{align*}
 y = f(z) = f(w_0 \cdot x_0+w_1 \cdot x_1+w_2 \cdot x_2+b) = f(\sum\limits_{i=0}^{N-1} w_i \cdot x_i+b) = f(\langle w, x \rangle + b)
 \end{align*}
@@ -225,9 +215,9 @@ Where: $x_0, x_1, x_2$: inputs, $w_0, w_1, w_2$: weights,  $b$: some bias for in
 
 Inputs can be either single number or vector of numbers. As for weights, we mainly should remember they are tuned parameters. Moreover it should be considered 2 potential situations to manage with. The first one is initialization of the weights. Here we have multiple options whereas we literally can define them either randomly or apply special initialisation techniques such as 'He' initialization or 'Xavier' initialization and others. The second situation we should be aware of is to somehow change the weights during model fitting, meaning weights should be changed in iterative manner from epoch to epoch. To do this we will apply backpropagation algorithm. Concerning the bias, which is like a weights, meaning tuned parameter, we can consider it allows to shift the activation function by adding a constant to the input of neuron. Hence, the last but not least component is activation function. In simplified terms, activation function is used to determine the output of neuron in a manner: 'yes' or 'no'. It maps the resulting values in range between 0 to 1 or -1 to 1.            
 
-\section{Activation function}
-There is a significant number of various activation functions. Let us assume the very basic one named 'step function' and figure out from general point of view how it works in both mathematical and geometrical sense.   
-The 'step function' defined as:
+\subsubsection{Activation function}
+There is a significant number of various activation functions. Let me assume the very basic one named 'step function' and figure out from general point of view how it works in both mathematical and geometrical sense.   
+The 'step function' is defined as:
 \begin{align*}
 f(x) = \begin{cases} 0, & \mbox{if } x\mbox{ $\leq$ 0} \\ 1, & \mbox{if } x\mbox{ $>$ 0} \end{cases}
 \end{align*}
@@ -235,7 +225,7 @@ f(x) = \begin{cases} 0, & \mbox{if } x\mbox{ $\leq$ 0} \\ 1, & \mbox{if } x\mbox
 The function has 2 strongly distinguished values: '0' and '1'. The 'spot' where the function changes it's value from '0' to '1' is named as dividing surface. Hence, the dividing surface 'spot' is where the argument of activation function is equal '0'.
 
 \begin{figure}[h]
-    \centering \includegraphics[width=8cm]{images/step_function.jpg}
+    \centering \includegraphics[width=5cm]{images/step_function.jpg}
     \caption {Geometrical representation of step function.}
 \end{figure}
 
@@ -250,13 +240,19 @@ The neuron does some linear operation, which is denoted by 2 parameters: $w$ (ve
 \end{align*}
 
 \begin{figure}[h]
-    \centering \includegraphics[width=8cm]{images/dividing_surface.jpg}
+    \centering \includegraphics[width=5cm]{images/dividing_surface.jpg}
     \caption {Sample geometrical representation of dividing surface for single neuron.}
 \end{figure}
 
 From the one side the value of step function is equal '1' and from the other '0'. The activation function is equal '1' that side of dividing surface where the vector 'w' points out.
 
-As it was mentioned earlier, step function is not the only one activation function. There is for instance 'sigmoid' activation function which unlike step function does not have discontinuity point at zero. 
+As it was mentioned earlier, step function is not the only one activation function. There is for instance 'sigmoid' activation function \ref{fig:sigmoid} which unlike step function does not have discontinuity point at zero. 
+
+\begin{figure}[h]
+    \centering \includegraphics[width=3.5cm]{images/sigmoid_function.jpg}
+    \caption {Sigmoid activation function.}
+    \label{fig:sigmoid}
+\end{figure}
 
 The sigmoid activation function formed as:
 \begin{align*}
@@ -267,12 +263,8 @@ The sigmoid activation function formed as:
 
 The rectified linear activation function for short is a piece-wise linear function which outputs input directly if it is positive otherwise outputs zero. It has become the default activation function for many types of neural networks because a model that uses it is easier to train and often achieves better performance.
 
-\begin{figure}[h]
-    \centering \includegraphics[width=8cm]{images/sigmoid_function.jpg}
-    \caption {Sigmoid activation function.}
-\end{figure}
 
-\section{From neuron to neural network}
+\subsubsection{From neuron to neural network}
 So far we have discussed the properties and functional of a single neuron, which as a result outcomes a linear divide surface in geometrical terms. Meaning when we will concatenate the multiple neurons in some architecture we may achieve some nonlinear divide surfaces.
 \begin{figure}[h]
     \centering \includegraphics[width=7cm]{images/neuron_to_neural_net.jpg}
@@ -295,43 +287,19 @@ By the reason $f$ is simple linear function, equation can be derived as:
 \[ =  x_1\cdot \tilde{w_1} + x_2\cdot \tilde{w_2} + \tilde{b} \]
 Meaning the obtained result is just linear combination of inputs into the neural net. 
 
-\subsection{Neural network starter kit}
-Once we had familiarized ourselves with basic concept of neuron and activation function, we may stand a chance to solve some real problem. But still we need figure few more lacking basic components out.
-We can be aware of the uniform starter kit for any neural network can be defined as:
-\begin{itemize}
-    \item neural net architecture, meaning which parts the net will consist of, how the parts will be connected, how neurons will be defined etc.
-    \item neural net optimization function, meaning approaching which optimization algorithm the value of loss function (performance of neural net) could be increased. It worth to keep in mind the optimization process requires a loss function to calculate the model error.
-    \item neural net loss function, meaning how the net performs. Moreover, the less loss function value is the better performance of the net is.
-    \item neural net metrics, meaning how the net performs. It is similar to loss function, but considered as secondary and optional metric. They does not have impact on the neural net fitting process, however could bring out useful insights.    
-\end{itemize}
-
-
-\section{How neural networks learn?}
+\subsection{How neural networks learn ?}
 It was already discussed trivial neural net architecture consisting of neuron mathematically representation and premise of activation function. As for now let us review clause by clause the rest components which are the driven pieces for nets learning process.
 
-\subsection{Optimization function}
+\subsubsection{Optimization function}
 Optimization of neural net is the key component in terms of finding latent patterns in input data. The optimization of the net should be considered as the on-the-spot training. There are variety optimization algorithms but the pillar algorithm in the list is gradient descent.
-The brief list of optimization algorithms:
-\begin{enumerate}
-    \item Gradient Descent
-    \item Stochastic Gradient Descent
-    \item Mini-Batch Gradient Descent
-    \item Nesterov Accelerated Gradient
-    \item Momentum
-    \item Adagrad
-    \item RMSProp
-\end{enumerate}
-Let us discuss how the optimization works under the hood proceeding with the most demonstrative algorithm -- gradient descent.
 
-\subsection{Gradient descent}
-Previously we took into consideration the neural net has 2 main tuned parameters: 'weights' and 'bias'.
-
-Let us concern we have a some function which is defined by some levels lines. The function has 2 minimums, which are denoted by the red dots.  It worth to understand by distancing from the minimums the function value increases. 
-So far, we have a neural net with some parameters (weights and biases) which performs some value of loss function. As we remember the task is to decrease the value of loss function. Hence, the question is how to do that.
+Suppose a function which is defined by some levels lines \ref{fig:gradient}. The function has 2 minimums, which are denoted by the red dots.  It worth to understand by distancing from the minimums the function value increases. 
+So far, we have a neural net with some parameters (weights and biases) which performs some value of loss function. As we remember the task is to decrease the value of loss function. Hence, the question is how to do that ? 
 
 \begin{figure}[h]
     \centering \includegraphics[width=9cm]{images/gradient_descent.jpg}
     \caption {Sample gradient descent visualization.}
+    \label{fig:gradient}
 \end{figure}
 
 So, the very first provision in the vector of function surface will be defined by $w_0$, where $w_0$ denotes vector of all weights and biases of the net and can be represented as: 
@@ -344,21 +312,13 @@ As the result, we have calculated the gradient of loss function at the point ($w
 \begin{align*}
 w_1 = w_0 - \alpha \cdot \delta{f(w_0)}
 \end{align*}
-Let us take a closer look at the formula above:
-\begin{itemize}
-    \item $w_0$: the initial vector of weights and biases of neural net
-    \item $\alpha$: parameter for regulating the 'speed' of training the neural net. In other words it affects the size of gradient step 
-    \item $\delta{f(w_0)}$: calculated gradient of loss function at the $w_0$ point 
-\end{itemize}
+where $w_0$: the initial vector of weights and biases of neural net, $\alpha$: parameter for regulating the 'speed' of training the neural net. In other words it affects the size of gradient step and $\delta{f(w_0)}$: calculated gradient of loss function at the $w_0$ point. 
+
 The gradient descent of loss function will be calculated until it will not converge some 'preciseness' within predefined 'fallacy'.
 
-
-\section{How evaluate neural network performance?}
-In the terms of an optimization algorithms, function aim to evaluate a distinctive solution (meaning a set of weights) which cite to as objective function. Depending we may search for either to maximize or minimize the objective function. meaning the highest or lowest score respectively.
-\subsection{Loss function}
+\subsubsection{Loss function}
 Characteristically neural networks we keen to minimize the error. There are many functions that could be potentially used to estimate error of set of weights in a neural network. Below we consider few popular loss functions.
 
-\subsubsection{Mean Squared Error (MSE)}
 Mean Squared Error is the average of the squared error that is used as the loss function for least squares regression. To streamline, MSE is the sum,over all the data points of the square of the difference between the predicted and actual target variables divided by the number of data points.
 \begin{align*}
 MSE = \frac{{1}}{n} \sum_{i}^{n} (y_i - \widehat{y_i})^2
@@ -382,9 +342,7 @@ What we had discussed before can be considered as usual neural nets in the very 
 
 To highlight the main difference in concepts, let's discuss one example.
 Assume there is an RGB image sized $224 \cdot 224$ whereas the dog located in the middle of it. We need to classify whether the dog is on the image. The usual (for instance sigmoid feed forward) neural network will come up with the mask of the dog based on the image. Once new image will be revealed and the dog will not be located in the middle of it, the net will not be able to find and classify the dog. Whilst convolutional neural networks could be generalized independently of the location of the dog, because the convolution itself is invariant operation.         
-
 The neural network architectures which applies convolutions is called convolution neural networks or 'CNN'.    
-
 
 
 \subsection{Pooling}
