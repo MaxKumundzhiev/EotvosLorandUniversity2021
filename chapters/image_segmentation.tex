@@ -119,7 +119,7 @@ Convolution itself is a mathematical operation on two functions ($f$ and $g$) th
 
 Let me show how actually convolution operation works. Assume we have 1 channel image size of $5 \cdot 5$ as shown on the Figure \ref{fig:sample_1_channel_image} below.
 \begin{figure}[h]
-    \centering \includegraphics[width=7cm]{images/1_channel.jpg}
+    \centering \includegraphics[width=5cm]{images/1_channel.jpg}
     \caption {Sample 1 channel image.}
     \label {fig:sample_1_channel_image}
 \end{figure}
@@ -141,29 +141,28 @@ The illustration of obtaining of the red colored cell on the resulting convoluti
 I have just calculated convolution for particular pixel of the image. 
 
 \subsubsection{Sobel Filter}
-Now I can emphasize that each filter utilizes various functionalities described above. It can be either separate convolution operation within special filter or combination such as: Suppress noise, Compute gradient magnitude and direction, Apply non-maximum suppression, Hysteresis thresholding and Connectivity analysis to detect edges (Canny Edge Detector). Now I will show how Sobel filter performs on our baseline image.
+Now I can emphasize that each filter utilizes various functionalities described above.
+For instance, Sobel filter performs on our baseline image as shown on Figure \ref{fig:sobel}.
 
-\begin{figure}[h]  \includegraphics[width=7cm]{images/sample_vertebrae_sobel.jpeg}
+\begin{figure}[h] 
+\centering
+\includegraphics[width=2cm]{images/sample_vertebrae_sobel.jpeg}
     \caption {Applied Sobel filter for sample CT scan of vertebrae.}
     \label{fig:sobel}
 \end{figure}
 
+In general, each edge detector can be either separate convolution operation within special filter and threshold or combination such as: Suppress noise, Compute gradient magnitude and direction, Apply non-maximum suppression, Hysteresis thresholding and Connectivity analysis to detect edges (Canny Edge Detector). 
 
-By the reason of edge detection is based on derivatives it can easily degrade with variations and noise. But issues which should be considered are size of the neighborhood as well as what exactly represents a change. 
+By the reason of edge detection is based on derivatives it can easily degrade with variations and noise. But issues which should be considered are as size of the neighborhood as well as what exactly represents a transition on the image. 
 
-\subsection{k-Means Clustering}
-k-Means algorithm is very simple clustering method whereas usually the data set is represented as the a scatter plot in some feature space.
+\subsection{Segmentation Based on Clustering}
+The obvious question I can ask myself whether I can use clustering techniques to divide images into segments ? Yes, I can ! All it all, clustering relies on partitioning data into a certain number of groups (clusters). Similar data points aligned in the same groups (clusters).
 
-For instance, a pixel could be represented by 3 dimensional feature space, where feature space is defined by retrieving from the image following pixel-wise features:
-\begin{enumerate}
-    \setlength\itemsep{0.05em}
-    \item Intensity
-    \item Gradient magnitude
-    \item Laplacian
-\end{enumerate}
+k-Means algorithm is a common and simple clustering method whereas usually the data set is represented as the a scatter plot in some feature space.
 
-First let us clarify the target results we are looking for by considering the very trivial task.
-Assume, there is colorful triangle which should be clustered and represented in some feature space. Afterwards we can clearly see 3 different colors which denotes 3 clusters/groups.
+For instance, a pixel could be represented by 2 dimensional feature space, where features are intensity and gradient magnitude.
+
+To clarify, assume, there is colorful triangle which is claimed to be clustered. On the Figure  \ref{fig:clustering} displayed the representation of colored triangle in 3 dimensional feature space.
 
 \begin{figure}[h]
     \centering
@@ -175,27 +174,26 @@ Assume, there is colorful triangle which should be clustered and represented in 
     \begin{minipage}[b]{0.4\textwidth}
     \includegraphics[width=\textwidth]{images/k_mean_triangle_clustered.jpg}
     \caption{Feature space representation.}
+    \label{fig:clustering}
     \end{minipage}
 \end{figure}
 
-
-As for now, imagine, the user specified k the number of clusters, meaning how many different tissue types are in the image.
-Hence, the algorithm may be defined as:
+The k-means algorithm is defined as:
 \begin{lstlisting}
 1. (randomly) choose k regressors as prototype
 2. assign each scatter point ('feature vector') to it's nearest regressor
 3. recalculate new prototypes (the mean of it's members)
 4. if the prototypes changed significantly -> go to the step 2 
 \end{lstlisting}
-To demonstrate the method we are going to proceed with the same CT spine scan data which had used for region growing thresholding. As for regressors number (clusters number) we will choose $k=3$.  
 
-Eventually, as results show, clustering is a really efficient way for image segmentation, because of both intensity of scatter plot (feature space) and different representations of clusters.
+To demonstrate the method I will proceed with the same CT spine scan data which had used for region growing thresholding. As for regressors number (clusters number) I will choose $k=3$.  
 
 \begin{figure}[h]
-    \centering \includegraphics[width=8cm]{images/ct-spine-k-means-segmented.jpg}
+    \centering \includegraphics[width=7cm]{images/ct-spine-k-means-segmented.jpg}
     \vspace*{-50mm} \caption {Original CT spine versus k-Means Segmented CT spine.}
 \end{figure}
 
+Eventually, as results show, clustering is a really "good to go" way for image segmentation, but there are various disadvantages such as tackling with number of clusters, being dependent on initial values, clustering outliers and scaling with number of dimensions.
 
 \section{Modern Segmentation Methods}
 \section{Neuron}
