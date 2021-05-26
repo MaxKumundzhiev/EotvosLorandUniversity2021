@@ -719,3 +719,83 @@ pmid = {30298337},
 title = {{Medical Image Analysis using Convolutional Neural Networks: A Review}},
 year = {2018}
 }
+
+
+@inproceedings{Suzani2015,
+abstract = {{\textcopyright} 2015 SPIE. This paper proposes an automatic method for vertebra localization, labeling, and segmentation in multi-slice Magnetic Resonance (MR) images. Prior work in this area on MR images mostly requires user interaction while our method is fully automatic. Cubic intensity-based features are extracted from image voxels. A deep learning approach is used for simultaneous localization and identification of vertebrae. The localized points are refined by local thresholding in the region of the detected vertebral column. Thereafter, a statistical multi-vertebrae model is initialized on the localized vertebrae. An iterative Expectation Maximization technique is used to register the vertebral body of the model to the image edges and obtain a segmentation of the lumbar vertebral bodies. The method is evaluated by applying to nine volumetric MR images of the spine. The results demonstrate 100{\%} vertebra identification and a mean surface error of below 2.8 mm for 3D segmentation. Computation time is less than three minutes per high-resolution volumetric image.},
+author = {Suzani, Amin and Rasoulian, Abtin and Seitel, Alexander and Fels, Sidney and Rohling, Robert N. and Abolmaesumi, Purang},
+booktitle = {Medical Imaging 2015: Image-Guided Procedures, Robotic Interventions, and Modeling},
+doi = {10.1117/12.2081542},
+isbn = {9781628415056},
+issn = {1605-7422},
+title = {{Deep learning for automatic localization, identification, and segmentation of vertebral bodies in volumetric MR images}},
+year = {2015}
+}
+
+@inproceedings{Korez2016,
+abstract = {We propose an automated method for supervised segmentation of vertebral bodies (VBs) from three-dimensional (3D) magnetic resonance (MR) spine images that is based on coupling deformable models with convolutional neural networks (CNNs). We designed a 3D CNN architecture that learns the appearance from a training set of VBs to generate 3D spatial VB probability maps,which guide deformable models towards VB boundaries. The proposed method was applied to segment 161 VBs from 3D MR spine images of 23 subjects,and the results were compared to reference segmentations. By yielding an overall Dice similarity coefficient of 93.4±1.7{\%},mean symmetric surface distance of 0.54±0.14mm and Hausdorff distance of 3.83±1.04 mm,the proposed method proved superior to existing VB segmentation methods.},
+author = {Korez, Robert and Likar, Bo{\v{s}}tjan and Pernu{\v{s}}, Franjo and Vrtovec, Toma{\v{z}}},
+booktitle = {Lecture Notes in Computer Science (including subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics)},
+doi = {10.1007/978-3-319-46723-8_50},
+isbn = {9783319467221},
+issn = {16113349},
+title = {{Model-based segmentation of vertebral bodies from MR images with 3D CNNS}},
+year = {2016}
+}
+
+
+@inproceedings{Janssens2018,
+abstract = {We present a method to address the challenging problem of segmentation of lumbar vertebrae from CT images acquired with varying fields of view. Our method is based on cascaded 3D Fully Convolutional Networks (FCNs) consisting of a localization FCN and a segmentation FCN. More specifically, in the first step we train a regression 3D FCN (we call it 'LocalizationNet') to find the bounding box of the lumbar region. After that, a 3D U-net like FCN (we call it 'Segmentation-Net') is then developed, which after training, can perform a pixel-wise multi-class segmentation to map a cropped lumber region volumetric data to its volume-wise labels. Evaluated on publicly available datasets, our method achieved an average Dice coefficient of 95.77 ± 0.81{\%} and an average symmetric surface distance of 0.37 ± 0.06 mm.},
+archivePrefix = {arXiv},
+arxivId = {1712.01509},
+author = {Janssens, Rens and Zeng, Guodong and Zheng, Guoyan},
+booktitle = {Proceedings - International Symposium on Biomedical Imaging},
+doi = {10.1109/ISBI.2018.8363715},
+eprint = {1712.01509},
+isbn = {9781538636367},
+issn = {19458452},
+keywords = {CT,Fully Convolutional Networks,Lumbar vertebrae,Segmentation},
+title = {{Fully automatic segmentation of lumbar vertebrae from CT images using cascaded 3D fully convolutional networks}},
+year = {2018}
+}
+
+
+@inproceedings{Sekuboyina2018,
+abstract = {Accurate segmentation of the spine in computed tomography (CT) images is mandatory for quantitative analysis, e.g. in osteoporosis, but remains challenging due to high variability in vertebral morphology and spinal anatomy among patients. Conventionally, spine segmentation was performed by model-based techniques employing spine atlases or statistical shape models. We argue that such approaches, even though intuitive, fail to address clinical abnormalities such as vertebral fractures, scoliosis, etc. We propose a novel deep learning-based method for segmenting the spine, which does not rely on any pre-defined shape model. We employ two networks: one for localisation and another for segmentation. Since a typical spine CT scan cannot be processed at once owing to its large dimensions, we find that both nets are essential to work towards a perfect segmentation. We evaluate our framework on three datasets containing healthy and fractured cases: two private and one public. Our approach achieves a mean Dice coefficient of {\~{}}0.87, which is comparable but not higher than the state-of-art model-based approaches. However, we show that our approach handles degenerate cases more accurately.},
+author = {Sekuboyina, Anjany and Kuka{\v{c}}ka, Jan and Kirschke, Jan S. and Menze, Bjoern H. and Valentinitsch, Alexander},
+booktitle = {Lecture Notes in Computer Science (including subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics)},
+doi = {10.1007/978-3-319-74113-0_10},
+isbn = {9783319741123},
+issn = {16113349},
+keywords = {Automated segmentation,Deep learning,Fully convolutional network,Spine segmentation},
+title = {{Attention-driven deep learning for pathological spine segmentation}},
+year = {2018}
+}
+
+
+@inproceedings{Payer2020,
+abstract = {Localization and segmentation of vertebral bodies from spine CT volumes are crucial for pathological diagnosis, surgical planning, and postoperative assessment. However, fully automatic analysis of spine CT volumes is difficult due to the anatomical variation of pathologies, noise caused by screws and implants, and the large range of different field-of-views. We propose a fully automatic coarse to fine approach for vertebrae localization and segmentation based on fully convolutional CNNs. In a three-step approach, at first, a U-Net localizes the rough position of the spine. Then, the SpatialConfiguration-Net performs vertebrae localization and identification using heatmap regression. Finally, a U-Net performs binary segmentation of each identified vertebrae in a high resolution, before merging the individual predictions into the resulting multi-label vertebrae segmentation. The evaluation shows top performance of our approach, ranking first place and winning the MICCAI 2019 Large Scale Vertebrae Segmentation Challenge (VerSe 2019).},
+author = {Payer, Christian and {\v{S}}tern, Darko and Bischof, Horst and Urschler, Martin},
+booktitle = {VISIGRAPP 2020 - Proceedings of the 15th International Joint Conference on Computer Vision, Imaging and Computer Graphics Theory and Applications},
+doi = {10.5220/0008975201240133},
+isbn = {9789897584022},
+keywords = {SpatialConfiguration-Net,U-Net,VerSe 2019 Challenge,Vertebrae Localization,Vertebrae Segmentation},
+title = {{Coarse to fine vertebrae localization and segmentation with spatialconfiguration-Net and U-Net}},
+year = {2020}
+}
+
+
+@article{Lessmann2019,
+abstract = {Precise segmentation and anatomical identification of the vertebrae provides the basis for automatic analysis of the spine, such as detection of vertebral compression fractures or other abnormalities. Most dedicated spine CT and MR scans as well as scans of the chest, abdomen or neck cover only part of the spine. Segmentation and identification should therefore not rely on the visibility of certain vertebrae or a certain number of vertebrae. We propose an iterative instance segmentation approach that uses a fully convolutional neural network to segment and label vertebrae one after the other, independently of the number of visible vertebrae. This instance-by-instance segmentation is enabled by combining the network with a memory component that retains information about already segmented vertebrae. The network iteratively analyzes image patches, using information from both image and memory to search for the next vertebra. To efficiently traverse the image, we include the prior knowledge that the vertebrae are always located next to each other, which is used to follow the vertebral column. The network concurrently performs multiple tasks, which are segmentation of a vertebra, regression of its anatomical label and prediction whether the vertebra is completely visible in the image, which allows to exclude incompletely visible vertebrae from further analyses. The predicted anatomical labels of the individual vertebrae are additionally refined with a maximum likelihood approach, choosing the overall most likely labeling if all detected vertebrae are taken into account. This method was evaluated with five diverse datasets, including multiple modalities (CT and MR), various fields of view and coverages of different sections of the spine, and a particularly challenging set of low-dose chest CT scans. For vertebra segmentation, the average Dice score was 94.9 ± 2.1{\%} with an average absolute symmetric surface distance of 0.2 ± 10.1mm. The anatomical identification had an accuracy of 93{\%}, corresponding to a single case with mislabeled vertebrae. Vertebrae were classified as completely or incompletely visible with an accuracy of 97{\%}. The proposed iterative segmentation method compares favorably with state-of-the-art methods and is fast, flexible and generalizable.},
+archivePrefix = {arXiv},
+arxivId = {1804.04383},
+author = {Lessmann, Nikolas and van Ginneken, Bram and de Jong, Pim A. and I{\v{s}}gum, Ivana},
+doi = {10.1016/j.media.2019.02.005},
+eprint = {1804.04383},
+issn = {13618423},
+journal = {Medical Image Analysis},
+keywords = {Deep learning,Iterative instance segmentation,Vertebra identification,Vertebra segmentation},
+pmid = {30771712},
+title = {{Iterative fully convolutional neural networks for automatic vertebra segmentation and identification}},
+year = {2019}
+}
