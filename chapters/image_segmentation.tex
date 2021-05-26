@@ -357,9 +357,8 @@ There are few more essential properties within CNNs such as pooling, dropout and
 The unet is convolutional network architecture for fast and precise segmentation of images. It was proposed by Olaf Ronneberger, Philipp Fischer, and Thomas Brox at 2015 \cite{Ronneberger2015}. 
 
 \begin{figure}[h]
-    \centering \includegraphics[width=4cm]{images/unet.png}
+    \centering \includegraphics[width=8cm]{images/unet.png}
     \caption {Unet architecture.}
-    \small source by: \url{https://arxiv.org/abs/1505.04597}
 \end{figure}
 
 Using original terminology of the authors \cite{Ronneberger2015} the net consist of a contracting path (left side) and an expansive path (right side). The contracting path follows the typical architecture of a convolutional network. In simplified terms it can be considered as downsampling or encoder which formed as
@@ -369,10 +368,9 @@ a five repeats of double $3 \cdot 3$ convolutions (unpadded convolutions) with r
 The proposed architecture uses two U-Net architecture in sequence, with two encoders and two decoders demonstrated on Figure \ref{fig:double_unet}.
 
 \begin{figure}[h]
-    \centering \includegraphics[width=4cm]{images/DoubleU-Net.png}
+    \centering \includegraphics[width=8cm]{images/DoubleU-Net.png}
     \caption {DoubleU-Net architecture.}
     \label{fig:double_unet}
-    \small source by: \url{https://arxiv.org/pdf/2006.04868v2.pdf}
 \end{figure}
 
 The first encoder used in the network is pretrained VGG-19, which is trained on ImageNet. Additionally, we use Atrous Spatial Pyramid Pooling (ASPP). The rest of the architecture is built from scratch. 
