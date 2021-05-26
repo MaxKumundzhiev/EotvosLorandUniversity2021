@@ -772,6 +772,58 @@ title = {{Attention-driven deep learning for pathological spine segmentation}},
 year = {2018}
 }
 
+@article{Payer2019,
+abstract = {In many medical image analysis applications, only a limited amount of training data is available due to the costs of image acquisition and the large manual annotation effort required from experts. Training recent state-of-the-art machine learning methods like convolutional neural networks (CNNs) from small datasets is a challenging task. In this work on anatomical landmark localization, we propose a CNN architecture that learns to split the localization task into two simpler sub-problems, reducing the overall need for large training datasets. Our fully convolutional SpatialConfiguration-Net (SCN) learns this simplification due to multiplying the heatmap predictions of its two components and by training the network in an end-to-end manner. Thus, the SCN dedicates one component to locally accurate but ambiguous candidate predictions, while the other component improves robustness to ambiguities by incorporating the spatial configuration of landmarks. In our extensive experimental evaluation, we show that the proposed SCN outperforms related methods in terms of landmark localization error on a variety of size-limited 2D and 3D landmark localization datasets, i.e., hand radiographs, lateral cephalograms, hand MRIs, and spine CTs.},
+archivePrefix = {arXiv},
+arxivId = {1908.00748},
+author = {Payer, Christian and {\v{S}}tern, Darko and Bischof, Horst and Urschler, Martin},
+doi = {10.1016/j.media.2019.03.007},
+eprint = {1908.00748},
+issn = {13618423},
+journal = {Medical Image Analysis},
+keywords = {Anatomical landmarks,Fully convolutional networks,Heatmap regression,Localization},
+pmid = {30947144},
+title = {{Integrating spatial configuration into heatmap regression based CNNs for landmark localization}},
+year = {2019}
+}
+
+
+@inproceedings{Yang2017,
+abstract = {Automatic localization and labeling of vertebra in 3D medical images plays an important role in many clinical tasks, including pathological diagnosis, surgical planning and postoperative assessment. However, the unusual conditions of pathological cases, such as the abnormal spine curvature, bright visual imaging artifacts caused by metal implants, and the limited field of view, increase the difficulties of accurate localization. In this paper, we propose an automatic and fast algorithm to localize and label the vertebra centroids in 3D CT volumes. First, we deploy a deep image-to-image network (DI2IN) to initialize vertebra locations, employing the convolutional encoder-decoder architecture together with multi-level feature concatenation and deep supervision. Next, the centroid probability maps from DI2IN are iteratively evolved with the message passing schemes based on the mutual relation of vertebra centroids. Finally, the localization results are refined with sparsity regularization. The proposed method is evaluated on a public dataset of 302 spine CT volumes with various pathologies. Our method outperforms other state-of-the-art methods in terms of localization accuracy. The run time is around 3 seconds on average per case. To further boost the performance, we retrain the DI2IN on additional 1000+ 3D CT volumes from different patients. To the best of our knowledge, this is the first time more than 1000 3D CT volumes with expert annotation are adopted in experiments for the anatomic landmark detection tasks. Our experimental results show that training with such a large dataset significantly improves the performance and the overall identification rate, for the first time by our knowledge, reaches 90{\%}.},
+author = {Yang, Dong and Xiong, Tao and Xu, Daguang and Huang, Qiangui and Liu, David and Zhou, S. Kevin and Xu, Zhoubing and Park, Jin Hyeong and Chen, Mingqing and Tran, Trac D. and Chin, Sang Peter and Metaxas, Dimitris and Comaniciu, Dorin},
+booktitle = {Lecture Notes in Computer Science (including subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics)},
+doi = {10.1007/978-3-319-59050-9_50},
+isbn = {9783319590493},
+issn = {16113349},
+title = {{Automatic vertebra labeling in large-scale 3D CT using deep image-to-image network with message passing and sparsity regularization}},
+year = {2017}
+}
+
+
+@inproceedings{Bromiley2016,
+abstract = {We describe a system for fully automatic vertebra localisation and segmentation in 3D CT volumes containing arbitrary regions of the spine, with the aim of detecting osteoporotic fractures. To avoid the difficulties of high-resolution manual annotation on overlapping structures in 3D, the system consists of several 2D operations. First, a Random Forest regressor is used to localise the spinal midplane in a coronal maximum intensity projection. A 2D sagittal image showing the midplane is then produced. A second set of regressors are used to localise each vertebral body in this image. Finally, a Random Forest Regression Voting Constrained Local Model is used to segment each detected vertebra. The system was evaluated on 402 CT volumes. 83{\%} of vertebrae between T4 and L4 were detected and, of these, 97{\%} were segmented with a mean error of less than or equal to 1mm. A simple classifier was applied to perform a fracture/non-fracture classification for each image, achieving 69{\%} recall at 70{\%} precision.},
+author = {Bromiley, Paul A. and Kariki, Eleni P. and Adams, Judith E. and Cootes, Timothy F.},
+booktitle = {Lecture Notes in Computer Science (including subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics)},
+doi = {10.1007/978-3-319-55050-3_5},
+isbn = {9783319550497},
+issn = {16113349},
+title = {{Fully automatic localisation of vertebrae in CT images using random forest regression voting}},
+year = {2016}
+}
+
+
+@article{Ibragimov2017,
+abstract = {Computerized segmentation of pathological structures in medical images is challenging, as, in addition to unclear image boundaries, image artifacts, and traces of surgical activities, the shape of pathological structures may be very different from the shape of normal structures. Even if a sufficient number of pathological training samples are collected, statistical shape modeling cannot always capture shape features of pathological samples as they may be suppressed by shape features of a considerably larger number of healthy samples. At the same time, landmarking can be efficient in analyzing pathological structures but often lacks robustness. In this paper, we combine the advantages of landmark detection and deformable models into a novel supervised multi-energy segmentation framework that can efficiently segment structures with pathological shape. The framework adopts the theory of Laplacian shape editing, that was introduced in the field of computer graphics, so that the limitations of statistical shape modeling are avoided. The performance of the proposed framework was validated by segmenting fractured lumbar vertebrae from 3-D computed tomography images, atrophic corpora callosa from 2-D magnetic resonance (MR) cross-sections and cancerous prostates from 3D MR images, resulting respectively in a Dice coefficient of 84.7 ± 5.0{\%}, 85.3 ± 4.8{\%} and 78.3 ± 5.1{\%}, and boundary distance of 1.14 ± 0.49mm, 1.42 ± 0.45mm and 2.27 ± 0.52mm. The obtained results were shown to be superior in comparison to existing deformable model-based segmentation algorithms.},
+author = {Ibragimov, Bulat and Korez, Robert and Likar, Bostjan and Pernus, Franjo and Xing, Lei and Vrtovec, Tomaz},
+doi = {10.1109/TMI.2017.2667578},
+issn = {1558254X},
+journal = {IEEE Transactions on Medical Imaging},
+keywords = {Laplacian mesh editing,corpus callosum segmentation,deformablemodels,landmark detection,pathology analysis,prostate segmentation,vertebra segmentation},
+pmid = {28207388},
+title = {{Segmentation of Pathological Structures by Landmark-Assisted Deformable Models}},
+year = {2017}
+}
+
 
 @inproceedings{Payer2020,
 abstract = {Localization and segmentation of vertebral bodies from spine CT volumes are crucial for pathological diagnosis, surgical planning, and postoperative assessment. However, fully automatic analysis of spine CT volumes is difficult due to the anatomical variation of pathologies, noise caused by screws and implants, and the large range of different field-of-views. We propose a fully automatic coarse to fine approach for vertebrae localization and segmentation based on fully convolutional CNNs. In a three-step approach, at first, a U-Net localizes the rough position of the spine. Then, the SpatialConfiguration-Net performs vertebrae localization and identification using heatmap regression. Finally, a U-Net performs binary segmentation of each identified vertebrae in a high resolution, before merging the individual predictions into the resulting multi-label vertebrae segmentation. The evaluation shows top performance of our approach, ranking first place and winning the MICCAI 2019 Large Scale Vertebrae Segmentation Challenge (VerSe 2019).},

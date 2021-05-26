@@ -6,7 +6,7 @@ Jointly the thesis I was willing to develop a neural net model for automatic spi
 In this section I will introduce terms frequently used in this work: "FCN" - fully connected neural network, "CNN" - convolutional neural network, "detection model" - neural network which stands for set of vertebra apart background, "identification model" - identifies which vertebrate belongs which segmented pixel, "Dice score" - Dice similarity coefficient to quantify the goodness of identification model predictions, "ID rate" - measurement of correctness of detection model predictions. On top of it, based on description of dataset by \href{https://biomedia.doc.ic.ac.uk/}{\color{blue}"BioMediaA"}, the mapping of a class-label-to-vertebra-label is fixed, inherently implying labelling the vertebra.    
 
 \section{Vertebral Segmentation}
-Commonly, for vertebral segmentation it was utilized techniques, which naturally comprised aligning a shape-prior to the spine and deforming it such that it fits the given spine. For that it was used geometrical models,  statistical shape models and active contours. But with advent of neural networks and rising of computational power we started developing more complex nets architectures and tune more hyper parameters of them rather than focus on the images and developing a new shape-prior algorithm or others. Thus, neural networks can find such patterns and shapes on the images which frequently scientists can not manage with. Yes, we still need to control the neural net as well as interpret the output, but as for now almost all creative work can be handled by the various net architectures.
+Commonly, for vertebral segmentation it was utilized techniques, which naturally comprised aligning a shape-prior to the spine and deforming it such that it fits the given spine. For that it was used geometrical models,  statistical shape models and active contours. But with advent of neural networks and rising of computational power we started developing more complex nets architectures and tune more hyper parameters of them rather than focus on the images and developing a new shape-prior algorithms. Thus, neural networks can find such patterns and shapes on the images which frequently scientists can not manage with. Yes, we still need to control the neural net as well as interpret the output, but as for now almost all creative work can be handled by the various net architectures.
 
 As an evidence I can consider Suzani's work \cite{Suzani2015} who proposed to use a multi-layer perceptron to detect the vertebral bodies and employ deformable registration for segmentation. 
 
@@ -18,9 +18,18 @@ At 2018, Janssens \cite{Janssens2018} had successfully performed multi-class seg
 segments it. Once the entire scan is segmented, the vertebral labels adjusted using a maximum likelihood
 technique. 
 
-Eventually, instead of Lessmann's 1-stage and 2-stage iterative solutions and Sekuboyina's patch-wise U-net, at 2020 Payer \cite{Payer2020} had released a coarse-to-fine approach involving three stages, spine localisation, vertebra labelling, and vertebrae segmentation, all three utilising purposefully designed FCNs.
+Eventually, the replacement of Lessmann's 1-stage and 2-stage iterative solutions and Sekuboyina's patch-wise U-net, at 2020 Payer \cite{Payer2020} had released a coarse-to-fine approach involving three stages, spine localisation, vertebra labelling, and vertebrae segmentation, all three utilising purposefully designed FCNs.
 
 \section{Vertebral Labeling}
+Labeling of the any particular image or entire data set is not the simplest and the cheapest task. Of course we can label (annotate) images by ourselves. But for such purposes you need to find appropriate tooling as well as the time. Besides manual approaches scientist always were willing to automate annotation process. At the beginning it was given a try with classical
+deformable shape-or-pose-models which explicitly described in "Segmentation of pathological structures by
+landmark-assisted deformable models" \cite{Ibragimov2017} work. As well as there were experiments with Haar-like features to identify vertebrae using random forest regression voting, described in \cite{Bromiley2016} by Bromiley.
+
+Changing the direction and proceeding fully convolutional and regressing on input-sized heatmap responses instead of directly learning the centroid locations, at 2017 Yang established DI2IN architecture \cite{Yang2017} which was proposed for heatmap regression of the vertebral centroids at lower resolution. 
+
+Lastly, a huge bringing in was done by Payer \cite{Payer2019} who made possible process of integrating of global context and local detail in one end-to-end trainable network 
+within two-stream architecture so called spatial-configuration net. 
+
 \section{Dataset}
 \section{Metrics}
 
