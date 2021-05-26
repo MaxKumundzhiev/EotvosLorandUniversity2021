@@ -151,9 +151,9 @@ For instance, Sobel filter performs on our baseline image as shown on Figure \re
     \label{fig:sobel}
 \end{figure}
 
-In general, each edge detector can be either separate convolution operation within special filter and threshold or combination such as: Suppress noise, Compute gradient magnitude and direction, Apply non-maximum suppression, Hysteresis thresholding and Connectivity analysis to detect edges (Canny Edge Detector). 
+In general, each edge detector can be either separate convolution operation within special filter and threshold or combination such as: suppressing noise, computing gradient magnitude and direction, applying non-maximum suppression, applying hysteresis thresholding and finally utilizing connectivity analysis to detect edges (Canny Edge Detector). 
 
-By the reason of edge detection is based on derivatives it can easily degrade with variations and noise. But issues which should be considered are as size of the neighborhood as well as what exactly represents a transition on the image. 
+By the reason of edge detection is based on derivatives it can easily degrade with variations and noise. But issues which should be considered are size of the neighborhood as well as what exactly represents a transition on the image. 
 
 \subsection{Segmentation Based on Clustering}
 The obvious question I can ask myself whether I can use clustering techniques to divide images into segments ? Yes, I can ! All it all, clustering relies on partitioning data into a certain number of groups (clusters). Similar data points aligned in the same groups (clusters).
@@ -186,7 +186,7 @@ The k-means algorithm is defined as:
 4. if the prototypes changed significantly -> go to the step 2 
 \end{lstlisting}
 
-To demonstrate the method I will proceed with the same CT spine scan data which had used for region growing thresholding. As for regressors number (clusters number) I will choose $k=3$.  
+To demonstrate the method I will proceed with the same baseline CT spine scan which had used for region growing thresholding. As for regressors number (number of clusters) I will choose $k=3$.  
 
 \begin{figure}[h]
     \centering \includegraphics[width=7cm]{images/ct-spine-k-means-segmented.jpg}
@@ -199,13 +199,17 @@ Eventually, as results show, clustering is a really "good to go" way for image s
 Previously, I have covered classical approaches including machine learning ones for image segmentation. Now I would like to narrate about recent techniques which live under umbrella of deep learning family.        
 
 \subsection{Deep Learning Basics}
-For simplicity I will represent neuron's mathematical model graphically. It should be taken into consideration, the red characters denote tune parameters of the neuron.     
+For simplicity I will represent neuron's mathematical model graphically on Figure \ref{fig:neuron}. It should be taken into consideration, the red characters denote tune parameters of the neuron.     
+
+In the mathematical model of the neuron, the body of the neuron, where the input signals accumulates, is denoted by a summarizing neuron. In addition, the biological neuron also has axons and dendrites, which get the inputs and send the outputs. 
+
 \begin{figure}[h]
     \centering \includegraphics[width=8cm]{images/neuron_math_model.jpg}
     \caption {Mathematical model of neuron.}
+    \label{fig:neuron}
 \end{figure} 
 
-In the mathematical model of the neuron, the body of the neuron, where the input signals accumulates, is denoted by a summarizing neuron. In addition, the biological neuron also has axons and dendrites, which get the inputs and send the outputs. Accordingly, in our mathematical model of the neuron, we will add inputs and outputs to the summarizing neuron. It's also worth keep in mind the biological neuron applies some actions with the signals that come into it, namely, it accumulates charge until it reaches some point and only after that forwards it further. This is what we will do in the mathematical model of the neuron using the activation functions.
+Accordingly, in our mathematical model of the neuron, we will add inputs and outputs to the summarizing neuron. It is also worth to keep in mind the biological neuron applies some actions with the signals that come into it, namely, it accumulates charge until it reaches some threshold and only after that forwards it further. This is what we will do in the mathematical model of the neuron using the activation functions.
 
 Mathematical definition of neuron's model:
 \begin{align*}
@@ -215,14 +219,14 @@ Where: $x_0, x_1, x_2$: inputs, $w_0, w_1, w_2$: weights,  $b$: some bias for in
 
 Inputs can be either single number or vector of numbers. As for weights, we mainly should remember they are tuned parameters. Moreover it should be considered 2 potential situations to manage with. The first one is initialization of the weights. Here we have multiple options whereas we literally can define them either randomly or apply special initialisation techniques such as 'He' initialization or 'Xavier' initialization and others. The second situation we should be aware of is to somehow change the weights during model fitting, meaning weights should be changed in iterative manner from epoch to epoch. To do this we will apply backpropagation algorithm. Concerning the bias, which is like a weights, meaning tuned parameter, we can consider it allows to shift the activation function by adding a constant to the input of neuron. Hence, the last but not least component is activation function. In simplified terms, activation function is used to determine the output of neuron in a manner: 'yes' or 'no'. It maps the resulting values in range between 0 to 1 or -1 to 1.            
 
-\subsubsection{Activation function}
+\subsubsection{Activation Function}
 There is a significant number of various activation functions. Let me assume the very basic one named 'step function' and figure out from general point of view how it works in both mathematical and geometrical sense.   
 The 'step function' is defined as:
 \begin{align*}
 f(x) = \begin{cases} 0, & \mbox{if } x\mbox{ $\leq$ 0} \\ 1, & \mbox{if } x\mbox{ $>$ 0} \end{cases}
 \end{align*}
 
-The function has 2 strongly distinguished values: '0' and '1'. The 'spot' where the function changes it's value from '0' to '1' is named as dividing surface. Hence, the dividing surface 'spot' is where the argument of activation function is equal '0'.
+The function has 2 strongly distinguished values: $0$ and $1$. The place where the function changes it's value from $0$ to $1$ is named as dividing surface. Hence, the dividing surface place is where the argument of activation function is equal $0$.
 
 \begin{figure}[h]
     \centering \includegraphics[width=5cm]{images/step_function.jpg}
@@ -234,19 +238,23 @@ The geometrical representation of step function can be derived as following. Ass
 y = f(\langle w, x \rangle + b)
 \end{align*}
 
-The neuron does some linear operation, which is denoted by 2 parameters: $w$ (vector of weights) and $b$ (bias). Accordingly, the dividing surface is defined by following equitation which denotes equitation of straight line:
+The neuron does some linear operation, which is denoted by 2 parameters: $w$ (vector of weights) and $b$ (bias).
+
+Accordingly, the dividing surface is defined by following equitation which denotes equitation of straight line:
+
 \begin{align*}
 \langle w, x \rangle + b = 0
 \end{align*}
 
+On one hand the value of step function is equal $1$ and from the opposite $0$. The activation function is equal $1$ that side of dividing surface where the vector $w$ points out. From geometrical point of view it is represented on Figure \ref{fig:dividing_surface}.  
+
 \begin{figure}[h]
-    \centering \includegraphics[width=5cm]{images/dividing_surface.jpg}
+    \centering \includegraphics[width=3cm]{images/dividing_surface.jpg}
     \caption {Sample geometrical representation of dividing surface for single neuron.}
+    \label{fig:dividing_surface}
 \end{figure}
 
-From the one side the value of step function is equal '1' and from the other '0'. The activation function is equal '1' that side of dividing surface where the vector 'w' points out.
-
-As it was mentioned earlier, step function is not the only one activation function. There is for instance 'sigmoid' activation function \ref{fig:sigmoid} which unlike step function does not have discontinuity point at zero. 
+As it was mentioned earlier, there are many more functions. For instance sigmoid activation function showed on Figure \ref{fig:sigmoid} which unlike step function does not have discontinuity point at zero. 
 
 \begin{figure}[h]
     \centering \includegraphics[width=3.5cm]{images/sigmoid_function.jpg}
@@ -261,22 +269,23 @@ The sigmoid activation function formed as:
 
 \[ \sigma(x) = \begin{cases} 1, & \mbox{if } x\mbox{$\xrightarrow{} + \infty$} \\ 0, & \mbox{if } x\mbox{$\xrightarrow{} - \infty$} \end{cases} \]
 
-The rectified linear activation function for short is a piece-wise linear function which outputs input directly if it is positive otherwise outputs zero. It has become the default activation function for many types of neural networks because a model that uses it is easier to train and often achieves better performance.
+One more activation function is rectified linear activation function. For short it is a piece-wise linear function which outputs input directly if it is positive otherwise outputs zero. It has become the common-wise activation function for many types of neural networks.
 
-
-\subsubsection{From neuron to neural network}
-So far we have discussed the properties and functional of a single neuron, which as a result outcomes a linear divide surface in geometrical terms. Meaning when we will concatenate the multiple neurons in some architecture we may achieve some nonlinear divide surfaces.
+\subsubsection{From Neuron to Neural Network}
+So far I have covered the properties and functional of just a single neuron, which as a result outcomes a linear divide surface, meaning when we concatenate the multiple neurons in some architecture we may achieve some nonlinear divide surfaces.
 \begin{figure}[h]
     \centering \includegraphics[width=7cm]{images/neuron_to_neural_net.jpg}
-    \caption {Sample geometrical representation of dividing surface of step function for single neuron vs multiple neurons.}
+    \caption {Sample geometrical representation of dividing surface for single neuron versus multiple neurons.}
 \end{figure}
 
-Now the question is how do we get the nonlinear dividing surface. Let us figure it out.
-For simplicity define 3 neurons with linear activation function:
+Now the question is how do we get the nonlinear dividing surface. Simply put, define 3 neurons with linear activation function as shown on Figure \ref{fig:1_layer_net}. 
+
 \begin{figure}[h]
-    \centering \includegraphics[width=8cm]{images/3_neurons_net.jpg}
+    \centering \includegraphics[width=7cm]{images/3_neurons_net.jpg}
     \caption {Sample 1 layer neural net with linear activation functions.}
+    \label{fig:1_layer_net}
 \end{figure}
+
 The results of performing the net can be considered as:
 \[ y_3 = f(w_2^3 \cdot y_2+w_1^3 \cdot y_1+b^3) = \]
 By the reason $f$ is simple linear function, equation can be derived as:
@@ -286,14 +295,35 @@ By the reason $f$ is simple linear function, equation can be derived as:
 \[ = x_1[w_2^3 \cdot w_1^2 + w_1^3 \cdot w_1^1] + x_2[w_2^3 \cdot w_2^2 + w_1^3 \cdot w_2^1] + [w_2^3 \cdot b^2+w_1^3 \cdot b^1+b^3] = \]
 \[ =  x_1\cdot \tilde{w_1} + x_2\cdot \tilde{w_2} + \tilde{b} \]
 Meaning the obtained result is just linear combination of inputs into the neural net. 
+\subsubsection{Loss function}
+Characteristically neural networks we keen to minimize the error. There are many functions that could be potentially used to estimate error of set of weights in a neural network. Below we consider few popular loss functions.
 
-\subsection{How neural networks learn ?}
-It was already discussed trivial neural net architecture consisting of neuron mathematically representation and premise of activation function. As for now let us review clause by clause the rest components which are the driven pieces for nets learning process.
+Mean Squared Error is the average of the squared error that is used as the loss function for least squares regression. To streamline, MSE is the sum,over all the data points of the square of the difference between the predicted and actual target variables divided by the number of data points.
+\begin{align*}
+\text{MSE} = \frac{{1}}{n} \sum_{i}^{n} (y_i - \widehat{y_i})^2
+\end{align*}
+where $y$ is the desired Neural Network output, and $\widehat{y_i}$ is the neural network output.
 
-\subsubsection{Optimization function}
-Optimization of neural net is the key component in terms of finding latent patterns in input data. The optimization of the net should be considered as the on-the-spot training. There are variety optimization algorithms but the pillar algorithm in the list is gradient descent.
+Cross-entropy loss, or log loss, measures the performance of a classification model whose output is a probability value between 0 and 1. Cross-entropy loss increases as the predicted probability diverges from the actual label.
+In binary classification, where the number of classes M equals 2 cross-entropy can be calculated as:
+\begin{align*}
+\text{Cross-Entropy} = -{(y\log(p) + (1 - y)\log(1 - p))}
+\end{align*}
+And if $M > 2$ meaning we work out multi-classification problem we calculate a separate loss for each class label per observation and sum the result as:
+\begin{align*}
+\text{Cross-Entropy} = -\sum_{c=1}^My_{o,c}\log(p_{o,c})
+\end{align*}
 
-Suppose a function which is defined by some levels lines \ref{fig:gradient}. The function has 2 minimums, which are denoted by the red dots.  It worth to understand by distancing from the minimums the function value increases. 
+Frequently, jointly loss functions it is utilized different regularization terms. The purpose of regularization terms is establish additional rules for penalizing the loss function for errors. Meaning the regularization will manage whether the weights are important (good) or not. One of such regularization techniques is L2 regularization or so called weight decay. The definition is as:
+\[ \lambda \cdot \sum_{i=1}^{n} \alpha_i^2 \]
+
+In terms of mean squared error loss function, the addition of regularization considered as:
+\[ L = \sum_{i}(\hat{y}-y_i)^2 + \lambda \cdot \sum_{i=1}^{n} \alpha_i^2\]
+
+\subsubsection{Gradient Descent}
+Optimization of neural net is the key component in terms of fitting a model. The optimization of the net should be considered as the on-the-spot training. There are variety of optimization algorithms but the pillar algorithm in the list is gradient descent.
+
+Suppose a function which is defined by some levels lines as shown on Figure \ref{fig:gradient}. The function has 2 minimums, which are denoted by the red dots.  It worth to understand by distancing from the minimums the function value increases. 
 So far, we have a neural net with some parameters (weights and biases) which performs some value of loss function. As we remember the task is to decrease the value of loss function. Hence, the question is how to do that ? 
 
 \begin{figure}[h]
@@ -314,104 +344,50 @@ w_1 = w_0 - \alpha \cdot \delta{f(w_0)}
 \end{align*}
 where $w_0$: the initial vector of weights and biases of neural net, $\alpha$: parameter for regulating the 'speed' of training the neural net. In other words it affects the size of gradient step and $\delta{f(w_0)}$: calculated gradient of loss function at the $w_0$ point. 
 
-The gradient descent of loss function will be calculated until it will not converge some 'preciseness' within predefined 'fallacy'.
+The gradient descent of loss function will be calculated until it will not converge some preciseness within predefined fallacy.
 
-\subsubsection{Loss function}
-Characteristically neural networks we keen to minimize the error. There are many functions that could be potentially used to estimate error of set of weights in a neural network. Below we consider few popular loss functions.
+\subsection{Convolutional neural networks (CNN)}
+So far I have wrapped up the very basics behind neural networks what can be considered as feed forward neural nets. The cons of such typed neural networks are that they can perfectly find the latent consistencies however they struggle structured data such as images.
 
-Mean Squared Error is the average of the squared error that is used as the loss function for least squares regression. To streamline, MSE is the sum,over all the data points of the square of the difference between the predicted and actual target variables divided by the number of data points.
-\begin{align*}
-MSE = \frac{{1}}{n} \sum_{i}^{n} (y_i - \widehat{y_i})^2
-\end{align*}
-where $y$ is the desired Neural Network output, and $\widehat{y_i}$ is the neural network output.
+To distinguish feed forward and convolution nets, suppose, there is an RGB image sized $224 \cdot 224$ where a dog is located in the middle of image. The goal is to classify whether the dog is on the image. The usual (for instance sigmoid feed forward) neural network will come up with the mask of the dog based on the image. But once new image will be revealed and the dog will not be located in the middle of it, the net will not be able to find and classify the dog. Whilst convolutional neural networks could be generalized independently of the location of the dog, because the convolution itself is invariant operation.         
 
-\subsubsection{Cross-Entropy}
-Cross-entropy loss, or log loss \footnote{\url{https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html#cross-entropy}}, measures the performance of a classification model whose output is a probability value between 0 and 1. Cross-entropy loss increases as the predicted probability diverges from the actual label.
-In binary classification, where the number of classes M equals 2 cross-entropy can be calculated as:
-\begin{align*}
-Cross-Entropy = -{(y\log(p) + (1 - y)\log(1 - p))}
-\end{align*}
-And if $M > 2$ meaning we work out multi-classification problem we calculate a separate loss for each class label per observation and sum the result as:
-\begin{align*}
-Cross-Entropy = -\sum_{c=1}^My_{o,c}\log(p_{o,c})
-\end{align*}
+There are few more essential properties within CNNs such as pooling, dropout and others, but I'm aim to focus on architectures themselves and their performance. 
 
-
-\section{Convolutional neural networks (CNN)}
-What we had discussed before can be considered as usual neural nets in the very general definition. The cons of uniform neural networks are they may perfectly find the latent consistencies however they struggle structured data a lot with. To make it easier to eat up, we should assume the structured data can be representation of the image or bunch of images which refer to some video. Or as well structured data can be representation of the some audio signal.
-
-To highlight the main difference in concepts, let's discuss one example.
-Assume there is an RGB image sized $224 \cdot 224$ whereas the dog located in the middle of it. We need to classify whether the dog is on the image. The usual (for instance sigmoid feed forward) neural network will come up with the mask of the dog based on the image. Once new image will be revealed and the dog will not be located in the middle of it, the net will not be able to find and classify the dog. Whilst convolutional neural networks could be generalized independently of the location of the dog, because the convolution itself is invariant operation.         
-The neural network architectures which applies convolutions is called convolution neural networks or 'CNN'.    
-
-
-\subsection{Pooling}
-Jointly convolutions it has been frequently applied pooling operation (layer) as well. There is many types of pollings but let us discuss 2 main ones. 
-
-The first pooling type is called max pooling, whereas the second one average pooling. The difference between them obviously is how the calculations are applied. In first case it is taken the maximum value of particular receptive filed, hence in other it is taken the average value of particular receptive filed.
-
-The pooling has 2 properties:
-\begin{itemize}
-    \item pooling size: consider the size of pooling area 
-    \item stride: consider how the pooling 'slides' across the input data 
-\end{itemize}    
-
-\begin{figure}[h]
-    \centering \includegraphics[width=7cm]{images/pooling.jpg}
-    \caption {Max pooling versus Average polling.}
-\end{figure}
-
-It worth take a look at the example to figure it out. Assume we have some resulting convolution of size $4 \cdot 4$. The pooling layer of size $(2, 2)$ and stride $ = (2, 2)$. 
-Applying pooling we have to go through image with stride (2,2) and within corresponding receptive filed calculate either max or average pooling.  
-
-\section{CNN against overfitting}
-The overfitting is as important aspect as for instance choosing the proper loss function for particular problem. There are verified means of combating this problem in the context of deep learning. Within below paragraphs we are willing to get to know the various techniques to prevent overfitting of neural networks especially CNN. 
-
-\subsection{Augmentation}
-Augmentation itself is not more than applying various image transformations at original image such as cropping, flipping, contrasting, adding and removing noise etc. Afterwards the transformed images are forwarded to the neural network. Literally, it is done by the reason to diversify the data set. Of course exists more advanced techniques based on reinforcement learning, but we will not discuss them within this paper.      
-
-\subsection{Early stopping}
-Early stopping is the approach which may stop fitting of the model based on loss function value during validation process. In simplified terms, loss function value can either increase or decrease, whereas we are willing in decreasing of it. Meaning once we detected the increasing of loss, we should stop the learning, because it denotes overfitting.      
-
-\subsection{Regularization}
-The purpose of regularization terms is establish additional rules for penalizing the loss function for errors. Meaning the regularization will manage whether the weights are important (good) or not. One of multiple regularization techniques is L2 regularization or so called weight decay. It formed as:
-\[ \lambda \cdot \sum_{i=1}^{n} \alpha_i^2 \]
-
-In terms of mean squared error loss function, the addition of regularization considered as:
-\[ L = \sum_{i}(\hat{y}-y_i)^2 + \lambda \cdot \sum_{i=1}^{n} \alpha_i^2\]
-
-\subsection{Dropout}
-Heretofore, observed regularization terms could be applied both for neural networks and other machine learning architectures. Whilst drop out approach is strictly used for neural nets. There are 2 types of drop out. 
-
-Assume we have 2 layers fully connected neural network, meaning each neuron of first layer is connected with all others of second one. 
-
-As for first type, which is called drop connection. In simplified terms we define the probability $P$ which denotes the probability of dropping of particular connection between particular neurons.  
-
-\begin{figure}[H]
-\centering
-\begin{minipage}{.48\linewidth}
-    \includegraphics[width=7cm]{images/drop_connection.jpg}
-    \caption {Drop connection regularization.}
-    \label{fig:drop_connection}
-\end{minipage}
-\hfill
-\begin{minipage}{.48\linewidth}
-    \includegraphics[width=7cm]{images/drop_neuron.jpg}
-    \caption {Drop neuron regularization.}
-    \label{fig:drop_neuron}
-\end{minipage}
-\end{figure}
-
-As for second type, which is called drop neuron. In simplified terms we are seeking for neurons which result outputs zero value and then drop it. The corresponding red neurons at \ref{fig:drop_neuron} with value of zero will be removed from the net. We've already get stick with sufficient information to build and derive the particular neural network architecture. 
-
-\section{Unet}
+\subsection{Unet}
 The unet is convolutional network architecture for fast and precise segmentation of images. It was proposed by Olaf Ronneberger, Philipp Fischer, and Thomas Brox at 2015 \cite{Ronneberger2015}. 
+
 \begin{figure}[h]
-    \centering \includegraphics[width=7cm]{images/unet.png}
+    \centering \includegraphics[width=4cm]{images/unet.png}
     \caption {Unet architecture.}
     \small source by: \url{https://arxiv.org/abs/1505.04597}
 \end{figure}
 
 Using original terminology of the authors \cite{Ronneberger2015} the net consist of a contracting path (left side) and an expansive path (right side). The contracting path follows the typical architecture of a convolutional network. In simplified terms it can be considered as downsampling or encoder which formed as
 a five repeats of double $3 \cdot 3$ convolutions (unpadded convolutions) with rectified linear unit and $2 \cdot 2$ max pooling operation with stride 2. Thus expansive path which can be considered as upsampling or decoder consists of 4 repeats of double $2 \cdot 2$ convolutions (up-convolution) which halve number of feature channels. In total the network has 23 convolutional layers. The architecture implementation can be find within bare unet github gist \footnote { \url{https://gist.github.com/f8eb74d57b914878d52c47ac359758e8.git}}
+
+\subsection{DoubleU-Net}
+The proposed architecture uses two U-Net architecture in sequence, with two encoders and two decoders demonstrated on Figure \ref{fig:double_unet}.
+
+\begin{figure}[h]
+    \centering \includegraphics[width=4cm]{images/DoubleU-Net.png}
+    \caption {DoubleU-Net architecture.}
+    \label{fig:double_unet}
+    \small source by: \url{https://arxiv.org/pdf/2006.04868v2.pdf}
+\end{figure}
+
+The first encoder used in the network is pretrained VGG-19, which is trained on ImageNet. Additionally, we use Atrous Spatial Pyramid Pooling (ASPP). The rest of the architecture is built from scratch. 
+
+Figure \ref{fig:double_unet} shows an overview of the proposed architecture. As seen from the figure, DoubleU-Net starts with a VGG-19 as encoder sub-network, which is followed by decoder subnetwork. What distinguishes DoubleU-Net from U-Net in the
+first network (NETWORK 1) is the use of VGG-19 marked in yellow, ASPP marked in blue, and decoder block marked in light green. The squeeze-and-excite block is used in the encoder of NETWORK 1 and decoder blocks of NETWORK 1 and NETWORK 2. An element-wise multiplication is performed between the output of NETWORK 1 with the input of the same network. The difference between DoubleU-Net and U-Net in the second network (NETWORK 2) is only the use of ASPP and squeeze-and-excite block. All other components remain the same.
+
+
+\section{Summary}
+The applications of the classical techniques and traditional machine learning methods, such as region growing, edge detection based algorithms and clustering in medical image classification began long ago. 
+
+However, each certain method has disadvantages which I had narrated above. To sum them up, the performance is far from the practical standard and the developing of them is quite slow in recent years. Likewise, the feature extracting and selection are time-consuming and vary according to different objects. The advent of deep neural networks, especially the CNNs hugely impacted in changing image classification tasks and had achieved significant performance since 2012.
+
+Some research on medical image classification by CNN has achieved performances rivaling human experts. It was perfectly demonstrated in the recent research work \cite{Anwar2018} that indeed the CNN based methods can achieve highly precise accuracy in various tasks such as classification and segmentation. 
+
+As it was noticed in one of  \href{https://www.itnonline.com/content/deep-learning-medical-imaging-create-300-million-market-2021}{"Image Technology News"} journal articles: ``Deep learning is a truly transformative technology and the longer-term impact on the radiology market should not be underestimated. It’s more a question of when, not if, machine learning will be routinely used in imaging diagnosis``. 
+
 
