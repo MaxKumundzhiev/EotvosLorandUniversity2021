@@ -54,7 +54,7 @@ The problem within simple thresholding is that it does not take into considerati
 \subsection{Region Growing Segmentation}
 Unlike basic thresholding, region growing segmentation indeed takes into consideration spatial information starting with the small set of seed pixels and then growing out from them. 
 
-Let me assume example depicted on Figure \ref{fig:grow_region}. There is set of pixels $4 \cdot 4$ which should be colored (segmented). The cells which are filled with red color is already tricking-out, another cells which have yellow circle are potential candidates to be segmented. The task is to fill (segment) the yellow circled cells with a red color based on predefined thresholding range as: 
+Let me assume following example. There is set of pixels $4 \cdot 4$ which should be colored (segmented). Some of the cells are already filled with red color, another cells are potential candidates to be segmented. The task is to fill (segment) the "non red" cells with a red color based on predefined thresholding. Mathematically region growing can defined as following equitation: 
 \[
     f(x, y) = 
 \begin{cases}
@@ -63,26 +63,13 @@ Let me assume example depicted on Figure \ref{fig:grow_region}. There is set of 
 \end{cases}
 \]
 
-\begin{minipage}{0.5\textwidth}
-\begin{figure}[H]
-\includegraphics[width=7.5cm]{images/growing-region-thresholding.jpeg}
-\caption{\label{fig:grow_region}}
-\end{figure}
-\end{minipage} \hfill
-\begin{minipage}{0.45\textwidth}
-- start at 14 ... \newline
-- up: 8 -> exclude (not in range) \newline
-- right: 12 -> skip (already in the set) \newline
-- down: 13 -> include as a new entry \newline
-- left: 6 -> exclude (not in range) \newline
-\end{minipage}
+All it all, region growing is an iterative method used to extract similar parts of an image. One or several points are chosen as a start. The region then grows until it is finally blocked by the stop criteria. This criteria is generally an inside/outside region comparison such as size or others. 
 
-To sum up, region growing is an iterative method used to extract similar parts of an image. One or several points are chosen as a start. The region then grows until it is finally blocked by the stop criteria. This criteria is generally an inside/outside region comparison such as size or others. 
-
-Exactly the same manner growing region thresholding method can be applied for our \ref{fig:sample_vertebrae}.
+Exactly the same manner growing region thresholding method can be applied for our \ref{fig:sample_vertebrae_grwoing}.
 \begin{figure}[h]
-    \centering \includegraphics[width=8cm]{images/ct-spine-grow-region-segmented.jpg}
-    \vspace*{-50mm} \caption {Original CT spine versus Grow Region thresholding Segmented CT spine.}
+    \centering \includegraphics[width=2cm]{images/sample_vertebrae_regiongrowing.png}
+    \caption {Applied region growing algorithm for sample CT scan of vertebrae.}
+    \label{fig:sample_vertebrae_grwoing}
 \end{figure}    
 
 There is a huge potential room for improvements making the method more sophisticated by coming up with different conditions for inclusion/exclusion of pixels.
@@ -129,12 +116,12 @@ And the filter (kernel) which I had defined as:
 
 We need to calculate the convolution with the custom filter (kernel) size of $3 \cdot 3$, padding $1 \cdot 1$ and stride $1$.
 \begin{figure}[h]
-    \centering \includegraphics[width=8cm]{images/convolution_operation.jpeg}
+    \centering \includegraphics[width=10cm]{images/convolution_operation.jpeg}
     \caption {Example of convolution operation.}
     \label{fig:convolution}
 \end{figure}
 
-The illustration of obtaining of the red colored cell on the resulting convolution depicted on Figure \ref{fig:convolution} can be demonstrated as:    
+The illustration of obtaining of the red colored cell on the resulting convolution depicted on Figure \ref{fig:convolution} can be calculated as:    
 \[ \begin{pmatrix} 0 & 0 & 0 \\ 0 & 5 & 2 \\ 0 & 3 & 1 \end{pmatrix} \odot \begin{pmatrix} 1 & 0 & -1 \\ 0 & 1 & 0 \\ -1 & 0 & 1 \end{pmatrix} = \]
 \[ = 0 \cdot 1 + 0 \cdot 0 + 0 \cdot (-1) + 0 \cdot 0 + 5 \cdot 1 + 2 \cdot 0 + 0 \cdot (-1) + 3 \cdot 0 + 1 \cdot 1 = \] 
 \[ = 0 + 0 + 0 + 0 + 5 + 0 + 0 + 0 + 1= 6 \]
@@ -197,7 +184,7 @@ The algorithm itself can be assumed as:
 To demonstrate the method performance I will proceed with the same baseline CT spine scan which had used for region growing thresholding. As for regressors number (number of clusters) I had chosen $k=3$.  
 
 \begin{figure}[h]
-    \centering \includegraphics[width=2cm]{images/sample_vertebrae_kmeans.png}
+    \centering \includegraphics[width=2.5cm]{images/sample_vertebrae_kmeans.png}
     \caption {Applied k-Means algorithm for sample CT scan of vertebrae.}
 \end{figure}
 
@@ -212,7 +199,7 @@ For simplicity I will represent neuron's mathematical model graphically on Figur
 In the mathematical model of the neuron, the body of the neuron, where the input signals accumulates, is denoted by a summarizing neuron. In addition, the biological neuron also has axons and dendrites, which get the inputs and send the outputs. 
 
 \begin{figure}[h]
-    \centering \includegraphics[width=8cm]{images/neuron_math_model.jpg}
+    \centering \includegraphics[width=10cm]{images/neuron_math_model.jpg}
     \caption {Mathematical model of neuron.}
     \label{fig:neuron}
 \end{figure} 
@@ -257,7 +244,7 @@ Accordingly, the dividing surface is defined by following equitation which denot
 On one hand the value of step function is equal $1$ and from the opposite $0$. The activation function is equal $1$ that side of dividing surface where the vector $w$ points out. From geometrical point of view it is represented on Figure \ref{fig:dividing_surface}.  
 
 \begin{figure}[h]
-    \centering \includegraphics[width=3cm]{images/dividing_surface.jpg}
+    \centering \includegraphics[width=5cm]{images/dividing_surface.jpg}
     \caption {Sample geometrical representation of dividing surface for single neuron.}
     \label{fig:dividing_surface}
 \end{figure}
@@ -280,16 +267,17 @@ The sigmoid activation function formed as:
 One more activation function is rectified linear activation function. For short it is a piece-wise linear function which outputs input directly if it is positive otherwise outputs zero. It has become the common-wise activation function for many types of neural networks.
 
 \subsubsection{From Neuron to Neural Network}
-So far I have covered the properties and functional of just a single neuron, which as a result outcomes a linear divide surface, meaning when we concatenate the multiple neurons in some architecture we may achieve some nonlinear divide surfaces.
+So far I have covered the properties and functional of just a single neuron, which as a result outcomes a linear divide surface unlike multiple neurons as shown on Figure \ref{fig:dividing_surface}, meaning when we concatenate the multiple neurons in some architecture we may achieve some nonlinear divide surfaces.
 \begin{figure}[h]
-    \centering \includegraphics[width=7cm]{images/neuron_to_neural_net.jpg}
+    \centering \includegraphics[width=8cm]{images/neuron_to_neural_net.jpg}
     \caption {Sample geometrical representation of dividing surface for single neuron versus multiple neurons.}
+    \label{fig:dividing_surface}
 \end{figure}
 
 Now the question is how do we get the nonlinear dividing surface. Simply put, define 3 neurons with linear activation function as shown on Figure \ref{fig:1_layer_net}. 
 
 \begin{figure}[h]
-    \centering \includegraphics[width=7cm]{images/3_neurons_net.jpg}
+    \centering \includegraphics[width=6cm]{images/3_neurons_net.jpg}
     \caption {Sample 1 layer neural net with linear activation functions.}
     \label{fig:1_layer_net}
 \end{figure}
