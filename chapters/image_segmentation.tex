@@ -178,14 +178,6 @@ To clarify, assume, there is colorful triangle which is claimed to be clustered.
     \end{minipage}
 \end{figure}
 
-The k-means algorithm is defined as:
-\begin{lstlisting}
-1. (randomly) choose k regressors as prototype
-2. assign each scatter point ('feature vector') to it's nearest regressor
-3. recalculate new prototypes (the mean of it's members)
-4. if the prototypes changed significantly -> go to the step 2 
-\end{lstlisting}
-
 To demonstrate the method I will proceed with the same baseline CT spine scan which had used for region growing thresholding. As for regressors number (number of clusters) I will choose $k=3$.  
 
 \begin{figure}[h]
