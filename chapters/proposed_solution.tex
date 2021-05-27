@@ -175,18 +175,40 @@ As the baseline comparison it was considered "Joint Vertebrae Identification and
     \label{fig:competitor}
 \end{figure}
 
-The overall architecture of the proposed method may be traversed as three-stage approach. In the first stage, it was applied deep multi-task 3D CNN using randomly cropped 3D vertebrae samples. Afterwards within second stage transform trained multi-task 3D CNN into a multi-task 3D fully convolutional network by converting the fully connected layers to 3D convolutional layers. Decisively within third stage the extracted sample features will be ordered and form a set of feature sequences. Assimilating the results the following table takes place:
+The overall architecture of the proposed method may be traversed as three-stage approach. In the first stage, it was applied deep multi-task 3D CNN using randomly cropped 3D vertebrae samples. Afterwards within second stage transform trained multi-task 3D CNN into a multi-task 3D fully convolutional network by converting the fully connected layers to 3D convolutional layers. Decisively within third stage the extracted sample features will be ordered and form a set of feature sequences. 
 
+In terms of the loss function authors unlike mine utilized another combination of losses defined as:
+\[L = L_{id} + \lambda L_{loc} \]
+where $L_{id}$ denotes the identification loss, $L_{loc}$ denotes the localization loss and $\lambda$ denotes the importance coefficient that controls the relative learning rate of the two tasks. 
+
+Unlike proposed weighted category cross entropy, competitor used  cross entropy softmax loss, which is commonly used for classification problems, for the identification task. The mathematical notion is such as:
+
+\[L_{id}  = - \frac{1}{N} \sum_{i=0}^{N-1}\sum_{j=0}^{P-1} y_{ij} \log (f_{id}^j(x_i; W)) + (1-y_{ij}) \log (1-f_{id}^j(x_i;W)) \]
+
+For localization loss function they proposed smooth L1 loss defined as:
+
+\[ L_{loc} = \frac{1}{m} \sum_{i=0}^{N-1} [y_i_{P-1} = 0] \sum_{j=0}^{D-1} \text{smooth}_L_1 (p_{ij} - f_{loc}^j(x_{ij}; W)) \]
+where:
+
+\begin{align*}
+\text{smooth}_{L_1}(x) =
+\begin{cases}
+0.5x^2 \mbox{ if } \lvert x \rvert < 1  \\ 
+\lvert x \rvert - 0.5 \mbox{ otherwise} \end{cases}
+\end{align*}
+
+Based on the proposed by Liao \cite{Liao2018} table of comparison of the methods I conclude following table:   
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|l||c|c|} \hline\hline
-Metrics & Competitor & 2-stage U-net \\ \hline
-Id Rate & 88.3 & 85.8 \\
-Mean & 6.47 & 5.60 \\
-Std & 8.56 & 7.10 \\
+\begin{tabular}{|l|c|c|c|c|c|} \hline\hline
+Metrics & Glocker & Chen & Dong & Liao & 2-stage U-net \\ \hline
+Id Rate & 74.0\% & 84.2\% & 85\% & 88.3\% & 91.7\% \\
+Mean & 13.20 & 8.82 & 8.6 & 6.47 & 5.60 \\
+Std & 17.83 & 13.04 & 7.8 & 8.56 & 7.10 \\
 \hline\hline
 \end{tabular}
 \end{table}
 
-To conclude the models comparison it should mentioned the proposed in this work method does not utilize RNN unlike \cite{Liao2018} work, thus making the method likely more efficient at test time which takes approximately 40 seconds to produce the prediction per single patient scan. 
+To conclude the models comparison it should be mentioned the "Id rate" was beated on $3.4$\% as well as localization error was decreased in terms of both mean and std. The proposed in this work method does not utilize RNN unlike \cite{Liao2018} work, the way of measuring the losses were modified, 
+thus making the method likely more efficient at test time which takes approximately 40 seconds to produce the prediction per single patient scan. 
