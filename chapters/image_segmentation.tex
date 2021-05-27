@@ -367,9 +367,10 @@ The U-net is convolutional network architecture for fast and precise segmentatio
 \begin{figure}[h]
     \centering \includegraphics[width=10cm]{images/unet.png}
     \caption {Unet architecture.}
+    \label{fig:unet}
 \end{figure}
 
-Using original terminology of the authors \cite{Ronneberger2015} the net consist of a contracting path (left side) and an expansive path (right side). The contracting path follows the typical architecture of a convolutional network. In simplified terms it can be considered as downsampling or encoder which formed as
+Using original terminology of the authors \cite{Ronneberger2015} the net consist of a contracting path (left side) and an expansive path (right side) as shown on Figure \ref{fig:unet}. The contracting path follows the typical architecture of a convolutional network. In simplified terms it can be considered as downsampling or encoder which formed as
 a five repeats of double $3 \cdot 3$ convolutions (unpadded convolutions) with rectified linear unit and $2 \cdot 2$ max pooling operation with stride 2. Thus expansive path which can be considered as upsampling or decoder consists of 4 repeats of double $2 \cdot 2$ convolutions (up-convolution) which halve number of feature channels. In total the network has 23 convolutional layers. 
 
 Lastly mentioning, U-net proved itself multiple times and still is one of the main backbone architectures for medical images analysis. As Ahmed \cite{Ahmed2020} observed in his "Comparison results of segmentation models using top view person data set." work, U-net still remains one of the best ones.  
@@ -377,7 +378,7 @@ Lastly mentioning, U-net proved itself multiple times and still is one of the ma
 \begin{table}[htbp]
 \centering
 \begin{tabular}{|l|c|c|c|c|c} \hline\hline
-Metrics & Precision & Recall & F1-score & Pixel Accuracy\\ \hline
+Method & Precision & Recall & F1-score & Pixel Accuracy\\ \hline
 Otsu & 50\% & 80\% & 70\% & 78\%  \\
 Watershred & 52\% & 82\% & 74\% & 80\% \\
 Gaussian mixture-based model & 60\% & 82\% & 76\% & 82\%  \\
@@ -389,13 +390,16 @@ DeepLabV3 & 80\% & 96\% & 83\% & 93\% \\
 \hline\hline
 \end{tabular}
 \end{table} 
- 
-The architecture implementation of myself can be found within github gist \footnote { \url{https://gist.github.com/f8eb74d57b914878d52c47ac359758e8.git}}. 
-
 
 
 \subsection{DoubleU-Net}
-The proposed architecture uses two U-Net architecture in sequence, with two encoders and two decoders demonstrated on Figure \ref{fig:double_unet}.
+The doubleU-net is enhancement wrapper over U-net, which make the architecture less flexible but more scope-wise related. It consists of 2 U-nets, pretrained (encoder) and 2 non pretrained (decoders) accordingly as shown on Figure \ref{fig:double_unet}.
+
+The encoder used in the network is pretrained VGG-19, which is trained on ImageNet. Additionally, it uses Atrous Spatial Pyramid Pooling (ASPP). The output from encoder (output 1) is represented as binary attention mask which retrieves important and less important pixels denoted as $1$ and $0$ accordingly. 
+
+The output from decoder (output 2) is represented as binary attention mask as well but the results are obtained in a different way.
+
+The final output architecture output is a concatenation of output 1 and output 2.
 
 \begin{figure}[h]
     \centering \includegraphics[width=8cm]{images/DoubleU-Net.png}
@@ -403,11 +407,9 @@ The proposed architecture uses two U-Net architecture in sequence, with two enco
     \label{fig:double_unet}
 \end{figure}
 
-The first encoder used in the network is pretrained VGG-19, which is trained on ImageNet. Additionally, we use Atrous Spatial Pyramid Pooling (ASPP). The rest of the architecture is built from scratch. 
+What distinguishes DoubleU-Net from U-Net in the first network (NETWORK1) is the use of VGG-19 marked in yellow, ASPP marked in blue, and decoder block marked in light green. The squeeze-and-excite block is used in the encoder of NETWORK 1 and decoder blocks of NETWORK 1 and NETWORK 2. An element-wise multiplication is performed between the output of NETWORK 1 with the input of the same network. The difference between DoubleU-Net and U-Net in the second network (NETWORK 2) is only the use of ASPP and squeeze-and-excite block. All other components remain the same.
 
-Figure \ref{fig:double_unet} shows an overview of the proposed architecture. As seen from the figure, DoubleU-Net starts with a VGG-19 as encoder sub-network, which is followed by decoder subnetwork. What distinguishes DoubleU-Net from U-Net in the
-first network (NETWORK 1) is the use of VGG-19 marked in yellow, ASPP marked in blue, and decoder block marked in light green. The squeeze-and-excite block is used in the encoder of NETWORK 1 and decoder blocks of NETWORK 1 and NETWORK 2. An element-wise multiplication is performed between the output of NETWORK 1 with the input of the same network. The difference between DoubleU-Net and U-Net in the second network (NETWORK 2) is only the use of ASPP and squeeze-and-excite block. All other components remain the same.
-
+At the original paper \cite{Jha2020} it was concluded the experimental results shows that DoubleU-Net achieved a DSC of $0.7649$ and a mIoU of $0.6255$ what is better rather then U-net and the rest baseline algorithms. 
 
 \section{Summary}
 The applications of the classical techniques and traditional machine learning methods, such as region growing, edge detection based algorithms and clustering in medical image classification began long ago. 

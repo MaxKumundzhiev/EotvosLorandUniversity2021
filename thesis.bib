@@ -8,6 +8,24 @@
  isbn = {9789633130667}
 }
 
+
+@inproceedings{Jha2020,
+   abstract = {Semantic image segmentation is the process of labeling each pixel of an image with its corresponding class. An encoder-decoder based approach, like U-Net and its variants, is a popular strategy for solving medical image segmentation tasks. To improve the performance of U-Net on various segmentation tasks, we propose a novel architecture called DoubleU-Net, which is a combination of two U-Net architectures stacked on top of each other. The first U-Net uses a pre-trained VGG-19 as the encoder, which has already learned features from ImageNet and can be transferred to another task easily. To capture more semantic information efficiently, we added another U-Net at the bottom. We also adopt Atrous Spatial Pyramid Pooling (ASPP) to capture contextual information within the network. We have evaluated DoubleU-Net using four medical segmentation datasets, covering various imaging modalities such as colonoscopy, dermoscopy, and microscopy. Experiments on the MICCAI 2015 segmentation challenge, the CVC-ClinicDB, the 2018 Data Science Bowl challenge, and the Lesion boundary segmentation datasets demonstrate that the DoubleU-Net outperforms U-Net and the baseline models. Moreover, DoubleU-Net produces more accurate segmentation masks, especially in the case of the CVC-ClinicDB and MICCAI 2015 segmentation challenge datasets, which have challenging images such as smaller and flat polyps. These results show the improvement over the existing U-Net model. The encouraging results, produced on various medical image segmentation datasets, show that DoubleU-Net can be used as a strong baseline for both medical image segmentation and cross-dataset evaluation testing to measure the generalizability of Deep Learning (DL) models.},
+   author = {Debesh Jha and Michael A. Riegler and Dag Johansen and Pal Halvorsen and Havard D. Johansen},
+   doi = {10.1109/CBMS49503.2020.00111},
+   isbn = {9781728194295},
+   issn = {10637125},
+   journal = {Proceedings - IEEE Symposium on Computer-Based Medical Systems},
+   keywords = {2018 Data Science Bowl,ASPP,CVC-ClinicDB,Convolutional neural network,DoubleU-Net,ETIS-Larib,Lesion boundary segmentation challenge,MICCAI 2015 segmentation,Semantic segmentation,U-Net},
+   month = {7},
+   pages = {558-564},
+   publisher = {Institute of Electrical and Electronics Engineers Inc.},
+   title = {DoubleU-Net: A deep convolutional neural network for medical image segmentation},
+   volume = {2020-July},
+   year = {2020},
+}
+
+
 @article{Ahmed2020,
    abstract = {Image segmentation is considered as a key research topic in the area of computer vision. It is pivotal in a broad range of real-life applications. Recently, the emergence of deep learning drives significant advancement in image segmentation; the developed systems are now capable of recognizing, segmenting, and classifying objects of specific interest in images. Generally, most of these techniques primarily focused on the asymmetric field of view or frontal view objects. This work explores widely used deep learning-based models for person segmentation using top view data set. The first model employed in this work is Fully Convolutional Neural Network (FCN) with Resnet-101 architecture. The network consists of a set of max-pooling and convolution layers to identify pixel-wise class labels and prediction of the mask. The second model is based on FCN called U-Net with Encoder-Decoder architecture. The encoder is mainly comprised of a contracting path, also called an encoder, which captures the context in the image and symmetric expanding path called decoder to enable accurate location. The third model used for top view person segmentation is a DeepLabV3 model also with encoder-decoder architecture. The encoder consists of trained Convolutional Neural Network (CNN) to encode feature maps of the input image. The decoder is used for up-sampling and reconstruction of output using important information extracted by the encoder. All segmentation models are firstly tested using pre-trained models (trained on frontal view data set). To improve the performance, these models are further trained using person data set captured from a top view. The output of all models consists of a segmented person in the top view images. The experimental results reveal the effectiveness and performance of segmentation models by achieving IoU of 83%, 84%, and 86% and mIoU of 80% 82% and 84% for FCN, U-Net, and DeepLabv3 respectively. Furthermore, the discussion is provided for output results with possible future guidelines.},
    author = {Imran Ahmed and Misbah Ahmad and Fakhri Alam Khan and Muhammad Asif},
