@@ -39,18 +39,57 @@ Recall the \cite{Thada2013} Dice similarity coefficient (Dice score) was used to
 
 Assume we annotated some ground truth region in particular image and then make an automated algorithm to do it so far. To validate the algorithm it is calculated Dice score, which is a measure of how similar the objects are. In other words it is the size of the overlap of the two segmentations divided by the total size of the two objects. As for mathematical representation it is formed as:
 \begin{align*}
-  Dice score = \frac{2\cdot|A\cap B|}{2\cdot|A\cap B| + |B\backslash A| + |A\backslash B|}
+  \text{Dice score} = \frac{2\cdot|A\cap B|}{2\cdot|A\cap B| + |B\backslash A| + |A\backslash B|}
 \end{align*}
 
 \subsection{ID rate}
-It was employed id rate measurement to validate correctness of closeness of predicted centroid estimations with ground truth vertebra centroid. 
+It was employed id rate measurement to validate correctness of closeness of predicted centroid estimations with ground truth vertebra centroid. The correctness measure actually is considered as a distance and was calculated for predicted and ground truth vertebrae centroids accordingly as:
+\[ dist = ||A||_F = [\sum_{i,j} \abs(a_{i,j})^2]^{1/2} \]
+
+Afterwards it was compared with predefined threshold as:
+\begin{align*}
+\begin{cases}
+\lvert \text{dist} \rvert\ \mbox{if } \text{dist} \leq \text{min dist} \\ 
+\text{skip}, \mbox{ otherwise} \end{cases}
+\end{align*}
 
 \subsection{Localization error}
-As for localisation error if centroid occurs at the scan it was deliberated by mean and std of distance of localization error between predicted centroid position and ground-truth centroid position for particular vertebrae. 
+As for localisation error if centroid occurs at the scan it was deliberated by mean and std of distance of localization error between predicted centroid position and ground-truth centroid position for particular vertebrae. Localization error notion is such as:
+\[ \sum_{k=1}^K \frac{||\hat{\zeta_k} - \zeta_k || }{K} \]
+where $K$ is the source number, $\hat{\zeta_k}$ and $\zeta_k$ are the estimated location and the real location of the $k$-th source, respectively.
 
 \section{Loss function}
+Shortly put, loss function is a function that maps an event or values of one or more variables onto a real number intuitively representing some "cost" associated with the event. 
+
+Typically, with neural networks, we seek to minimize the error. As such, the objective function is often referred to as a cost function or a loss function and the value calculated by the loss function is referred to as simply loss.
+
+\subsection{Weighted Categorical Cross Entropy}
+Categorical Cross Entropy stands for quantifying multi-class classification tasks. As it all, it evaluates the difference between two probability distributions. Mathematically, categorical cross entropy has following notion: \[\text{Categorical Cross Entropy} = - \sum_{i-1}^{\text{output size}} y_i \cdot \log \hat{y_i} \]
+
+Within the detection model it was used modified version of categorical cross entropy such as weighted categorical cross entropy. Mathematically loss function is defined as:
+
+\begin{align*}
+ L(P, Q) = P(0)\log Q(0) + P(1)\log Q(1)
+\end{align*}
+where $P$, $Q$ - particular distributions. 
+
+By the reason the background label and vertebrae labels were issued with additional weights coefficients as $0.1$ and $0.9$ accordingly to reflect the proportion of background labels in the samples, the modified weighted categorical cross entropy was defined as:
+\begin{align*}
+ L(P, Q) = 0.1 \cdot P(0)\log Q(0) + 0.9 \cdot P(1)\log Q(1)
+\end{align*}
+where $P$, $Q$ - particular distributions.  
+
 \subsection{L1}
-\subsection{Cross Entropy}
+L1 loss function stands for Least Absolute Deviations. It is used to minimize the error which is the sum of the all the absolute differences between the true value and the predicted value.
+
+\[ \text{L1} = \sum_{i-1}^n |y_{true} - y_{predicted}|\]
+
+The identification model does not classify each pixel discretely but instead produces a continuous value for each pixel. This value is then rounded to an integer which corresponds to a specific vertebra, for example $4 = C4$ vertebra. This means I may use an L1 loss function on each pixel and thus capture the ordering through this loss function. For that I have used the modified version of L1 loss function: 
+\begin{align*}
+ L1 = \begin{cases} \lvert y_i - x_i \rvert\ \mbox{if } x\mbox{$\neq 0$} \\ 0, \mbox{ otherwise} \end{cases}
+\end{align*}
+where $y_i$ - predicted value of pixel $i$ and $x_i$ - true value of pixel $i$.
+
 
 \section{Detection Model}
 As previously mentioned detection model showed on Figure \ref{fig:detection_model} comes up with segmenting of vertebra from background. Taking it closer into consideration the model classifies each dedicated pixel of scan whether it is background or vertebrae. Jointly the initialization of weights it was  defined such as the background label with 0.1 weighting and the vertebrae label with 0.9 weighting. It was thought-out to repeal the fraction of nature background state at particular scan. As for loss function it was consumed \cite{Zhang2018} weighted categorical cross entropy with 2 classes, defined as:
