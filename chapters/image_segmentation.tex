@@ -362,15 +362,37 @@ To distinguish feed forward and convolution nets, suppose, there is an RGB image
 There are few more essential properties within CNNs such as pooling, dropout and others, but I'm aim to focus on architectures themselves and their performance. 
 
 \subsection{Unet}
-The unet is convolutional network architecture for fast and precise segmentation of images. It was proposed by Olaf Ronneberger, Philipp Fischer, and Thomas Brox at 2015 \cite{Ronneberger2015}. 
+The U-net is convolutional network architecture for fast and precise segmentation of images. It was proposed by Olaf Ronneberger, Philipp Fischer, and Thomas Brox at 2015 \cite{Ronneberger2015}. 
 
 \begin{figure}[h]
-    \centering \includegraphics[width=8cm]{images/unet.png}
+    \centering \includegraphics[width=10cm]{images/unet.png}
     \caption {Unet architecture.}
 \end{figure}
 
 Using original terminology of the authors \cite{Ronneberger2015} the net consist of a contracting path (left side) and an expansive path (right side). The contracting path follows the typical architecture of a convolutional network. In simplified terms it can be considered as downsampling or encoder which formed as
-a five repeats of double $3 \cdot 3$ convolutions (unpadded convolutions) with rectified linear unit and $2 \cdot 2$ max pooling operation with stride 2. Thus expansive path which can be considered as upsampling or decoder consists of 4 repeats of double $2 \cdot 2$ convolutions (up-convolution) which halve number of feature channels. In total the network has 23 convolutional layers. The architecture implementation can be find within bare unet github gist \footnote { \url{https://gist.github.com/f8eb74d57b914878d52c47ac359758e8.git}}
+a five repeats of double $3 \cdot 3$ convolutions (unpadded convolutions) with rectified linear unit and $2 \cdot 2$ max pooling operation with stride 2. Thus expansive path which can be considered as upsampling or decoder consists of 4 repeats of double $2 \cdot 2$ convolutions (up-convolution) which halve number of feature channels. In total the network has 23 convolutional layers. 
+
+Lastly mentioning, U-net proved itself multiple times and still is one of the main backbone architectures for medical images analysis. As Ahmed \cite{Ahmed2020} observed in his "Comparison results of segmentation models using top view person data set." work, U-net still remains one of the best ones.  
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|l|c|c|c|c|c} \hline\hline
+Metrics & Precision & Recall & F1-score & Pixel Accuracy\\ \hline
+Otsu & 50\% & 80\% & 70\% & 78\%  \\
+Watershred & 52\% & 82\% & 74\% & 80\% \\
+Gaussian mixture-based model & 60\% & 82\% & 76\% & 82\%  \\
+Background subtraction-based model & 65\% & 84\% & 74\% & 84\% \\
+RE-weighted HOG & 68\% & 82\% & 75\% & 82\%  \\
+FCN & 62\% & 92\% & 76\% & 91\%  \\
+U-net & 74\% & 92\% & 81\% & 92\% \\
+DeepLabV3 & 80\% & 96\% & 83\% & 93\% \\ 
+\hline\hline
+\end{tabular}
+\end{table} 
+ 
+The architecture implementation of myself can be found within github gist \footnote { \url{https://gist.github.com/f8eb74d57b914878d52c47ac359758e8.git}}. 
+
+
 
 \subsection{DoubleU-Net}
 The proposed architecture uses two U-Net architecture in sequence, with two encoders and two decoders demonstrated on Figure \ref{fig:double_unet}.
