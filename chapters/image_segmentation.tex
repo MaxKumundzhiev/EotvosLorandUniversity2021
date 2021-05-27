@@ -156,19 +156,21 @@ In general, each edge detector can be either separate convolution operation with
 By the reason of edge detection is based on derivatives it can easily degrade with variations and noise. But issues which should be considered are size of the neighborhood as well as what exactly represents a transition on the image. 
 
 \subsection{Segmentation Based on Clustering}
-The obvious question I can ask myself whether I can use clustering techniques to divide images into segments ? Yes, I can ! All it all, clustering relies on partitioning data into a certain number of groups (clusters). Similar data points aligned in the same groups (clusters).
+The obvious question I can ask myself whether I can use clustering techniques to divide images into segments. And the answer is - yes, I can! All it all, the aim is to group objects (instances) into so-called clusters, such that objects in the same cluster are (or, at least, should be) more similar to each other than to the objects belonging to other clusters. 
+
+Within clustering there are multiple algorithms to be issued. Few of them are 
+Dynamic Time Warping, Hierarchical Agglomerative Clustering and k-Means. Beyond it should be intuition behind what is similarity in terms of clustering, but I will not cover this part, instead focus on most popular and in the public eye algorithm so called k-Means.  
 
 k-Means algorithm is a common and simple clustering method whereas usually the data set is represented as the a scatter plot in some feature space.
 
-For instance, a pixel could be represented by 2 dimensional feature space, where features are intensity and gradient magnitude.
-
-To clarify, assume, there is colorful triangle which is claimed to be clustered. On the Figure  \ref{fig:clustering} displayed the representation of colored triangle in 3 dimensional feature space.
+The Figure \ref{fig:triangle} and Figure \ref{fig:clustering} helps to understand how indeed images data can be represented in some feature space. On the Figure  \ref{fig:clustering} depicted the representation of colored triangle in 3D space, where each dimension represents each color.
 
 \begin{figure}[h]
     \centering
     \begin{minipage}[b]{0.4\textwidth}
     \includegraphics[width=\textwidth]{images/k_mean_triangle.png}
     \caption{Colorful triangle.}
+    \label{fig:triangle}
     \end{minipage}
     \hfill
     \begin{minipage}[b]{0.4\textwidth}
@@ -178,11 +180,25 @@ To clarify, assume, there is colorful triangle which is claimed to be clustered.
     \end{minipage}
 \end{figure}
 
-To demonstrate the method I will proceed with the same baseline CT spine scan which had used for region growing thresholding. As for regressors number (number of clusters) I will choose $k=3$.  
+Considering mathematically, given $D \subseteq D_1 \times D_2 \times ... \times D_m$, a distance measure $d$ (or similarity measure $s$) and the number of clusters $k$, where $k \ll n$. The goal is to find cluster centers $c_1, c_2, ..., c_k$ and a mapping $p: D \rightarrow {1, 2, .., k} $ such that \[ \sum_{i=1}^{n} d(x_i, c_p_{x_i}) - \text{is minimal}\]
+
+The algorithm itself can be assumed as:
+\begin{itemize}
+    \item Initialize $c_1, c_2, ..., c_k$ such that for all $i = {1, 2, .., k}$
+    \subitem $c_i \in D$ (random initialization), or
+    \subitem or $c_i = \frac{\sum_{x, p(x) = x^X}}{\sum_{x, p(x) = x^1}}$
+    \item compute $p$ such that
+    \subitem $\sum_{i=1}^n d(x_i, c_p_(x_i))$ is minimal
+    \item update $c_i$ for all $i = {1,2, ..., k}$ where changed then goto step 2
+    \item return $p$ and $c_1, c_2, ..., c_k$
+\end{itemize}
+    
+
+To demonstrate the method performance I will proceed with the same baseline CT spine scan which had used for region growing thresholding. As for regressors number (number of clusters) I had chosen $k=3$.  
 
 \begin{figure}[h]
-    \centering \includegraphics[width=7cm]{images/ct-spine-k-means-segmented.jpg}
-    \vspace*{-50mm} \caption {Original CT spine versus k-Means Segmented CT spine.}
+    \centering \includegraphics[width=2cm]{images/sample_vertebrae_kmeans.png}
+    \caption {Applied k-Means algorithm for sample CT scan of vertebrae.}
 \end{figure}
 
 Eventually, as results show, clustering is a really "good to go" way for image segmentation, but there are various disadvantages such as tackling with number of clusters, being dependent on initial values, clustering outliers and scaling with number of dimensions.
