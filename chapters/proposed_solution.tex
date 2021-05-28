@@ -19,15 +19,17 @@ The chain of steps will not be capable if there would not be included background
 \section{Dataset}
 The \href{https://biomedia.doc.ic.ac.uk/}{\color{blue}"BioMediaA"} database provide spine-focused CT scans of 125 patients with different types of pathologies. In total dataset consists of 242 scans. Each scan was manually annotated in terms of vertebrae centroids. 
 
-Eventually data set was splitted into dedicated training (with ground-truth labels) and test sets each 242 and 60 scans accordingly. The scans were re-sample at $1mm \cdot 1mm \cdot 1mm$ resolution meaning each pixel in the generated samples from the scans provided a 3 dimensional $1mm$ section of the patient spine.
-
-In the case of the detection model the dense labelling contains two values: 0 representing background and 1 representing vertebrae. The identification model’s dense labelling contains values from 0 to 26. Whilst 0 representing background, 1 representing C1 vertebrae up to 26 representing S2 vertebrae.
-
 \begin{figure}[h]
     \centering \includegraphics[width=10cm]{images/labeled_data.png}
     \caption {(a) shows a dense labelling, (b) shows an example of a sample used to train the detection model, (c) shows an example of a sample used to train the identification model. Note: The size of the sample is 8 x 80 x 320, if the original scan is not larger enough to fill those dimensions some padding is added, as can be seen at the top.}
     \label{fig:labeled_data}
 \end{figure}
+
+Eventually data set was splitted into dedicated training (with ground-truth labels) and test sets each 242 and 60 scans accordingly. The scans were re-sample at $1mm \cdot 1mm \cdot 1mm$ resolution meaning each pixel in the generated samples from the scans provided a 3 dimensional $1mm$ section of the patient spine.
+
+In the case of the detection model the dense labelling contains two values: 0 representing background and 1 representing vertebrae. The identification model’s dense labelling contains values from 0 to 26. Whilst 0 representing background, 1 representing C1 vertebrae up to 26 representing S2 vertebrae.
+
+
 
 \newpage
 \section{Metrics}
@@ -41,6 +43,10 @@ Assume we annotated some ground truth region in particular image and then make a
 \begin{align*}
   \text{Dice score} = \frac{2\cdot|A\cap B|}{2\cdot|A\cap B| + |B\backslash A| + |A\backslash B|}
 \end{align*}
+
+\subsection{Jaccard Index}
+The Intersection-Over-Union (IoU), also known as the Jaccard Index, is one of the most commonly used metrics in semantic segmentation. Jaccard index is the area of overlap between the predicted segmentation and the ground truth image divided by the area of union between the predicted segmentation and the ground truth image. Mathematically the notion if defined as: 
+\[ J(A,B) = \frac{|A \cap B|}{|A \cup B|} = \frac{|A \cap B|}{|A| + |B| - |A \cup B|}\]
 
 \subsection{ID rate}
 It was employed id rate measurement to validate correctness of closeness of predicted centroid estimations with ground truth vertebra centroid. The correctness measure actually is considered as a distance and was calculated for predicted and ground truth vertebrae centroids accordingly as:
@@ -57,6 +63,17 @@ Afterwards it was compared with predefined threshold as:
 As for localisation error if centroid occurs at the scan it was deliberated by mean and std of distance of localization error between predicted centroid position and ground-truth centroid position for particular vertebrae. Localization error notion is such as:
 \[ \sum_{k=1}^K \frac{||\hat{\zeta_k} - \zeta_k || }{K} \]
 where $K$ is the source number, $\hat{\zeta_k}$ and $\zeta_k$ are the estimated location and the real location of the $k$-th source, respectively.
+
+\subsection{SSIM}
+The structural similarity index measure (SSIM) was proposed to measure the similarity between two images (ground truth and predicted). The SSIM index is calculated on various windows of an image. The measure between two windows  $x$ and $y$ of common size $N \times N$ is calculated as: 
+\[ \text{SSIM}(x,y) = \frac{(2\mu_x\mu_y + c_1)(2\sigma_{xy}+c_2)}{(\mu_x^2+\mu_y^2+c_1)(\sigma_x^2+\sigma_y^2+c_2)}\]
+
+The SSIM values ranges between 0 to 1, 1 means perfect match the reconstruct image with original one.
+
+\subsection{NRMSE}
+Normalized root mean square error relates to the RMSE, meaning it can be interpreted as a fraction of the overall range that is typically resolved by the model. In mathematical terms it is defined and calculated as:
+\[ \text{NRMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^n\left(\log \frac{\hat{y}+1}{y+1}\right)^2} \]
+
 
 \section{Loss function}
 Shortly put, loss function is a function that maps an event or values of one or more variables onto a real number intuitively representing some "cost" associated with the event. 
@@ -209,6 +226,10 @@ Metrics & Glocker & Chen & Dong & Liao & 2-stage U-net \\ \hline
 Id Rate & 74.0\% & 84.2\% & 85\% & 88.3\% & 91.7\% \\
 Mean & 13.20 & 8.82 & 8.6 & 6.47 & 5.60 \\
 Std & 17.83 & 13.04 & 7.8 & 8.56 & 7.10 \\
+SSIM & - & - & - & - & 0.95 \\ 
+DICE & - & - & - & - & 0.96\\ 
+JACCARD & - & - & - & - & 0.92\\ 
+NRMSE & - & - & - & - & 0.38 \\
 \hline\hline
 \end{tabular}
 \end{table}

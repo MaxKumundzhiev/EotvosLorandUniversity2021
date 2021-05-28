@@ -199,7 +199,7 @@ For simplicity I will represent neuron's mathematical model graphically on Figur
 In the mathematical model of the neuron, the body of the neuron, where the input signals accumulates, is denoted by a summarizing neuron. In addition, the biological neuron also has axons and dendrites, which get the inputs and send the outputs. 
 
 \begin{figure}[h]
-    \centering \includegraphics[width=10cm]{images/neuron_math_model.jpg}
+    \centering \includegraphics[width=10cm]{images/neuron_math_model.jpeg}
     \caption {Mathematical model of neuron.}
     \label{fig:neuron}
 \end{figure} 
@@ -224,7 +224,7 @@ f(x) = \begin{cases} 0, & \mbox{if } x\mbox{ $\leq$ 0} \\ 1, & \mbox{if } x\mbox
 The function has 2 strongly distinguished values: $0$ and $1$. The place where the function changes it's value from $0$ to $1$ is named as dividing surface. Hence, the dividing surface place is where the argument of activation function is equal $0$.
 
 \begin{figure}[h]
-    \centering \includegraphics[width=5cm]{images/step_function.jpg}
+    \centering \includegraphics[width=7cm]{images/step_function.jpeg}
     \caption {Geometrical representation of step function.}
 \end{figure}
 
@@ -244,7 +244,7 @@ Accordingly, the dividing surface is defined by following equitation which denot
 On one hand the value of step function is equal $1$ and from the opposite $0$. The activation function is equal $1$ that side of dividing surface where the vector $w$ points out. From geometrical point of view it is represented on Figure \ref{fig:dividing_surface}.  
 
 \begin{figure}[h]
-    \centering \includegraphics[width=5cm]{images/dividing_surface.jpg}
+    \centering \includegraphics[width=6cm]{images/dividing_surface.jpeg}
     \caption {Sample geometrical representation of dividing surface for single neuron.}
     \label{fig:dividing_surface}
 \end{figure}
@@ -252,7 +252,7 @@ On one hand the value of step function is equal $1$ and from the opposite $0$. T
 As it was mentioned earlier, there are many more functions. For instance sigmoid activation function showed on Figure \ref{fig:sigmoid} which unlike step function does not have discontinuity point at zero. 
 
 \begin{figure}[h]
-    \centering \includegraphics[width=3.5cm]{images/sigmoid_function.jpg}
+    \centering \includegraphics[width=10cm]{images/sigmoid_function.jpeg}
     \caption {Sigmoid activation function.}
     \label{fig:sigmoid}
 \end{figure}
@@ -269,7 +269,7 @@ One more activation function is rectified linear activation function. For short 
 \subsubsection{From Neuron to Neural Network}
 So far I have covered the properties and functional of just a single neuron, which as a result outcomes a linear divide surface unlike multiple neurons as shown on Figure \ref{fig:dividing_surface}, meaning when we concatenate the multiple neurons in some architecture we may achieve some nonlinear divide surfaces.
 \begin{figure}[h]
-    \centering \includegraphics[width=8cm]{images/neuron_to_neural_net.jpg}
+    \centering \includegraphics[width=10cm]{images/neuron_to_neural_net.jpeg}
     \caption {Sample geometrical representation of dividing surface for single neuron versus multiple neurons.}
     \label{fig:dividing_surface}
 \end{figure}
@@ -277,7 +277,7 @@ So far I have covered the properties and functional of just a single neuron, whi
 Now the question is how do we get the nonlinear dividing surface. Simply put, define 3 neurons with linear activation function as shown on Figure \ref{fig:1_layer_net}. 
 
 \begin{figure}[h]
-    \centering \includegraphics[width=6cm]{images/3_neurons_net.jpg}
+    \centering \includegraphics[width=6cm]{images/3_neurons_net.jpeg}
     \caption {Sample 1 layer neural net with linear activation functions.}
     \label{fig:1_layer_net}
 \end{figure}
@@ -317,7 +317,7 @@ Suppose a function which is defined by some levels lines as shown on Figure \ref
 So far, we have a neural net with some parameters (weights and biases) which performs some value of loss function. As we remember the task is to decrease the value of loss function. Hence, the question is how to do that ? 
 
 \begin{figure}[h]
-    \centering \includegraphics[width=9cm]{images/gradient_descent.jpg}
+    \centering \includegraphics[width=9cm]{images/gradient_descent.jpeg}
     \caption {Sample gradient descent visualization.}
     \label{fig:gradient}
 \end{figure}
