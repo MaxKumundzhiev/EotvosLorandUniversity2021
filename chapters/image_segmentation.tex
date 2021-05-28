@@ -300,21 +300,15 @@ Mean Squared Error is the average of the squared error that is used as the loss 
 \end{align*}
 where $y$ is the desired Neural Network output, and $\widehat{y_i}$ is the neural network output.
 
-Cross-entropy loss, or log loss, measures the performance of a classification model whose output is a probability value between 0 and 1. Cross-entropy loss increases as the predicted probability diverges from the actual label.
-In binary classification, where the number of classes M equals 2 cross-entropy can be calculated as:
-\begin{align*}
-\text{Cross-Entropy} = -{(y\log(p) + (1 - y)\log(1 - p))}
-\end{align*}
-And if $M > 2$ meaning we work out multi-classification problem we calculate a separate loss for each class label per observation and sum the result as:
-\begin{align*}
-\text{Cross-Entropy} = -\sum_{c=1}^My_{o,c}\log(p_{o,c})
-\end{align*}
-
 Frequently, jointly loss functions it is utilized different regularization terms. The purpose of regularization terms is establish additional rules for penalizing the loss function for errors. Meaning the regularization will manage whether the weights are important (good) or not. One of such regularization techniques is L2 regularization or so called weight decay. The definition is as:
 \[ \lambda \cdot \sum_{i=1}^{n} \alpha_i^2 \]
 
 In terms of mean squared error loss function, the addition of regularization considered as:
 \[ L = \sum_{i}(\hat{y}-y_i)^2 + \lambda \cdot \sum_{i=1}^{n} \alpha_i^2\]
+
+One more commonly used function is so called cross-entropy loss, or log loss. It measures the performance of a classification model whose output is a probability value between 0 and 1. Cross-entropy loss increases as the predicted probability diverges from the actual label. For discrete probability distributions $p$ and $q$ with the same support $X$ this means over a given set is defined as follows:
+\[H(p,q) = - \sum_{x \in X} p(x) \log q(x) \]
+
 
 \subsubsection{Gradient Descent}
 Optimization of neural net is the key component in terms of fitting a model. The optimization of the net should be considered as the on-the-spot training. There are variety of optimization algorithms but the pillar algorithm in the list is gradient descent.

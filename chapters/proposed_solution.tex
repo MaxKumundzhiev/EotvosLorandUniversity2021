@@ -49,7 +49,7 @@ It was employed id rate measurement to validate correctness of closeness of pred
 Afterwards it was compared with predefined threshold as:
 \begin{align*}
 \begin{cases}
-\lvert \text{dist} \rvert\ \mbox{if } \text{dist} \leq \text{min dist} \\ 
+\text{dist} \mbox{ if } \text{dist} \leq \text{min dist} \\ 
 \text{skip}, \mbox{ otherwise} \end{cases}
 \end{align*}
 
@@ -149,21 +149,22 @@ The threshold $x_\upsilon$ is specific to the vertebra $\upsilon$ and formed as:
 where R - the radius of the vertebra $v$.
 
 \section{Results}
-Moving from left side to right side on the Figure \ref{fig:step_step_predictions} it is represented the single scan evaluation path in terms of each step of full proposed solution pipeline. 
-
 \begin{figure}[h]
-    \centering \includegraphics[width=11cm]{images/step_step_predictions.png}
-    \caption {(a) shows an original scan in grey scale, (b) shows the output of the detection model applied to the scan, (c) shows the output of the identification model
-    applied to the scan, (d) shows (b) and (c) multiplied together to produce a final prediction for each pixel.}
+    \centering \includegraphics[width=11cm]{images/detection_identification_steps.png}
+    \caption {Per step visualisation of detection and identification  models.}
     \label{fig:step_step_predictions}
 \end{figure}
+Moving from left side to right side on the Figure \ref{fig:step_step_predictions} it is represented the single scan evaluation path of certain of the full proposed solution pipeline. 
 
-As it was mentioned before the resulting measurements have been calculated within testing set of 60 scans of various patient by measured Dice score and metrics as id rate, localization error which derived into mean localization distance error and standard deviation localization distance error.
+Looking deeper on the images of 
+Figure \ref{fig:step_step_predictions}, we see that (a) shows an original scan in grey scale, (b) shows the output of the detection model applied to the scan, (c) shows the output of the identification model applied to the scan, (d) shows (b) and (c) multiplied together to produce a final prediction for each pixel
 
-The 3 resulting random pipeline predictions can be observed on Figure \ref{fig:predictions} which represents predictions themselves as well as additional impacting information as ground-truth and localization error. 
+The resulting test measurements have been calculated within testing set of 60 scans of various patient.
+
+On the Figure \ref{fig:predictions} shown 3 resulting different predictions which represents predictions themselves as well as additional impacting information as ground-truth and localization error. 
 \begin{figure}[h]
     \centering \includegraphics[width=9cm]{images/predictions.png}
-    \caption {visualization of 3 random predictions, whereas the red points denote pipeline centroid predictions, the white points denote ground-truth centroid locations. On top of that each scan designated the mean localization error for particular scan.}
+    \caption {visualization of 3 random predictions, whereas the red points denote pipeline centroid predictions, the white points denote ground-truth centroid locations.}
     \label{fig:predictions}
 \end{figure}
 
