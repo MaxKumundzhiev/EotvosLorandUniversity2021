@@ -1,7 +1,10 @@
 \chapter{Conclusion}
 \label{ch:conclusion}
-Accordingly  accomplished and presented job I consider that CNNs effectively cope with extracting the features of vertebral samples by leveraging the domain information contained in certain vertebrae scans.
+During accomplishing the thesis work I aimed to provide an explicit overview of medical background including types of medical images modalities as well as how usually they are reconstructed after acquisition, narrated about classical and modern segmentation approaches in addition describing mathematical background behind them. On top of that I considered pros and cons of each separate algorithm. Moreover I had evaluated all algorithms on the baseline CT scan sample retrieved from the dataset to observe the real visualisation of their performances. 
 
-The two stage CNN pipeline which initially detect vertebrae then identify specific vertebrae keening with a 2-class cross entropy loss and L1 loss accordingly outcomes spectacular results for vertebrae segmentation problem on a publicly available pathological spine CT data set. 
+Following, I have spotted detailed overview of vertebral segmentation and labelling problem highlighting the historical research way from 2015 to nowadays.  
 
-The full project codebase within the step-wise instructions is hosted at the author's github repository \footnote{ \url{https://github.com/KumundzhievMaxim/VertebraeSegmentation}}
+Afterwards I switched the direction on the proposed solution itself. Together with dataset description, metrics and loss functions mathematical overview I showed the models architectures, the way they were trained as well as how the data was augmented and eventual model inference. To validate the obtained results I introduced the competitor and within comparison against it successfully demonstrated the increase of the performance of my approach.
+
+
+To sum it up, 2 stage CNN pipeline which initially detect vertebrae then identify specific vertebrae keening with a 2-class cross entropy loss and L1 loss accordingly outcomes spectacular results for vertebrae segmentation problem on a publicly available pathological spine CT data set. 
