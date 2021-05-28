@@ -33,8 +33,7 @@ In the case of the detection model the dense labelling contains two values: 0 re
 
 \newpage
 \section{Metrics}
-As for metrics I utilized Dice score, Id rate, mean localization distance and standard deviation (std) distance. Dice score measures goodness of predictions matched the training annotated ground truth segmentation, Id rate is the percentage of the centroid estimations predicted which are closest to the correct ground truth vertebra centroid (and are less than 20mm from that centroid). Mean and Std relate to the localization
-error distance between the predicted centroid positions and the ground-truth centroid positions for the same vertebrae (if it occurs in the scan).
+As for metrics I utilized multiple ones such as Dice score, Id rate, mean localization distance and standard deviation (std) distance. On top of that I established Jaccard index, SSIM and NRMSE. Dice score measures goodness of predictions matched the training annotated ground truth segmentation, Id rate is the percentage of the centroid estimations predicted which are closest to the correct ground truth vertebra centroid (and are less than 20mm from that centroid). Mean and Std relates to the localization error distance between the predicted centroid positions and the ground-truth centroid positions for the same vertebrae (if it occurs in the scan). Jaccard index stands for the area of overlap between the predicted segmentation and the ground truth image divided by the area of union between the predicted segmentation and the ground truth image. SSIM index is for measuring similarity based on calculating various windows of an image. And NRMSE is normalized root mean square error metric. 
 
 \subsection{Dice score}
 Recall the \cite{Thada2013} Dice similarity coefficient (Dice score) was used to quantify how closely identification predictions matched the training annotated ground truth segmentation. 
