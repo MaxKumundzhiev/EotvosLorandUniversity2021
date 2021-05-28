@@ -7,14 +7,14 @@ Initially, the notion of segmentation within image analysis stands for the proce
 Segmentation can be broadly divided into two types. Assume following Figure \ref{fig:image_segmentation} below. 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=9cm]{images/segmentation_types.png}
-    \caption{Image 1: is an example of semantic segmentation. Image 2 is an example of instance segmentation.}
+    \includegraphics[width=10cm]{images/semantic_instance_segmenattion.png}
+    \caption{An example of semantic and instance segmentation.}
     \label{fig:image_segmentation}
 \end{figure}
 
-On the left side image, every pixel belongs to a particular class (either background or person). Also, all the pixels belonging to a particular class are represented by the same color (background as black and person as pink). This type of segmentation is called "semantic segmentation".  
+Moving from left to right on the Figure \ref{fig:image_segmentation}, from the very begging there is a original 3D CT image, after applying segmentation, on the second image we see that every pixel belongs to a particular class (either blue: cervical, green: thoracic, red: lumbar). Pixels which belongs the same class are represented by the same color. This type of segmentation is called "semantic segmentation". 
 
-On the right hand image we also has assigned a particular class to each pixel of the image. However, different objects of the same class have different colors (Person 1 as red, Person 2 as green, background as black, etc.). This type of segmentation is called "instance segmentation".
+The very last image has assigned a particular class to each pixel of the image as well. However, different objects of the same class have different colors. This type of segmentation is called "instance segmentation".
 
 \section{Classical Segmentation Methods} 
 Now we are good to go with classical segmentation methods section. I will cover basic thresholding method, then modified version of thresholding so called region growing. Afterwards I will speak about edge detection segmentation and clustering based segmentation. On top of that I will demonstrate the performance of each dedicated technique within the following baseline Figure \ref{fig:sample_vertebrae} of vertebrae.
@@ -333,7 +333,7 @@ So, the very first provision in the vector of function surface will be defined b
 \[ w_0 = [w_1^1, w_1^2,...,w_1^n, w_2^1,...,w_2^n,...,w_n^n, b1^1, b1^2,...,b1^n, b2^1,...,b2^n,...,b_n^n] \]
 
 Accordingly, we need take derivative (meaning gradient, which is vector consisting of derivatives per each coordinate of the function) of the loss function of our vector. It can be represented as:
-\[ \delta{f} = [\frac{\partial{f}}{\partial{w_0}}, \frac{\partial{f}}{\partial{w_1}}, ... ,\frac{\partial{f}}{\partial{w_n}} ] \]
+\[ \delta{f} = \left[ \frac{\partial{f}}{\partial{w_0}}, \frac{\partial{f}}{\partial{w_1}}, ... ,\frac{\partial{f}}{\partial{w_n}} \right] \]
 As the result, we have calculated the gradient of loss function at the point ($w_0$) where we currently located. The gradient of loss function points out at the direction of greater loss function growth. But, oppositely, we on demand of lower loss function growth, meaning we need to make an opposite step of calculated gradient descent. It can be considered as:
 \begin{align*}
 w_1 = w_0 - \alpha \cdot \delta{f(w_0)}
