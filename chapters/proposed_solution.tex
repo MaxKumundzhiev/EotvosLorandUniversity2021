@@ -1,6 +1,5 @@
 \chapter{Proposed solution}
 \label{ch:proposed_solution}
-
 In this section I will deliberate the proposed model background and its main dissemblance from general unet architecture.
 
 Jointly the solution it was utilized 2 convolution networks with same architectures but sundry purposes and parameters. By scenario firstly it is issued detection model afterwards identification model. The detection model comes up with segmenting of vertebra from background. Whereas the identification model identifies what vertebrates belong which segmented pixels. To fine it down the identification model does not categorize each pixel in discrete manner, vice continuously produce value which subsequently is rounded correspondingly to a specific vertebra. It worth to mention inwardly full solution captures both short-range and long range information. Short-range information is retrieved utilizing detection model. The identification model is trained by feeding in large slices which capture long-range information which is essential for the task of identifying individual vertebrae. Acquisition of final results is done by multiplying detection and identification models results to elaborate labels on each pixel afterwards aggregating them to produce final centroid estimates for each vertebra.
@@ -15,6 +14,8 @@ The step by step representation in terms of visualisation is demonstrated on the
 
 The chain of steps will not be capable if there would not be included background pixels in the identification stage therefore segmenting out the background in the detection step.
 
+\section{Terminology} 
+In this section I will introduce terms frequently used in sections below: "FCN" - fully connected neural network, "CNN" - convolutional neural network, "detection model" - neural network which stands for set of vertebra apart background, "identification model" - identifies which vertebrate belongs which segmented pixel, "Dice score" - Dice similarity coefficient to quantify the goodness of identification model predictions, "SSIM" - structural similarity index measure, "NRMSE" - normalized root mean square error measure, "ID rate" - measurement of correctness of detection model predictions. On top of it, based on description of dataset by \href{https://biomedia.doc.ic.ac.uk/}{\color{blue}"BioMediaA"}, the mapping of a class-label-to-vertebra-label is fixed, inherently implying labelling the vertebra.    
 
 \section{Dataset}
 The \href{https://biomedia.doc.ic.ac.uk/}{\color{blue}"BioMediaA"} database provide spine-focused CT scans of 125 patients with different types of pathologies. In total dataset consists of 242 scans. Each scan was manually annotated in terms of vertebrae centroids. 
@@ -216,16 +217,23 @@ Based on the proposed by Liao \cite{Liao2018} table of comparison of the methods
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|l|c|c|c|c|c|} \hline\hline
+\begin{tabular}{|l|c|c|c|c|c|} \hline
 Metrics & Glocker & Chen & Dong & Liao & 2-stage U-net \\ \hline
+\hline
 Id Rate & 74.0\% & 84.2\% & 85\% & 88.3\% & 91.7\% \\
+\hline
 Mean & 13.20 & 8.82 & 8.6 & 6.47 & 5.60 \\
+\hline
 Std & 17.83 & 13.04 & 7.8 & 8.56 & 7.10 \\
+\hline
 SSIM & - & - & - & - & 0.95 \\ 
+\hline
 DICE & - & - & - & - & 0.96\\ 
+\hline
 JACCARD & - & - & - & - & 0.92\\ 
+\hline
 NRMSE & - & - & - & - & 0.38 \\
-\hline\hline
+\hline
 \end{tabular}
 \end{table}
 
