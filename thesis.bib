@@ -765,6 +765,190 @@ title = {{Deep learning for automatic localization, identification, and segmenta
 year = {2015}
 }
 
+@inproceedings{Hosseini2017,
+abstract = {Convolutional Neural Networks (CNNs) have achieved state-of-the-art performance on a variety of computer vision tasks, particularly visual classification problems, where new algorithms reported to achieve or even surpass the human performance. In this paper, we examine whether CNNs are capable of learning the semantics of training data. To this end, we evaluate CNNs on negative images, since they share the same structure and semantics as regular images and humans can classify them correctly. Our experimental results indicate that when training on regular images and testing on negative images, the model accuracy is significantly lower than when it is tested on regular images. This leads us to the conjecture that current training methods do not effectively train models to generalize the concepts. We then introduce the notion of semantic adversarial examples-transformed inputs that semantically represent the same objects, but the model does not classify them correctly- A nd present negative images as one class of such inputs.},
+archivePrefix = {arXiv},
+arxivId = {1703.06857},
+author = {Hosseini, Hossein and Xiao, Baicen and Jaiswal, Mayoore and Poovendran, Radha},
+booktitle = {Proceedings - 16th IEEE International Conference on Machine Learning and Applications, ICMLA 2017},
+doi = {10.1109/ICMLA.2017.0-136},
+eprint = {1703.06857},
+isbn = {9781538614174},
+keywords = {Convolutional Neural Networks,Negative Images},
+title = {{On the limitation of convolutional neural networks in recognizing negative images}},
+year = {2017}
+}
+
+
+@article{Jing2020,
+abstract = {The seminal work of Gatys et al. demonstrated the power of Convolutional Neural Networks (CNNs) in creating artistic imagery by separating and recombining image content and style. This process of using CNNs to render a content image in different styles is referred to as Neural Style Transfer (NST). Since then, NST has become a trending topic both in academic literature and industrial applications. It is receiving increasing attention and a variety of approaches are proposed to either improve or extend the original NST algorithm. In this paper, we aim to provide a comprehensive overview of the current progress towards NST. We first propose a taxonomy of current algorithms in the field of NST. Then, we present several evaluation methods and compare different NST algorithms both qualitatively and quantitatively. The review concludes with a discussion of various applications of NST and open problems for future research. A list of papers discussed in this review, corresponding codes, pre-trained models and more comparison results are publicly available at: https://osf.io/f8tu4/.},
+archivePrefix = {arXiv},
+arxivId = {1705.04058},
+author = {Jing, Yongcheng and Yang, Yezhou and Feng, Zunlei and Ye, Jingwen and Yu, Yizhou and Song, Mingli},
+doi = {10.1109/TVCG.2019.2921336},
+eprint = {1705.04058},
+issn = {19410506},
+journal = {IEEE Transactions on Visualization and Computer Graphics},
+keywords = {Neural style transfer (NST),convolutional neural network (CNN)},
+pmid = {31180860},
+title = {{Neural Style Transfer: A Review}},
+year = {2020}
+}
+
+
+@article{Zou2020,
+abstract = {We study the problem of training deep fully connected neural networks with Rectified Linear Unit (ReLU) activation function and cross entropy loss function for binary classification using gradient descent. We show that with proper random weight initialization, gradient descent can find the global minima of the training loss for an over-parameterized deep ReLU network, under certain assumption on the training data. The key idea of our proof is that Gaussian random initialization followed by gradient descent produces a sequence of iterates that stay inside a small perturbation region centered at the initial weights, in which the training loss function of the deep ReLU networks enjoys nice local curvature properties that ensure the global convergence of gradient descent. At the core of our proof technique is (1) a milder assumption on the training data; (2) a sharp analysis of the trajectory length for gradient descent; and (3) a finer characterization of the size of the perturbation region. Compared with the concurrent work (Allen-Zhu et al. in A convergence theory for deep learning via over-parameterization, 2018a; Du et al. in Gradient descent finds global minima of deep neural networks, 2018a) along this line, our result relies on milder over-parameterization condition on the neural network width, and enjoys faster global convergence rate of gradient descent for training deep neural networks.},
+author = {Zou, Difan and Cao, Yuan and Zhou, Dongruo and Gu, Quanquan},
+doi = {10.1007/s10994-019-05839-6},
+issn = {15730565},
+journal = {Machine Learning},
+keywords = {Deep neural networks,Global convergence,Gradient descent,Over-parameterization,Random initialization},
+title = {{Gradient descent optimizes over-parameterized deep ReLU networks}},
+year = {2020}
+}
+
+
+@misc{Boudiaf2020,
+abstract = {Copyright {\textcopyright} 2020, arXiv, All rights reserved. Recently, substantial research efforts in Deep Metric Learning (DML) focused on designing complex pairwise-distance losses and convoluted sample-mining and implementation strategies to ease optimization. The standard cross-entropy loss for classification has been largely overlooked in DML. On the surface, the cross-entropy may seem unrelated and irrelevant to metric learning as it does not explicitly involve pairwise distances. However, we provide a theoretical analysis that links the cross-entropy to several well-known and recent pairwise losses. Our connections are drawn from two different perspectives: one based on an explicit optimization insight; the other on discriminative and generative views of the mutual information between the labels and the learned features. First, we explicitly demonstrate that the cross-entropy is an upper bound on a new pairwise loss, which has a structure similar to various pairwise losses: it minimizes intra-class distances while maximizing inter-class distances. As a result, minimizing the cross-entropy can be seen as an approximate bound-optimization (or Majorize-Minimize) algorithm for minimizing this pairwise loss. Second, we show that, more generally, minimizing the cross-entropy is actually equivalent to maximizing the mutual information, to which we connect several well-known pairwise losses. These findings indicate that the cross-entropy represents a proxy for maximizing the mutual information - as pairwise losses do - without the need for complex sample-mining and optimization schemes. Furthermore, we show that various standard pairwise losses can be explicitly related to one another via bound relationships. Our experiments† over four standard DML benchmarks (CUB200, Cars-196, Stanford Online Product and In-Shop) strongly support our findings. We consistently obtained state-of-the-art results, outperforming many recent and complex DML methods.},
+author = {Boudiaf, M. and Rony, J. and Ziko, I.M. and Granger, E. and Pedersoli, M. and Piantanida, P. and Ayed, I.B.},
+booktitle = {arXiv},
+keywords = {Deep Learning,Information Theory,Metric Learning},
+title = {{Metric learning: Cross-entropy vs. pairwise losses}},
+year = {2020}
+}
+
+
+@article{Chen2019,
+abstract = {Online semi-supervised learning (OS2L) has received much attention recently because of its well practical usefulness. Most of the existing studies of OS2L are related to manifold regularization. In this paper, we introduce a novel OS2L framework with multiple regularization terms based on the notion of ascending the dual function in constrained optimization. Using the Fenchel conjugate, different semi-supervised regularization terms can be integrated into the dual function easily and directly. This approach is derived by updating limited dual coefficient variables on each learning round. To be practical, we also employ buffering strategies and sparse approximation approaches in this paper. The experimental studies show that our methods achieve accuracy comparable to offline algorithms while consuming less time and memory. Especially, our OS2L algorithms can handle the settings where the target hyperplane of classification continually drifts with the sequence of arriving instances. This paper paves a way to design and analyze OS2L algorithms with multiple regularization terms.},
+author = {Chen, Chao and Sun, Boliang and Hu, Xingchen and Li, Yan},
+doi = {10.1109/ACCESS.2019.2897382},
+issn = {21693536},
+journal = {IEEE Access},
+keywords = {Fenchel conjugate,Online semi-supervised learning (OS2L),SVM,co-regularization,manifold regularization},
+title = {{Online Semi-Supervised Learning With Multiple Regularization Terms}},
+year = {2019}
+}
+
+
+@article{Janocha2016,
+abstract = {Deep neural networks are currently among the most commonly used classifiers. Despite easily achieving very good performance, one of the best selling points of these models is their modular design - one can conveniently adapt their architecture to specific needs, change connectivity patterns, attach specialised layers, experiment with a large amount of activation functions, normalisation schemes and many others. While one can find impressively wide spread of various configurations of almost every aspect of the deep nets, one element is, in authors' opinion, underrepresented - while solving classification problems, vast majority of papers and applications simply use log loss. In this paper we try to investigate how particular choices of loss functions affect deep models and their learning dynamics, as well as resulting classifiers robustness to various effects. We perform experiments on classical datasets, as well as provide some additional, theoretical insights into the problem. In particular we show that L1 and L2 losses are, quite surprisingly, justified classification objectives for deep nets, by providing probabilistic interpretation in terms of expected misclassification. We also introduce two losses which are not typically used as deep nets objectives and show that they are viable alternatives to the existing ones.},
+archivePrefix = {arXiv},
+arxivId = {1702.05659},
+author = {Janocha, Katarzyna and Czarnecki, Wojciech Marian},
+doi = {10.4467/20838476SI.16.004.6185},
+eprint = {1702.05659},
+issn = {20838476},
+journal = {Schedae Informaticae},
+keywords = {Classification theory.,Deep learning,Loss function},
+title = {{On loss functions for deep neural networks in classification}},
+year = {2016}
+}
+
+
+@article{Eckle2019,
+abstract = {Deep neural networks (DNNs) generate much richer function spaces than shallow networks. Since the function spaces induced by shallow networks have several approximation theoretic drawbacks, this explains, however, not necessarily the success of deep networks. In this article we take another route by comparing the expressive power of DNNs with ReLU activation function to linear spline methods. We show that MARS (multivariate adaptive regression splines) is improper learnable by DNNs in the sense that for any given function that can be expressed as a function in MARS with M parameters there exists a multilayer neural network with O(Mlog(M∕$\epsilon$)) parameters that approximates this function up to sup-norm error $\epsilon$. We show a similar result for expansions with respect to the Faber–Schauder system. Based on this, we derive risk comparison inequalities that bound the statistical risk of fitting a neural network by the statistical risk of spline-based methods. This shows that deep networks perform better or only slightly worse than the considered spline methods. We provide a constructive proof for the function approximations.},
+archivePrefix = {arXiv},
+arxivId = {1804.02253},
+author = {Eckle, Konstantin and Schmidt-Hieber, Johannes},
+doi = {10.1016/j.neunet.2018.11.005},
+eprint = {1804.02253},
+issn = {18792782},
+journal = {Neural Networks},
+keywords = {Deep neural networks,Faber–Schauder system,MARS,Nonparametric regression,Rates of convergence,Splines},
+pmid = {30616095},
+title = {{A comparison of deep networks with ReLU activation function and linear spline-type methods}},
+year = {2019}
+}
+
+
+@misc{Apicella2021,
+abstract = {In neural networks literature, there is a strong interest in identifying and defining activation functions which can improve neural network performance. In recent years there has been a renovated interest in the scientific community in investigating activation functions which can be trained during the learning process, usually referred to as trainable, learnable or adaptable activation functions. They appear to lead to better network performance. Diverse and heterogeneous models of trainable activation function have been proposed in the literature. In this paper, we present a survey of these models. Starting from a discussion on the use of the term “activation function” in literature, we propose a taxonomy of trainable activation functions, highlight common and distinctive proprieties of recent and past models, and discuss main advantages and limitations of this type of approach. We show that many of the proposed approaches are equivalent to adding neuron layers which use fixed (non-trainable) activation functions and some simple local rule that constrains the corresponding weight layers.},
+archivePrefix = {arXiv},
+arxivId = {2005.00817},
+author = {Apicella, Andrea and Donnarumma, Francesco and Isgr{\`{o}}, Francesco and Prevete, Roberto},
+booktitle = {Neural Networks},
+doi = {10.1016/j.neunet.2021.01.026},
+eprint = {2005.00817},
+issn = {18792782},
+keywords = {Activation functions,Learnable activation functions,Machine learning,Neural networks,Trainable activation functions},
+pmid = {33611065},
+title = {{A survey on modern trainable activation functions}},
+year = {2021}
+}
+
+
+@article{Benvenuto1992,
+abstract = {In this correspondence a recursive algorithm for updating the coefficients of a neural network structure for complex signals is presented. Various complex activation functions are considered and a practical definition is proposed. The method, associated to a mean-square-error criterion, yields the complex form of the conventional backpropagation algorithm. {\textcopyright} 1992 IEEE},
+author = {Benvenuto, N. and Piazza, F.},
+doi = {10.1109/78.127967},
+issn = {19410476},
+journal = {IEEE Transactions on Signal Processing},
+title = {{On the Complex Backpropagation Algorithm}},
+year = {1992}
+}
+
+
+@article{Dhanachandra2017,
+abstract = {Image segmentation has been considered as the first step in the image processing. An efficient segmentation result would make it easier for further analysis of image processing. However, there exits many algorithms and approaches for image segmentation. Clustering is one of the commonly used image segmentation techniques. In this paper, we have briefly describe some of the clustering techniques and discuss some of the recent works by researchers on these techniques.},
+author = {Dhanachandra, Nameirakpam and Chanu, Yambem Jina},
+doi = {10.24018/ejers.2017.2.1.237},
+journal = {European Journal of Engineering Research and Science},
+title = {{A Survey on Image Segmentation Methods using Clustering Techniques}},
+year = {2017}
+}
+
+
+@article{Pang2018,
+abstract = {Network in network (NiN) is an effective instance and an important extension of deep convolutional neural network consisting of alternating convolutional layers and pooling layers. Instead of using a linear filter for convolution, NiN utilizes shallow multilayer perceptron (MLP), a nonlinear function, to replace the linear filter. Because of the powerfulness of MLP and {\$} 1\backslashtimes 1 {\$} convolutions in spatial domain, NiN has stronger ability of feature representation and hence results in better recognition performance. However, MLP itself consists of fully connected layers that give rise to a large number of parameters. In this paper, we propose to replace dense shallow MLP with sparse shallow MLP. One or more layers of the sparse shallow MLP are sparely connected in the channel dimension or channel-spatial domain. The proposed method is implemented by applying unshared convolution across the channel dimension and applying shared convolution across the spatial dimension in some computational layers. The proposed method is called convolution in convolution (CiC). The experimental results on the CIFAR10 data set, augmented CIFAR10 data set, and CIFAR100 data set demonstrate the effectiveness of the proposed CiC method.},
+archivePrefix = {arXiv},
+arxivId = {1603.06759},
+author = {Pang, Yanwei and Sun, Manli and Jiang, Xiaoheng and Li, Xuelong},
+doi = {10.1109/TNNLS.2017.2676130},
+eprint = {1603.06759},
+issn = {21622388},
+journal = {IEEE Transactions on Neural Networks and Learning Systems},
+keywords = {Convolution in convolution (CiC),Convolutional neural networks (CNNs),Image recognition,Network in network (NiN)},
+pmid = {28328517},
+title = {{Convolution in convolution for network in network}},
+year = {2018}
+}
+
+
+@article{Muthukrishnan2011,
+abstract = {Interpretation of image contents is one of the objectives in computer vision specifically in image processing. In this era it has received much awareness of researchers. In image interpretation the partition of the image into object and background is a severe step. Segmentation separates an image into its component regions or objects. Image segmentation t needs to segment the object from the background to read the image properly and identify the content of the image carefully. In this context, edge detection is a fundamental tool for image segmentation. In this paper an attempt is made to study the performance of most commonly used edge detection techniques for image segmentation and also the comparison of these techniques is carried out with an experiment by using MATLAB software.},
+author = {Muthukrishnan, R and Radha, M},
+doi = {10.5121/ijcsit.2011.3620},
+issn = {09754660},
+journal = {International Journal of Computer Science and Information Technology},
+title = {{Edge Detection Techniques For Image Segmentation}},
+year = {2011}
+}
+
+
+@article{Khaloo2017,
+abstract = {Modern remote sensing technologies such as three-dimensional (3D) laser scanners and image-based 3D scene reconstruction are in increasing demand for applications in civil infrastructure design, maintenance, operation, and as-built construction verification. The complex nature of the 3D point clouds these technologies generate, as well as the often massive scale of the 3D data, make it inefficient and time consuming to manually analyze and manipulate point clouds, and highlights the need for automated analysis techniques. This paper presents one such technique, a new region growing algorithm for the automated segmentation of both planar and non-planar surfaces in point clouds. A core component of the algorithm is a new point normal estimation method, an essential task for many point cloud processing algorithms. The newly developed estimation method utilizes robust multivariate statistical outlier analysis for reliable normal estimation in complex 3D models, considering that these models often contain regions of varying surface roughness, a mixture of high curvature and low curvature regions, and sharp features. An adaptation of Mahalanobis distance, in which the mean vector and covariance matrix are derived from a high-breakdown multivariate location and scale estimator called Deterministic MM-estimator (DetMM) is used to find and discard outlier points prior to estimating the best local tangent plane around any point in a cloud. This approach is capable of more accurately estimating point normals located in highly curved regions or near sharp features. Thereafter, the estimated point normals serve a region growing segmentation algorithm that only requires a single input parameter, an improvement over existing methods which typically require two control parameters. The reliability and robustness of the normal estimation subroutine was compared against well-known normal estimation methods including the Minimum Volume Ellipsoid (MVE) and Minimum Covariance Determinant (MCD) estimators, along with Maximum Likelihood Sample Consensus (MLESAC). The overall region growing segmentation algorithm was then experimentally validated on several challenging 3D point clouds of real-world infrastructure systems. The results indicate that the developed approach performs more accurately and robustly in comparison with conventional region growing methods, particularly in the presence of sharp features, outliers and noise.},
+author = {Khaloo, Ali and Lattanzi, David},
+doi = {10.1016/j.aei.2017.07.002},
+issn = {14740346},
+journal = {Advanced Engineering Informatics},
+keywords = {3D data processing,3D point cloud models,3D reconstruction,Computer vision,Normal estimation,Outliers,Robust estimation,Segmentation},
+title = {{Robust normal estimation and region growing segmentation of infrastructure 3D point cloud models}},
+year = {2017}
+}
+
+
+@article{Butchiraju2019,
+abstract = {Object identification and multi-object picture separation are two firmly related processes and it can be enhanced when understood jointly by supporting data from one assignment to the next. Be that as it may, current best in object models are different portrayal for each space creation joint objects and leaving the categorization of numerous part of the scene uncertain. Picture element appearance highlights enable us to do well on classifying formless foundation classes, while the express portrayal of districts encourage the calculation of increasingly complex highlights essential for object detection. Vitally, our model gives a solitary bound together portrayal of the scene we clarify each picture elements of image and authorize it contains in the web between every random variable in our model.},
+author = {Butchiraju, K. and Saikiran, Bandi},
+doi = {10.35940/ijitee.K1353.0981119},
+issn = {22783075},
+journal = {International Journal of Innovative Technology and Exploring Engineering},
+keywords = {And Image class prediction,Background,Context and Object modeling},
+title = {{Region-based segmentation and object detection}},
+year = {2019}
+}
+
+
 @article{Margaritondo2011,
 abstract = {It is shown that an elementary semi-quantitative approach explains essential features of the X-ray free-electron laser mechanism, in particular those of the gain and saturation lengths. Using mathematical methods and derivations simpler than complete theories, this treatment reveals the basic physics that dominates the mechanism and makes it difficult to realise free-electron lasers for short wavelengths. This approach can be specifically useful for teachers at different levels and for colleagues interested in presenting X-ray free-electron lasers to non-specialized audiences. {\textcopyright} 2011 International Union of Crystallography.},
 author = {Margaritondo, G. and {Rebernik Ribic}, Primoz},
