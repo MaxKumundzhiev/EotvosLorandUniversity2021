@@ -40,7 +40,7 @@ Recall the \cite{Thada2013} Dice similarity coefficient (Dice score) was used to
 
 Assume we annotated some ground truth region in particular image and then make an automated algorithm to do it so far. To validate the algorithm it is calculated Dice score, which is a measure of how similar the objects are. In other words it is the size of the overlap of the two segmentations divided by the total size of the two objects. As for mathematical representation it is formed as:
 \begin{align*}
-  \text{Dice score} = \frac{2\cdot|A\cap B|}{2\cdot|A\cap B| + |B\backslash A| + |A\backslash B|}
+  \text{Dice score} = \frac{2\cdot | A\cap B|}{|A| + |B|}
 \end{align*}
 
 \subsection{Jaccard Index}
@@ -49,12 +49,12 @@ The Intersection-Over-Union (IoU), also known as the Jaccard Index, is one of th
 
 \subsection{ID rate}
 It was employed id rate measurement to validate correctness of closeness of predicted centroid estimations with ground truth vertebra centroid. The correctness measure actually is considered as a distance and was calculated for predicted and ground truth vertebrae centroids accordingly as:
-\[ dist = ||A||_F = [\sum_{i,j} \abs(a_{i,j})^2]^{1/2} \]
+\[ dist = ||A||_F = [\sum_{i,j} \abs(a_{i,j})^2]^{\frac{1}{2}} \]
 
 Afterwards it was compared with predefined threshold as:
 \begin{align*}
 \begin{cases}
-\text{dist} \mbox{ if } \text{dist} \leq \text{min dist} \\ 
+\text{dist, } \mbox{ if } \text{dist} \leq \text{min dist} \\ 
 \text{skip}, \mbox{ otherwise} \end{cases}
 \end{align*}
 
@@ -98,15 +98,15 @@ By the reason the background label and vertebrae labels were issued with additio
 where $P$, $Q$ - particular distributions.  
 
 \subsection{$l$1}
-$l$1 loss function stands for Least Absolute Deviations. It is used to minimize the error which is the sum of the all the absolute differences between the true value and the predicted value.
+$l$1 loss function stands for least absolute deviations. It is used to minimize the error which is the sum of the all the absolute differences between the true value and the predicted value. Mathematically it is defined as: 
+\[ \text{$l$1} = \sum_{i=1}^n |y - \hat{y}| , \]
+where $\hat{y}$ - predicted value and $y$ - true value.
 
-\[ \text{$l$1} = \sum_{i-1}^n |y_{true} - y_{predicted}|\]
-
-The identification model does not classify each pixel discretely but instead produces a continuous value for each pixel. This value is then rounded to an integer which corresponds to a specific vertebra, for example $4 = C4$ vertebra. This means I may use an L1 loss function on each pixel and thus capture the ordering through this loss function. For that I have used the modified version of L1 loss function: 
+$l$1 loss function was utilized within the identification model which does not classify each pixel discretely but instead produces a continuous value for each pixel. This value is then rounded to an integer which corresponds to a specific vertebra, for example $4 = C4$ vertebra. 
+I used $l1$ on each pixel and thus captured the ordering through this loss function. For that I have used the modified version of it set as: 
 \begin{align*}
- L1 = \begin{cases} \lvert y_i - x_i \rvert\ \mbox{if } x\mbox{$\neq 0$} \\ 0, \mbox{ otherwise} \end{cases}
+ \text{$l1$} = \begin{cases} \lvert \hat{y_i} - y_i \rvert \mbox{, if } x\mbox{$\neq 0$} \\ 0, \mbox{ otherwise} \end{cases}
 \end{align*}
-where $y_i$ - predicted value of pixel $i$ and $x_i$ - true value of pixel $i$.
 
 
 \section{Detection Model}
@@ -130,11 +130,7 @@ $\lambda$ of 0.001, a batch size of 16 and batch normalization after every convo
 Unto passing particular batch of scans to detection model each image was represented as 5 cropped samples intruding that at least 4 of them contain some vertebrae pixels. In the meantime each sample scan was sized as $64 \cdot 64 \cdot 80$, meaning 64 pixels by 64 pixels by 80 channels. Withal accordingly each sample has an accompanying dense labelling, containing 0s (for background) and 1s (for vertebrae) of the same size.    
  
 \section{Identification Model}
-By the previous description, identification model showed on Figure \ref{fig:identification_model} identifies what vertebrates belong which segmented pixels. For what it was established unet-wise architecture with revamped parameters. Updates brought changes of input layer channels number which corresponds to 8 to pass in samples of size $8 \cdot 80 \cdot 320$. The introduced filters sized $5 \cdot 20$ at the lowest level of the architecture  increases the size of the receptive field thereby maximizing the potential information retrieved by the network. To clarify, the background pixels are strained out, denoting just that pixels which are labeled as background when we train model. As for loss function the following modified L1 function was approached:
-\begin{align*}
- L = \begin{cases} \lvert y_i - x_i \rvert\ \mbox{if } x\mbox{$\neq 0$} \\ 0, \mbox{ otherwise} \end{cases}
-\end{align*}
-where $y_i$ - predicted value of pixel $i$ and $x_i$ - true value of pixel $i$.
+By the previous description, identification model showed on Figure \ref{fig:identification_model} identifies what vertebrates belong which segmented pixels. For what it was established unet-wise architecture with revamped parameters. Updates brought changes of input layer channels number which corresponds to 8 to pass in samples of size $8 \cdot 80 \cdot 320$. The introduced filters sized $5 \cdot 20$ at the lowest level of the architecture  increases the size of the receptive field thereby maximizing the potential information retrieved by the network. To clarify, the background pixels are strained out, denoting just that pixels which are labeled as background when we train model. As for loss function I used $l1$ function.
 
 Unlike standard unet architecture it was used same padding for all convolutional layers with stride 1, a learning rate
 $\lambda$ of 0.001, a batch size of 32 and batch normalization after every convolutional layer with momentum of 0.1. The model implementation can be found in project repository. \footnote{\url{https://github.com/KumundzhievMaxim/VertebraeSegmentation/blob/main/train_identification_model.py}}
@@ -170,7 +166,7 @@ where R - the radius of the vertebra $v$.
     \caption {Per step visualisation of detection and identification  models.}
     \label{fig:step_step_predictions}
 \end{figure}
-Moving from left side to right side on the Figure \ref{fig:step_step_predictions} it is represented the single scan evaluation path of certain of the full proposed solution pipeline. 
+Moving from left side to right side on the Figure \ref{fig:step_step_predictions} it is represented a visualisation of predictions for a single scan within the entire pipeline. 
 
 Looking deeper on the images of 
 Figure \ref{fig:step_step_predictions}, we see that (a) shows an original scan in grey scale, (b) shows the output of the detection model applied to the scan, (c) shows the output of the identification model applied to the scan, (d) shows (b) and (c) multiplied together to produce a final prediction for each pixel
@@ -212,8 +208,8 @@ where:
 \begin{align*}
 \text{smooth}_{L_1}(x) =
 \begin{cases}
-0.5x^2 \mbox{ if } \lvert x \rvert < 1  \\ 
-\lvert x \rvert - 0.5 \mbox{ otherwise} \end{cases}
+0.5x^2 \mbox{, if } \lvert x \rvert < 1  \\ 
+\lvert x \rvert - 0.5 \mbox{, otherwise} \end{cases}
 \end{align*}
 
 Based on the proposed by Liao \cite{Liao2018} table of comparison of the methods I conclude following table:   

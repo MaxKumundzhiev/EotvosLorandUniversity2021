@@ -1,10 +1,9 @@
-\chapter{Images Segmentation}
+\chapter{Image Segmentation}
 \label{ch:image_segmentation}
-Within this chapter I will introduce both classical and modern segmentation methods as well as competitive mathematical background behind them.
+Initially, the notion of segmentation stands for the process of classifying pixels into groups which corresponds to the same type or class \cite{Margaritondo2011}. The segmentation allows to obtain more meaningful and potentially hidden information from original images, what let to bring indeed numerous insights for various business problems. 
 
-Initially, the notion of segmentation within image analysis stands for the process of classifying pixels into groups which corresponds to the same type or class. The segmentation allows to obtain more meaningful and potentially hidden information from original images, what let to bring indeed numerous insights for various business problems. For instance, in medicine analysis segmentation has many uses cases like a measure volume of an organ, render a 3D view of an organ, surface-based registration and many others. Before moving forward I will explicitly distinguish segmentation types from general point of view.
+For instance, in medicine analysis segmentation invokes various uses cases such as to measure volume of an organ, to render a 3D view of an organ, surface-based registration and many others. Before moving forward I will explicitly distinguish segmentation types from general point of view.
 
-Segmentation can be broadly divided into two types. Assume following Figure \ref{fig:image_segmentation} below. 
 \begin{figure}[h]
     \centering
     \includegraphics[width=10cm]{images/semantic_instance_segmenattion.png}
@@ -12,9 +11,9 @@ Segmentation can be broadly divided into two types. Assume following Figure \ref
     \label{fig:image_segmentation}
 \end{figure}
 
-Moving from left to right on the Figure \ref{fig:image_segmentation}, from the very begging there is a original 3D CT image, after applying segmentation, on the second image we see that every pixel belongs to a particular class (either blue: cervical, green: thoracic, red: lumbar). Pixels which belongs the same class are represented by the same color. This type of segmentation is called "semantic segmentation". 
+Moving from the left to the right side on the Figure \ref{fig:image_segmentation}, we in deed can transparently notice 2 main types of segmentation. From the very begging there is a original 3D CT image, after applying particular segmentation method, on the second image we see the resulting image where every pixel belongs to a certain class (either blue: cervical, green: thoracic, red: lumbar). Pixels which belongs the same class are represented by the same color. Such type of segmentation is called "semantic segmentation". 
 
-The very last image has assigned a particular class to each pixel of the image as well. However, different objects of the same class have different colors. This type of segmentation is called "instance segmentation".
+The very last image has assigned a particular class to each pixel of the image as well. However, different objects of the same class have different colors. Such type of segmentation is called "instance segmentation".
 
 \section{Classical Segmentation Methods} 
 Now we are good to go with classical segmentation methods section. I will cover basic thresholding method, then modified version of thresholding so called region growing. Afterwards I will speak about edge detection segmentation and clustering based segmentation. On top of that I will demonstrate the performance of each dedicated technique within the following baseline Figure \ref{fig:sample_vertebrae} of vertebrae.
@@ -28,27 +27,28 @@ Now we are good to go with classical segmentation methods section. I will cover 
 
 
 \subsection{Region Based Segmentation}
-Sometimes region based segmentation method can be named as thresholding. It is the simplest method for classifying pixels based on solely on their intensity values. In thresholding we have options to choose either upper and lower bound and select pixels in predefined range or to choose just one threshold value which can be for instance the mean of the original image values. 
+Sometimes region based segmentation method is mentioned as thresholding. Actually, it one of the simplest methods for classifying pixels based on solely on their intensity values. In thresholding we have options to choose either upper and lower bound values or to choose just one threshold value which can be for instance the mean of the original image values. 
 
 Mathematically, the algorithm can be defined as:
 \[
     f(x, y)= 
 \begin{cases}
-    0   ,& \text{if } f(x, y) > T \\
-    255 ,& \text{otherwise}
+    0 & \text{, if } f(x, y) > T \\
+    255 & \text{, otherwise}
 \end{cases}
-\]
+,\]
+where $T$ is threshold value, $x$ and $y$ certain coordinates of pixel.
 
-After applying the algorithm with the mean threshold on the baseline Figure \ref{fig:sample_vertebrae}, I had obtained following resulting segmented image:
+After applying proposed algorithm with the mean threshold on the baseline Figure \ref{fig:sample_vertebrae}, I had obtained following segmented image depicted on Figure \ref{fig:sample_vertebrae_thresholding}. 
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=2cm]{images/sample_vertebrae_thresholding.png}
     \caption{Applied thresholding algorithm for sample CT scan of vertebrae.}
-    \label{fig:sample_vertebrae}
+    \label{fig:sample_vertebrae_thresholding}
 \end{figure}
 
-The problem within simple thresholding is that it does not take into consideration any spatial information, meaning each pixel is evaluated no matter where it is located as well as each time we have to find best way to define the either threshold value or range of values.    
+The problem within simple thresholding is that it does not take into consideration any spatial information of an image, meaning each pixel is evaluated no matter where it is located. Beyond, each time we have to find best way to define either range of values or value for threshold.    
 
 
 \subsection{Region Growing Segmentation}
@@ -175,7 +175,7 @@ The algorithm itself can be assumed as:
     \subitem $c_i \in D$ (random initialization), or
     \subitem or $c_i = \frac{\sum_{x, p(x) = x^X}}{\sum_{x, p(x) = x^1}}$
     \item compute $p$ such that
-    \subitem $\sum_{i=1}^n d(x_i, c_p_(x_i))$ is minimal
+    \subitem $\sum_{i=1}^n d(x_i, c_p_{(x_i)})$ is minimal
     \item update $c_i$ for all $i = {1,2, ..., k}$ where changed then goto step 2
     \item return $p$ and $c_1, c_2, ..., c_k$
 \end{itemize}
@@ -296,7 +296,7 @@ Characteristically neural networks we keen to minimize the error. There are many
 
 Mean Squared Error is the average of the squared error that is used as the loss function for least squares regression. To streamline, MSE is the sum,over all the data points of the square of the difference between the predicted and actual target variables divided by the number of data points.
 \begin{align*}
-\text{MSE} = \frac{{1}}{n} \sum_{i}^{n} (y_i - \widehat{y_i})^2
+\text{MSE} = \frac{{1}}{n} \sum_{i=1}^{n} (y_i - \widehat{y_i})^2
 \end{align*}
 where $y$ is the desired Neural Network output, and $\widehat{y_i}$ is the neural network output.
 
@@ -304,7 +304,7 @@ Frequently, jointly loss functions it is utilized different regularization terms
 \[ \lambda \cdot \sum_{i=1}^{n} \alpha_i^2 \]
 
 In terms of mean squared error loss function, the addition of regularization considered as:
-\[ L = \sum_{i}(\hat{y}-y_i)^2 + \lambda \cdot \sum_{i=1}^{n} \alpha_i^2\]
+\[ \sum_{i=1}^n(\hat{y}-y_i)^2 + \lambda \cdot \sum_{i=1}^{n} \alpha_i^2\]
 
 One more commonly used function is so called cross-entropy loss, or log loss. It measures the performance of a classification model whose output is a probability value between 0 and 1. Cross-entropy loss increases as the predicted probability diverges from the actual label. For discrete probability distributions $p$ and $q$ with the same support $X$ this means over a given set is defined as follows:
 \[H(p,q) = - \sum_{x \in X} p(x) \log q(x) \]
